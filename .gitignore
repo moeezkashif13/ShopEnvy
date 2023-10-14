@@ -3,7 +3,11 @@
 # dependencies
 /node_modules
 /.pnp
+/TODO.txt
 .pnp.js
+.env
+
+/public/sampleimages
 
 # testing
 /coverage
