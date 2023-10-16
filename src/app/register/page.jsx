@@ -3,12 +3,13 @@
 import Link from "next/link"
 import axios from 'axios'
 import { redirect, useSearchParams,useRouter } from 'next/navigation'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { afterGettingAuthCode, startGoogleOAuth, startTwitterOAuth } from "@/utils/authrelated"
 import { useForm } from "react-hook-form"
 
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+
 
 const schema = yup.object({
 
@@ -65,6 +66,13 @@ const inputFieldsCommonClasses = 'w-full px-8 py-4 rounded-lg font-medium bg-gra
 export default function Register(){
 
   const router = useRouter()
+
+  const [formSubmitting,setFormSubmitting] = useState({
+
+    status : 'initial',
+    message:''
+
+  })
   
   afterGettingAuthCode()
 
@@ -77,25 +85,63 @@ export default function Register(){
   })
 
 
-  const onSubmit = async (data) => {
 
+  const onSubmit = async (data) => {
+    if(formSubmitting.status == 'submitting' || formSubmitting.status == 'successfull' ){
+      return;
+    }
 
     try {
-          const response = await axios.post('/api/registerstandarduser',{...data}    )
+
+      setFormSubmitting({
+        message:'',
+        status:'submitting'
+      })
+
+          const response = await axios.post('/api/registerstandarduser',{
+            ...data,
+            registration:true
+          }    )
 
           console.log(response.data);
 
+          setFormSubmitting({
+            message:'Thank you for signing up. Welcome to Shop Envy',
+            status:'successfull'
+          })
+
+          router.push('/profile')
+
+          // redirect('/profile')
+          
 
   } catch (error) {
-  console.log(error);      
-  }
+
+    console.log(error);
+
+    setFormSubmitting({
+      message:'An error occured while registering you',
+      status:'error'
+    })
+    
+}
 
 
 
   }
   
 
-    return  <div className=" min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+    return <>  
+    
+    {formSubmitting.status == 'submitting' &&
+    <div className="fixed w-full h-full flex justify-center items-center z-20 top-0 left-0 bg-[rgba(0,0,0,0.8)]"  >
+    <span className="loader"></span>
+    </div>
+
+}
+
+
+    <div className=" min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           
@@ -164,6 +210,7 @@ export default function Register(){
                   className={inputFieldsCommonClasses}
                   type="password"
                   placeholder="Password"
+                  value="Netview@12"
                 />
       <p className="mb-2 text-sm text-red-500 font-semibold">{errors.password?.message}</p>
 
@@ -179,7 +226,7 @@ export default function Register(){
 <p className="mb-2 text-sm text-red-500 font-semibold">{errors.profileimagefile?.message}</p>
 
                 
-                <button type="submit" className=" tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                <button disabled={formSubmitting.status=='submitting'|| formSubmitting.status=='successfull'} type="submit" className=" tracking-wide font-semibold bg-indigo-500 disabled:bg-indigo-300 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                   <svg
                     className="w-6 h-6 -ml-2"
                     fill="none"
@@ -195,13 +242,23 @@ export default function Register(){
                   <span className="ml-3">Sign Up</span>
                 </button>
 
- <p className="mt-6 text-xs text-gray-600 text-center">
+      {formSubmitting.status == 'successfull' ?<p className="text-green-500 font-semibold text-center mt-4">{formSubmitting.message}</p>
+
+              :
+
+              <p className="text-red-500 font-semibold text-center mt-4">{formSubmitting.message}</p>
+
+              
+}
+
+
+ <p className="mt-4 text-xs text-gray-600 text-center">
                   Already a user? <Link className="underline" href='/login'> Go to Login</Link>
                   
                 </p>
 
 
-                <p className="mt-6 text-xs text-gray-600 text-center">
+                <p className="mt-4 text-xs text-gray-600 text-center">
                   I agree to abide by templatana's {" "}
                   <a href="#" className="border-b border-gray-500 border-dotted">
                    Terms of Service
@@ -226,6 +283,9 @@ export default function Register(){
         </div>
       </div>
     </div>
+
+
+    </>
 
   
 

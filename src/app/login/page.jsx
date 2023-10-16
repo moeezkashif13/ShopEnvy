@@ -4,12 +4,79 @@ import { afterGettingAuthCode,startGoogleOAuth } from "@/utils/authrelated"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
+import { useForm } from "react-hook-form"
+
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import axios from "axios"
+import { useEffect } from "react"
+
+const schema = yup.object({
+
+  email: yup.string()
+  .email('Invalid email address')
+  .required('Email is required'),
+
+  password : yup.string()
+  .required('Password is required')
+  .min(8, 'Password must be at least 8 characters')
+  .matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+    'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@$!%*?&)'
+  ),
+
+
+})
+.required()
+
+
 export default function Login(){
+
+  // useEffect(()=>{
+
+  //   axios.post('/api/getuserdetails').then(resp=>{
+  //     console.log(resp.data);
+  //   })
+
+  // },[])
+
 
 
   const router = useRouter()
   
   afterGettingAuthCode()
+
+
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
+
+
+  const onSubmit = async (data) => {
+
+
+    try {
+          const response = await axios.post('/api/registerstandarduser',{
+            ...data,
+            login:true
+          }    )
+
+
+  } catch (error) {
+  console.log(error);      
+  }
+
+
+
+  }
+
+
+
 
 
     return  <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -56,19 +123,28 @@ export default function Login(){
                   Or login with e-mail
                 </div>
               </div>
-              <div className="mx-auto max-w-xs">
+              <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-xs">
                 <input
-                  className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                  {...register("email")}
+
+                  className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-2"
                   type="email"
                   placeholder="Email"
                 />
+                <p className="mb-2 text-sm text-red-500 font-semibold">{errors.email?.message}</p>
+
                 <input
-                  className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                  {...register("password")}
+
+                  className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-2"
                   type="password"
                   placeholder="Password"
                 />
+
+<p className=" text-sm text-red-500 font-semibold mb-2">{errors.password?.message}</p>
+
                 
-                <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                <button type="submit" className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                   <svg
                     className="w-6 h-6 -ml-2"
                     fill="none"
@@ -98,7 +174,8 @@ export default function Login(){
                     Privacy Policy
                   </a>
                 </p>
-              </div>
+              
+              </form>
             </div>
           </div>
         </div>

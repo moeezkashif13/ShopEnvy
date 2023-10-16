@@ -1,12 +1,61 @@
+import axios from 'axios';
 import { NextResponse } from 'next/server'
+import { verifyJWTToken } from './utils/tokensrelated';
+import { cookies } from 'next/headers';
  
 // This function can be marked `async` if using `await` inside
-export function middleware(request) {
-    console.log('i wasss hereee');
-  return NextResponse.redirect(new URL('/', request.url))
+export async function middleware(request) {
+    // console.log('i wasss hereee');
+
+    const path = request.nextUrl.pathname;
+
+    const isPublicPath = path === '/login' || path === '/register';
+
+    const getToken = request.cookies.get('token')?.value || null;
+
+
+    try {
+
+
+      if(!getToken){
+        
+        return NextResponse.redirect(new URL('/login',request.nextUrl))
+
+      }
+
+      const verifyingToken = await fetch('http://localhost:3000/api/testrouteavien',{method:'POST',body:JSON.stringify({
+        getToken
+    }),})
+
+      const data = await verifyingToken.json()
+
+
+      
+    } catch (error) {
+
+      return NextResponse.redirect(new URL('/login',request.nextUrl))
+
+      
+    }
+    
+    
+
+
+    
+
 }
- 
-// See "Matching Paths" below to learn more
+
+
 export const config = {
-  matcher: '/user/:path*',
+  matcher: [
+  
+    // '/login', //public
+    // '/register', //public
+    // '/publicpath',
+    // '/secretroute',
+    '/profile/:path*' //private
+
+  ],
+
+
 }

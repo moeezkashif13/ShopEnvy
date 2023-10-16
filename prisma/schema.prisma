@@ -11,12 +11,29 @@ datasource db {
 model User {
   id         String         @id @default(auto()) @map("_id") @db.ObjectId
   email      String         @unique
+  password   String?         
   name       String
   profilepic UserProfilepic?
   isOAuth    Boolean?
   provider   Provider      @default(standard)
   role       Role           @default(user)
+
+
+  status     Status         @default(pending)
+
+  
+  emailConfirmationCode   String
+
+
+
 }
+
+
+enum Status {
+  pending
+  active
+}
+
 
 type UserProfilepic {
   avatarurl String

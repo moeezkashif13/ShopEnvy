@@ -1,6 +1,8 @@
-import { createUser } from '@/utils/dbrelated'
+import { createUser, loginUser } from '@/utils/dbrelated'
 import {NextResponse} from 'next/server'
 import {cookies} from 'next/headers'
+import { settingCookiesForLoginSignup } from '@/utils/cookiesrelated'
+import { sendMail } from '@/utils/sendmails'
 
 
 const bcrypt = require("bcryptjs")
@@ -8,17 +10,16 @@ const jwt = require('jsonwebtoken')
 
 export async function POST(request,response) {
 
+  const bodyData = await request.json()
+  const cookiesInstance = cookies()
+
+
+    if(bodyData.registration){
+
+
     try {
     
-        
 
-
-
-
-
-
-    const bodyData = await request.json()
-    const cookiesInstance = cookies()
 
     const {name,email,password} = bodyData
 
@@ -37,28 +38,14 @@ export async function POST(request,response) {
 
     console.log(creatingUser,'creatingUser creatingUser creatingUser');
 
-    const maxAge = 3 * 60 * 60;
-    const token = jwt.sign({ id: creatingUser.id},process.env.JWT_SECRET,{
-        expiresIn: maxAge, // 3hrs in sec
-      }
-    );
+    await sendMail(creatingUser.name,'Please confirm your email paa g',creatingUser.email,creatingUser.emailConfirmationCode)
 
-    console.log(token,' token token token');
 
-    cookiesInstance.set("token", token, {
-        httpOnly: true,
-        maxAge: maxAge * 1000, // 3hrs in ms
-      });
-
+   await settingCookiesForLoginSignup(creatingUser)
 
 
 
     return NextResponse.json({userCreated:'yesss userr created tokenn alsoo createdd'},{status:200})
-
-
-
-
-
 
 
 
@@ -73,6 +60,41 @@ export async function POST(request,response) {
         
 }
 
+
+}else if(bodyData.login){
+
+
+  try {
+    
+
+  const { email, password } = bodyData
+  // Check if username and password is provided
+  if (!email || !password) {
+    return NextResponse.json({error:'email or password not present'},{status:404})
+  }
+
+
+  const checkingUserInDB = await loginUser(email,password);
+
+
+  // if(checkingUserInDB.status!=='active'){
+  //   throw new Error('User is not active. Please verify your email');
+  // }
+
+
+ await settingCookiesForLoginSignup(checkingUserInDB)
+  
+
+  return NextResponse.json({user:checkingUserInDB.id},{status:200})
+
+
+} catch (error) {
+  return NextResponse.json({message:error.message,loggingIn:'errorrr inn logging inn userr'},{status:404})
+
+}
+
+
+}
 
 
 }
