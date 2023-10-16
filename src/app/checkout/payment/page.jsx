@@ -11,7 +11,7 @@ import { Cart } from "@/components/Checkout/Cart";
 
 
 
-export default function Checkout(props){
+export default function PaymentPage(props){
 
     const {
         register,

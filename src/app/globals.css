@@ -114,3 +114,17 @@ input[type=number] {
     scrollbar-width: none;  /* Firefox */
   }
   
+
+  .linearBG{
+    background-color: orange;
+
+    background: #614385;  /* fallback for old browsers */
+
+    background: -webkit-linear-gradient(to bottom, #082D22 20%, #041610);  
+
+
+    background: linear-gradient(to bottom, #082D22 20%, #041610); 
+
+
+  }
+
