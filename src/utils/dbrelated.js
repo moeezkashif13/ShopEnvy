@@ -98,6 +98,13 @@ export async function loginUser(email,password){
 
 }
 
+// Exclude keys from user
+function exclude(user, keys) {
+  return Object.fromEntries(
+    Object.entries(user).filter(([key]) => !keys.includes(key))
+  );
+}
+
 
 export async function getLoggedInUser(userdata,confirmationCode){
 
@@ -126,7 +133,11 @@ export async function getLoggedInUser(userdata,confirmationCode){
 
 
     if(isUserExist){
-      return isUserExist
+console.log(isUserExist,'isUserExist isUserExist isUserExist');
+      const excludedFields = exclude(isUserExist, ['password','emailConfirmationCode'])
+
+
+      return excludedFields
     }else{
     throw new Error('Error in finding user')
 

@@ -29,6 +29,37 @@ model User {
 }
 
 
+
+model Products {
+
+
+    id                String         @id @default(auto()) @map("_id") @db.ObjectId
+    name              String
+    description       String
+    price             Int
+    discountedprice   Int
+    color             String // ARRAY OF COLORS HOGA REAL ME
+    sizes             String // ARRAY OF SIZES HOGA REAL ME
+    leftinstock       Int
+
+
+
+
+}
+
+
+model Categories {
+  id      String         @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+
+  
+
+}
+
+
+
+
+
 enum Status {
   pending
   active

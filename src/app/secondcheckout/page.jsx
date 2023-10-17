@@ -1,13 +1,28 @@
 "use client"
 
 import SecondCart from "@/components/Checkout/SecondCart"
+import axios from "axios"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 
-export const InputField = ({text,placeholder})=>{
+export const InputField = ({text,placeholder,userLoggedIn,prefilled})=>{
+  
     return <div className="space-y-1 ">
         <p>{text}</p>
-        <input type="text" className="border-2 border-[#EAEAEA] outline-none px-4 py-2.5 rounded-lg w-full " placeholder={placeholder} />
+        <input type="text" disabled={!userLoggedIn}  className="border-2 border-[#EAEAEA] outline-none px-4 py-2.5 rounded-lg w-full disabled:bg-gray-200  " 
+        
+        onKeyDown={(event)=>{
+            if(!userLoggedIn){      //!userLoggedIn means IF USER IS NOT LOGGED IN
+                event.preventDefault()
+                return false
+            }
+
+            return true
+
+
+        } } placeholder={placeholder} value={prefilled} />
     </div>
 }
 
@@ -17,6 +32,51 @@ export default function SecondCheckout(){
 
     const router = useRouter()
 
+    const [userLoggedIn,setUserLoggedIn] = useState({
+        status:false,
+        // message:'Logged in status'
+    message:'You are not logged in so please login or register on ShopEnvy to continue the checkout process'
+    })
+
+    const [userDetails,setUserDetails] = useState({});
+
+
+    useEffect(()=>{
+
+        const isUserLoggedIn = async ()=>{
+
+            try {
+                
+                const response = await axios.get('/api/getuserdetails');
+
+                
+
+            setUserLoggedIn({
+                message:"You are logged in that's why we can prefill your data",
+                status:true
+            });
+
+            setUserDetails(response.data.user)
+
+
+
+
+        } catch (error) {
+            setUserLoggedIn({
+                message: 'You are not logged in so please login or register on ShopEnvy to continue the checkout process',
+                status:false
+            });
+        }
+
+        }
+
+        isUserLoggedIn()
+
+
+    },[])
+    
+
+
 
     return <div className="flex">
 
@@ -25,23 +85,40 @@ export default function SecondCheckout(){
 
 
 
-        <div className="w-1/2  px-20 py-12 space-y-5">
+        <div className="w-1/2  px-20 py-12 space-y-3">
 
         <p className="text-2xl font-semibold">Your Details</p>
+
+   
+        {
+        
+        
+        userLoggedIn.status?<div><span className=" text-green-500">{userLoggedIn.message}</span></div>
+        
+        :
+        
+<div className="flex flex-col gap-y-4">
+        <span className="text-red-500 w-full ">{userLoggedIn.message}</span>
+            <div className="text-center text-xl">Proceed to <Link className="underline" href='/login'> Login </Link> OR <Link className="underline" href='/register'>Register</Link></div>
+
+        </div>
+}
+
+
 
 
 <div className="space-y-5">
 
 
-<InputField  text='Email' placeholder='example@gmail.com' />
+<InputField prefilled={userDetails.email} userLoggedIn={userLoggedIn.status}  text='Email' placeholder='example@gmail.com' />
 
-<InputField  text='Name on card' placeholder='John Smith' />
+<InputField  userLoggedIn={userLoggedIn.status}  text='Name on card' placeholder='John Smith' />
 
 
-<InputField  text='Name' placeholder='Your name' />
-<InputField  text='Address 1' placeholder='Your Address' />
-<InputField  text='Zip Code' placeholder='Your Zip Code' />
-<InputField  text='City' placeholder='Your City' />
+<InputField prefilled={userDetails.name} userLoggedIn={userLoggedIn.status}  text='Name' placeholder='Your name' />
+<InputField userLoggedIn={userLoggedIn.status}  text='Address 1' placeholder='Your Address' />
+<InputField userLoggedIn={userLoggedIn.status}  text='Zip Code' placeholder='Your Zip Code' />
+<InputField userLoggedIn={userLoggedIn.status}  text='City' placeholder='Your City' />
 
 </div>
 

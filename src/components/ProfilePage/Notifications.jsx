@@ -1,6 +1,8 @@
+import { DivContainer, FirstContainer } from "./Container";
+
 const beautifulColors = [
     "#008080",
-    "#E6E6FA",
+    "#9999e1",
     "#FF6B6B",
     "#87CEEB",
     "#98FB98",
@@ -18,7 +20,7 @@ const beautifulColors = [
     "#EE82EE",
     "#FFD700",
     "#B0E0E6",
-    "#FFF0F5"
+    "#43ddc9"
   ];
   
   // You can now use the beautifulColors array in your JavaScript code.
@@ -26,15 +28,19 @@ const beautifulColors = [
 
 export default function NotificationsTab (){
     return(
+
+        <FirstContainer heading='Notifications'>
+
+        <DivContainer >
         
-        <div className="flex  gap-4 justify-between flex-wrap text-white font-medium">
+        <div className="flex   gap-y-4 justify-between flex-wrap text-white font-medium">
             
 
 {beautifulColors.map((bgcolor,index)=>{
 
 
 
-    return <div className="w-[234px] rounded-lg py-3 px-3 space-y-2 " style={{backgroundColor:`${bgcolor}`}}>
+    return <div className="w-[200px] rounded-lg py-3 px-3 space-y-2 " style={{backgroundColor:`${bgcolor}`}}>
 
 <p className="text-center text-black">Notification# {index+1}</p>
 
@@ -47,6 +53,10 @@ export default function NotificationsTab (){
 
 
         </div>
+
+        </DivContainer>
+
+        </FirstContainer>
 
 
     )
