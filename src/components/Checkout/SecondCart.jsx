@@ -1,5 +1,26 @@
+import { useSelector } from "react-redux"
+
 export default function SecondCart(){
-    return <div className="w-1/2  px-20 py-12 space-y-12 linearBG text-white relative z-20">
+
+    const cartArray = useSelector(state=>state.usercart.cart)
+
+    console.log(cartArray);
+
+
+    const subTotal = cartArray.map(eachItem=>{
+        return eachItem.price*eachItem.quantity
+    }).reduce(function (accumulator, curValue) {
+
+        return accumulator + curValue
+      
+      }, 0)
+      
+      
+
+    console.log(subTotal);
+
+
+return <div className="w-1/2  px-20 py-12 space-y-12 linearBG text-white relative z-20">
 
 
     <div className="w-full h-full absolute left-0 top-0 -z-10">
@@ -17,11 +38,11 @@ export default function SecondCart(){
     </div>
     
     
-     <div className=" space-y-1.5 ">
+     <div className=" space-y-2.5 ">
     
         <p>Continue your checkout process</p>
     
-        <p className="text-5xl font-semibold">US $19.99</p>
+        <p className="text-5xl font-semibold">US ${subTotal}.00</p>
     
     
     </div>
@@ -31,15 +52,25 @@ export default function SecondCart(){
     <div className="space-y-6">
     
     
-    {[1,2,3,4,5,6].map(()=>{
+    {cartArray.map((eachItemFromCart)=>{
         return   <div className="rounded-lg  px-5 py-3 bg-[#39514A] flex">
     
-        <div className="space-y-1">
-            <p>Dolens Standard</p>
-            <p className="text-sm">Billed monthly</p>
+        <div className="space-y-2">
+            <p>{eachItemFromCart.name}</p>
+            
+            <div className="flex gap-x-5">
+            <p className="text-sm">Quantity: {eachItemFromCart.quantity}</p>
+            <p className="text-sm">Size: {eachItemFromCart.sizes}</p>
+            </div>
+
         </div>
+
+        
     
-        <div className="ml-auto">US $19.99</div>
+        <div className="ml-auto text-right space-y-2">
+            <p>US ${eachItemFromCart.price}</p>
+            <p>Total: ${eachItemFromCart.price*eachItemFromCart.quantity}.00</p>
+        </div>
     
             </div>
     })}
@@ -54,7 +85,7 @@ export default function SecondCart(){
     
     <div className="flex">
         <p>Subtotal</p>
-        <p className="ml-auto">US $19.99</p>
+        <p className="ml-auto">US ${subTotal}.00</p>
     </div>
     
     <div className="bg-[#183028] h-1"></div>

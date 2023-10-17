@@ -70,7 +70,7 @@ export default function SecondCheckout(){
 
         }
 
-        isUserLoggedIn()
+        // isUserLoggedIn()
 
 
     },[])

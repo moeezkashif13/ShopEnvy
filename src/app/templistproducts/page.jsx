@@ -11,6 +11,7 @@ const menClothingProducts = [
     {
       name: "Classic Men's Suit",
       description: "A timeless and elegant suit for formal occasions.",
+      id:1,
       price: 299.99,
       sizes: ["S", "M", "L", "XL", "XXL"],
       SKU: "MCS001",
@@ -19,6 +20,7 @@ const menClothingProducts = [
     {
       name: "Casual Denim Jeans",
       description: "Comfortable and stylish jeans for everyday wear.",
+      id:2,
       price: 49.99,
       sizes: ["30", "32", "34", "36"],
       SKU: "MDJ002",
@@ -27,6 +29,7 @@ const menClothingProducts = [
     {
       name: "Sporty Hooded Jacket",
       description: "A sporty and warm jacket for outdoor activities.",
+      id:3,
       price: 79.99,
       sizes: ["M", "L", "XL"],
       SKU: "MSH003",
@@ -35,6 +38,7 @@ const menClothingProducts = [
     {
       name: "Cotton Dress Shirt",
       description: "A crisp and formal dress shirt for a polished look.",
+      id:4,
       price: 39.99,
       sizes: ["15.5", "16", "16.5", "17"],
       SKU: "MDS004",
@@ -43,6 +47,7 @@ const menClothingProducts = [
     {
       name: "Leather Belt",
       description: "A durable and stylish leather belt to complete your outfit.",
+      id:5,
       price: 19.99,
       sizes: ["32", "34", "36", "38"],
       SKU: "MLB005",
@@ -51,6 +56,7 @@ const menClothingProducts = [
     {
       name: "Slim Fit Chinos",
       description: "Modern and slim-fit chino pants for a trendy look.",
+      id:6,
       price: 59.99,
       sizes: ["28", "30", "32", "34"],
       SKU: "MSC006",
@@ -59,6 +65,7 @@ const menClothingProducts = [
     {
       name: "Warm Wool Sweater",
       description: "A cozy and warm wool sweater for cold weather.",
+      id:7,
       price: 69.99,
       sizes: ["S", "M", "L", "XL"],
       SKU: "MWS007",
@@ -67,6 +74,7 @@ const menClothingProducts = [
     {
       name: "Canvas Sneakers",
       description: "Casual and comfortable sneakers for everyday use.",
+      id:8,
       price: 29.99,
       sizes: ["7", "8", "9", "10", "11"],
       SKU: "MCS008",
@@ -75,6 +83,7 @@ const menClothingProducts = [
     {
       name: "Striped Necktie",
       description: "A classic striped necktie to enhance your formal attire.",
+      id:9,
       price: 14.99,
       sizes: ["One Size"],
       SKU: "MNT009",
@@ -83,6 +92,7 @@ const menClothingProducts = [
     {
       name: "Woolen Beanie Hat",
       description: "A stylish and warm beanie hat to keep you cozy in winter.",
+      id:10,
       price: 19.99,
       sizes: ["One Size"],
       SKU: "MBH010",
@@ -166,7 +176,7 @@ console.log(uniqueArray);
             <div className="px-20 py-12 flex flex-wrap justify-between gap-y-8 text-white font-semibold text-lg">
 
         {menClothingProducts.map(eachCloth=>{
-            return <Link href={`/productpage/${toSlug(eachCloth.name)}?sku=${eachCloth.SKU}`} className="flex justify-center items-center flex-col px-6 text-center space-y-5 w-[380px] h-[400px]  bg-purple-500  rounded-lg">
+            return <Link href={`/productpage/${toSlug(eachCloth.name)}?sku=${eachCloth.SKU}&id=${eachCloth.id}`} className="flex justify-center items-center flex-col px-6 text-center space-y-5 w-[380px] h-[400px]  bg-purple-500  rounded-lg">
                 <p>Name: {eachCloth.name}</p>
                 <p>Desc: {eachCloth.description}</p>
                 <p>SKU: {eachCloth.SKU}</p>
