@@ -116,14 +116,28 @@ input[type=number] {
   
 
   .linearBG{
-    background-color: orange;
 
+    
     background: #614385;  /* fallback for old browsers */
 
     background: -webkit-linear-gradient(to bottom, #082D22 20%, #041610);  
 
 
     background: linear-gradient(to bottom, #082D22 20%, #041610); 
+
+
+  }
+
+
+
+  .productpagebg{
+    
+
+    
+    background: -webkit-linear-gradient(150deg , #E1DAC5 30%, #E0BD8F);  
+
+
+    background: linear-gradient(150deg , #E1DAC5 30%, #E0BD8F); 
 
 
   }
