@@ -16,7 +16,8 @@ export const settingCookiesForLoginSignup = async (user)=>{
 
     cookiesInstance.set("token", token, {
         httpOnly: true,
-        maxAge: maxAge * 1000, // 3hrs in ms
+        maxAge: maxAge , 
+
       });
 
 }

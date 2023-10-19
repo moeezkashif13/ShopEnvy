@@ -23,7 +23,7 @@ export async function middleware(request) {
 
       }
 
-      const verifyingToken = await fetch('http://localhost:3000/api/testrouteavien',{method:'POST',body:JSON.stringify({
+      const verifyingToken = await fetch('http://localhost:3000/api/verifyinguser',{method:'POST',body:JSON.stringify({
         getToken
     }),})
 

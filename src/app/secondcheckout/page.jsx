@@ -5,13 +5,35 @@ import axios from "axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { useSelector } from "react-redux"
+import Loader from "@/components/Loader"
+
+const schema = yup
+  .object({
+
+    address1: yup.string().required('Address is required'),
+
+zipCode: yup.string()
+.min(3, "Please enter more than 2 characters").max(5,'Maximum 5 characters allowed')
+.required("This field is required"),
+
+city:yup.string().required('City Name is Required'),
+    
 
 
-export const InputField = ({text,placeholder,userLoggedIn,prefilled})=>{
+  })
+  .required()
+
+
+ const InputField = ({text,placeholder,userLoggedIn,prefilled,register,valueFromSchema,errors})=>{
   
     return <div className="space-y-1 ">
         <p>{text}</p>
-        <input type="text" disabled={!userLoggedIn}  className="border-2 border-[#EAEAEA] outline-none px-4 py-2.5 rounded-lg w-full disabled:bg-gray-200  " 
+        <input {...register(valueFromSchema)} type="text" disabled={!userLoggedIn}  className="border-2 border-[#EAEAEA]  outline-none px-4 py-2.5 rounded-lg w-full disabled:bg-gray-200  " 
         
         onKeyDown={(event)=>{
             if(!userLoggedIn){      //!userLoggedIn means IF USER IS NOT LOGGED IN
@@ -23,6 +45,10 @@ export const InputField = ({text,placeholder,userLoggedIn,prefilled})=>{
 
 
         } } placeholder={placeholder} value={prefilled} />
+
+{errors[valueFromSchema]?.message&&<p className="font-medium text-red-500">{errors[valueFromSchema]?.message}</p>}
+
+
     </div>
 }
 
@@ -33,13 +59,75 @@ export default function SecondCheckout(){
     const router = useRouter()
 
     const [userLoggedIn,setUserLoggedIn] = useState({
-        status:false,
+        status:true,
         // message:'Logged in status'
-    message:'You are not logged in so please login or register on ShopEnvy to continue the checkout process'
+    message:'You are not logged in, please login or register on ShopEnvy to continue the checkout process'
     })
 
     const [userDetails,setUserDetails] = useState({});
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+      } = useForm({
+        resolver: yupResolver(schema),
+      })
+    
+    //   useEffect(() => {
+    //     // Check to see if this is a redirect back from Checkout
+    //     const query = new URLSearchParams(window.location.search);
+    
+    //     if (query.get("success")) {
+    //       setMessage("Order placed! You will receive an email confirmation.");
+    //     }
+    
+    //     if (query.get("canceled")) {
+    //       setMessage(
+    //         "Order canceled -- continue to shop around and checkout when you're ready."
+    //       );
+    //     }
+    //   }, []);
+    
+    const cartArray = useSelector(state=>state.usercart.cart)
+    
+    const [submittingForm,setSubmittingForm] = useState(false);
+    const [submittingMessage,setSubmittingMessage] = useState('');
+
+      const onSubmit = async (data) => {
+
+        if(!userLoggedIn.status||submittingForm){
+            return;
+        };
+
+        setSubmittingForm(true);
+        setSubmittingMessage('Reaching out to Stripe....')
+        
+        try {
+            
+        const sessionURL = await axios.post('/api/create-checkout-session',{cartArray})
+
+        setSubmittingForm(false);
+
+        setSubmittingMessage('Redirecting you to Stripe....')
+
+
+        setTimeout(() => {
+        router.push(sessionURL.data.session)
+        }, 1000);
+        
+
+
+    } catch (error) {
+        console.log(error);
+        setSubmittingForm(false)  
+        setSubmittingMessage('An error occured')
+
+    }
+
+      }
+    
+    
 
     useEffect(()=>{
 
@@ -76,9 +164,17 @@ export default function SecondCheckout(){
     },[])
     
 
+    
 
 
-    return <div className="flex">
+
+    return <div>
+        
+
+{submittingForm&&<Loader/>}
+
+        
+        <div className="flex">
 
 
 <SecondCart/>
@@ -87,7 +183,7 @@ export default function SecondCheckout(){
 
         <div className="w-1/2  px-20 py-12 space-y-3">
 
-        <p className="text-2xl font-semibold">Your Details</p>
+        <p className="text-2xl font-semibold">Your Shipping Details</p>
 
    
         {
@@ -107,27 +203,30 @@ export default function SecondCheckout(){
 
 
 
-<div className="space-y-5">
+<form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 
 
-<InputField prefilled={userDetails.email} userLoggedIn={userLoggedIn.status}  text='Email' placeholder='example@gmail.com' />
+    <InputField errors={errors} register={register} valueFromSchema='address1' text='Address 1' userLoggedIn={userLoggedIn.status}  placeholder='Your Address' />
 
-<InputField  userLoggedIn={userLoggedIn.status}  text='Name on card' placeholder='John Smith' />
+    <InputField errors={errors} register={register} valueFromSchema='zipCode' text='Zip Code' userLoggedIn={userLoggedIn.status}  placeholder='Your Zip Code' />
+
+    <InputField errors={errors} register={register} valueFromSchema='city' text='City' userLoggedIn={userLoggedIn.status}  placeholder='Your City' />
 
 
-<InputField prefilled={userDetails.name} userLoggedIn={userLoggedIn.status}  text='Name' placeholder='Your name' />
-<InputField userLoggedIn={userLoggedIn.status}  text='Address 1' placeholder='Your Address' />
-<InputField userLoggedIn={userLoggedIn.status}  text='Zip Code' placeholder='Your Zip Code' />
-<InputField userLoggedIn={userLoggedIn.status}  text='City' placeholder='Your City' />
 
-</div>
+
+
 
  
-<div onClick={()=>router.push('/secondcheckout/payment')} className="py-3.5 rounded-lg bg-[#093125] text-white font-semibold cursor-pointer text-center">Continue to payment</div>
+<button type="submit" disabled={!userLoggedIn.status||submittingForm}  className="w-full  py-3.5 rounded-lg bg-[#093125] disabled:opacity-70 opacity-100 text-white font-semibold cursor-pointer text-center">Continue to payment</button>
+
+</form>
 
 
+{submittingMessage&&<p className={`${submittingMessage.startsWith("There")?'text-red-500':'text-green-500'} text-center font-medium text-3xl`}>{submittingMessage}</p>}
 
-<p className="text-center ">By confirming your payment, you allow to charge your card for this and future payment in accordance with terms.</p>
+
+<p className="text-center ">By clicking on "Continue to payment" button, you will be redirected to a page hosted by Stripe itself to ensure maximum trust and security while charging for your payment</p>
 
 
 
@@ -136,5 +235,6 @@ export default function SecondCheckout(){
 
 
 
+    </div>
     </div>
 }

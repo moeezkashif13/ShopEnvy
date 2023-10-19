@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form"
 
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import Loader from "@/components/Loader"
 
 
 const schema = yup.object({
@@ -134,9 +135,8 @@ export default function Register(){
     return <>  
     
     {formSubmitting.status == 'submitting' &&
-    <div className="fixed w-full h-full flex justify-center items-center z-20 top-0 left-0 bg-[rgba(0,0,0,0.8)]"  >
-    <span className="loader"></span>
-    </div>
+    
+    <Loader/>
 
 }
 

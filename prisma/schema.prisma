@@ -30,33 +30,89 @@ model User {
 
 
 
-model Products {
+model Product {
 
 
     id                String         @id @default(auto()) @map("_id") @db.ObjectId
-    name              String
+    name              String         @unique
     description       String
+    sku               String
+    productImage      String[]
+    // categories        String[]
     price             Int
     discountedprice   Int
-    color             String // ARRAY OF COLORS HOGA REAL ME
-    sizes             String // ARRAY OF SIZES HOGA REAL ME
+    color             String[] // ARRAY OF COLORS HOGA REAL ME
+    sizes             String[] // ARRAY OF SIZES HOGA REAL ME
     leftinstock       Int
+    features          Features[]
 
+    belongsToIDS      String[]          @db.ObjectId
 
+    belongTo          CategoryCheck[]     @relation(fields: [belongsToIDS],references:[id])
+
+    // categoryIDs       String[]          @db.ObjectId
+    // categories        Category[]       @relation(fields: [categoryIDs], references: [id])
 
 
 }
 
+model CategoryCheck {
 
-model Categories {
-  id      String         @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  name            CategsNames
 
+  productIDS      String[]      @db.ObjectId
+  products        Product[]       @relation(fields: [productIDS],references: [id])
+
+}
+
+
+// model Category {
+//   id              String          @id @default(auto()) @map("_id") @db.ObjectId
+//   name            CategsNames     
+//   productIDs      String[]        @db.ObjectId
+//   products        Product[]       @relation(fields: [productIDs], references: [id])
+// }
+
+
+
+
+type Features{
+
+  type     FeatureType   
+  answer   String
+
+}
+
+
+enum FeatureType {
   
-
+  Sleeve
+  Fit
+  Cuff_Style      @map("Cuff Style")
+  Collar_Style    @map("Collar Style")
+  Pattern 
+  Style 
+  Material 
 }
 
 
+enum CategsNames {
+  RugbyShirts      @map("Rugby Shirts")
+  Sweatshirts
+  Sweaters
+  Hoodies
+  Zippers
+  SweatPants      @map("Sweat Pants")
+  Jackets
+  LongCoats      @map("Long Coats")
+  TrenchCoats    @map("Trench Coats")
+  ShacketsShirts   @map("Shackets Shirts")
+  ThermalSuits   @map("Thermal Suits")
+  PakolCaps      @map("Pakol Caps")
+  MensShawls     @map("Mens Shawls")
+  CoOrdSets     @map("Co-Ord Sets")
+}
 
 
 

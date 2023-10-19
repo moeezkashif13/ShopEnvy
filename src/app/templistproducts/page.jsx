@@ -3,6 +3,9 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { refreshCart } from "../globalredux/features/cart/cartSlice";
+
 
 const slugify = require('slugify')
 
@@ -127,56 +130,24 @@ const originalArray = [
 
 export default function TempListProducts(){
 
-  useEffect(()=>{
+const cartArray = useSelector(state=>state.usercart.cart);
+const dispatch = useDispatch();
 
-    
-// Create a new array to store unique objects
-// const uniqueArray = [];
+// const broadcast = new BroadcastChannel('productRelated');
 
-// // An object to keep track of unique objects based on a key
-// const uniqueObject = {};
-// console.log(originalArray);
-// // Loop through the original array
-// for (const obj of originalArray) {
-//   const key = `${obj.name}_${obj.age}_${obj.job}`;
-//   // console.log(key);
-//   console.log(uniqueObject[key]);
-//   // Check if the key already exists in the uniqueObject
-//   if (!uniqueObject[key]) {
-//       uniqueArray.push(obj); // If not, add the object to uniqueArray
-//       uniqueObject[key] = true; // Mark the key as seen
-//   }
-// }
-
-// console.log(uniqueArray);
-
-
-// Your original array with objects
-
-
-// Filter out duplicates based on the 'name', 'age', and 'job' properties
-const uniqueArray = originalArray.filter((obj, index, array) => {
-  // Check if there's no other object in the array with the same 'name', 'age', and 'job'
-  return !array.slice(0, index).some(
-      (otherObj) => obj.name === otherObj.name && obj.age === otherObj.age && obj.job === otherObj.job
-  );
-});
-
-console.log(uniqueArray);
+// console.log(cartArray);
 
 
 
-  },[])
-
-
-
-    return (
+return (
         <div>
-            
+
+<div className="text-center py-20 text-4xl">{cartArray.length}</div>
+
             <div className="px-20 py-12 flex flex-wrap justify-between gap-y-8 text-white font-semibold text-lg">
 
-        {menClothingProducts.map(eachCloth=>{
-            return <Link href={`/productpage/${toSlug(eachCloth.name)}?sku=${eachCloth.SKU}&id=${eachCloth.id}`} className="flex justify-center items-center flex-col px-6 text-center space-y-5 w-[380px] h-[400px]  bg-purple-500  rounded-lg">
+        {menClothingProducts.map((eachCloth,index)=>{
+            return <Link href={`/productpage/${toSlug(eachCloth.name)}${(index+1)*10}?sku=${eachCloth.SKU}&id=${eachCloth.id}`} className="flex justify-center items-center flex-col px-6 text-center space-y-5 w-[380px] h-[400px]  bg-purple-500  rounded-lg">
                 <p>Name: {eachCloth.name}</p>
                 <p>Desc: {eachCloth.description}</p>
                 <p>SKU: {eachCloth.SKU}</p>

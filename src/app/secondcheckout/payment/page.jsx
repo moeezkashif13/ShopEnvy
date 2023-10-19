@@ -8,6 +8,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import TempStripeCheckoutForm from "@/components/TempStripeCheckoutForm";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 
 // Make sure to call loadStripe outside of a component’s render to avoid
@@ -19,6 +21,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 export default function SecondPaymentPage(){
 
+const router = useRouter();
 
     const [clientSecret, setClientSecret] = useState("");
 
@@ -78,23 +81,6 @@ export default function SecondPaymentPage(){
 
 <p className="text-2xl font-semibold">Your Payment Details</p>
 
-
-<div className="space-y-5">
-
-
-<div>
-{clientSecret && (
-        <Elements options={options} stripe={stripePromise}>
-          <TempStripeCheckoutForm />
-        </Elements>
-      )}
-
-</div>
-
-
-
-
-</div>
 
 
 <div className="py-3.5 rounded-lg bg-[#093125] text-white font-semibold cursor-pointer text-center">Continue to confirmation</div>

@@ -75,6 +75,8 @@ const cartArray = useSelector(state=>state.usercart.cart);
 
 const addToCart = async ()=>{
 
+    // const broadcast = new BroadcastChannel('productRelated')
+
     const finalDataToSend = {
         
         ...productDetails,
@@ -191,7 +193,7 @@ const changeSize = (productSize)=>{
 
 useEffect(()=>{
     console.log(cartArray);
-},[cartArray.length])
+},[cartArray])
 
     
     

@@ -37,10 +37,13 @@ export const cartSlice = createSlice({
 
 
       }
+    },
 
-    
-   
-   
+
+    refreshCart: (state,payload) => {
+
+      state.cart = payload.payload
+
     },
 
     updateSingleItemInCart: (state,payload) => {
@@ -62,6 +65,6 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { increaseCart,updateSingleItemInCart } = cartSlice.actions
+export const { increaseCart,updateSingleItemInCart,refreshCart } = cartSlice.actions
 
 export default cartSlice.reducer;
