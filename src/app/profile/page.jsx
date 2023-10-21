@@ -13,6 +13,9 @@ import { AiFillDelete, AiFillLock, AiOutlineCreditCard, AiOutlineHeart, AiOutlin
 import { GrNotification } from "react-icons/gr";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { setUser } from "../globalredux/features/userslice/userslice";
+import Loader from "@/components/Loader";
 
 
 
@@ -33,9 +36,13 @@ const profileNavLinks = [
 
 
 
-export default function Profile(){
+export default function Profile(props){
 
     const [userData,setUserData] = useState();
+    const [userLoading,setUserLoading] = useState(false);
+
+    const dispatch = useDispatch();
+
     const [activeTab,setActiveTab] = useState([
 
         <MyProfile/>,
@@ -48,35 +55,29 @@ export default function Profile(){
 
         const getUser = async()=>{
 
+            setUserLoading(true)
+            
+
             try {
                 
                 const user = await axios.get('/api/getuserdetails');
 
-                setUserData(user.data.user)
+                dispatch(setUser(user.data.user));
+                setUserLoading(false)
+
 
             } catch (error) {
-                setUserData(false)
+                setUserLoading(false)
             }
 
         }
 
 
-        // getUser()
+        getUser()
     },[])
 
 
-    return <div>
-        
-
-        {/* <p>Profile</p>
-
-{!userData?<div>Not found</div>:<div>
-    
-    <p>{userData.email}</p>
-
-    {userData.status=='pending'?<p>Please verify your email</p>: <p>Email verified</p>}
-
-    </div>} */}
+    return  userLoading?<Loader/>:
 
 
 <div className="flex mt-6">
@@ -220,9 +221,6 @@ onClick={()=>{
 
 
 
-
-
-    </div>
 
 
 }

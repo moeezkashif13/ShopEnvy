@@ -29,6 +29,11 @@ export async function middleware(request) {
 
       const data = await verifyingToken.json()
 
+      console.log(data,'data data data data data');
+
+      NextResponse.json({checking:'aviennn'},{status:200})
+
+
 
       
     } catch (error) {

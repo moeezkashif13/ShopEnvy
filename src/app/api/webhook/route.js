@@ -1,3 +1,4 @@
+import { createOrderInStrapi } from '@/utils/createOrderInStrapi';
 import { headers } from 'next/headers';
 import {NextResponse} from 'next/server'
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -5,9 +6,19 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // Find your endpoint's secret in your Dashboard's webhook settings
 const endpointSecret = 'whsec_cfac85dc6531ee63e3354a2b30ef47d20cd63ac5e85b6f4cc8c918668c20b2f1';
 
-const fulfillOrder = (lineItems) => {
+const fulfillOrder = async (lineItems) => {
+
+  
+
   // TODO: fill me in
-  console.log("Fulfilling order", lineItems);
+  console.log("Fulfilling order");
+
+   await createOrderInStrapi(lineItems);
+
+   console.log('donnnneeeeeee');
+
+  
+
 }
 
 
@@ -34,6 +45,15 @@ export async function POST(request,response) {
         expand: ['line_items'],
       }
     );
+
+    console.log(event.data.object.id,'event.data.object.id event.data.object.idevent.data.object.id');
+
+    const avienCheck = await stripe.checkout.sessions.listLineItems(
+      event.data.object.id,
+    ) 
+
+    console.log(avienCheck,'avienCheck avienCheck avienCheck');
+
     const lineItems = sessionWithLineItems.line_items;
 
     // Fulfill the purchase...

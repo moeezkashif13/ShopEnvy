@@ -1,23 +1,45 @@
-export const  ProductCard = ({small})=>{
+
+import Link from "next/link";
+
+const slugify = require('slugify')
+
+
+ const toSlug = (text)=>{
+    return slugify(text, {
+        replacement: '-',  // replace spaces with replacement character, defaults to `-`
+        remove: undefined, // remove characters that match regex, defaults to `undefined`
+        lower: true,    // convert to lower case, defaults to `false`
+        strict: false,     // strip special characters except replacement, defaults to `false`
+        locale: 'vi',      // language code of the locale to use
+        trim: true        // trim leading and trailing replacement chars, defaults to `true`
+      })
+      
+}
+
+export const  ProductCard = ({eachProd})=>{
 
     const randomNumb = Math.floor(Math.random()*10);
 
     const isOnSale = randomNumb>5 ? true : false
+console.log(eachProd.attributes);
 
+const {id} = eachProd
+
+    const {Name,DiscountedPrice,Price,SKU,ProductPreviewImage:{data:{attributes:{formats:{large:largePreview}}}}} = eachProd.attributes
 
     return (
 
-        <div className="w-[330px]   text-center space-y-2">
+        <Link href={`/productpage/${toSlug(Name)}?sku=${SKU}&id=${id}`} className="w-[330px]   text-center space-y-2">
 
-            <div className="h-[430px] ">
-                <img src="https://www.almirah.com.pk/cdn/shop/files/al-ks-2965_2_600x.jpg?v=1694523376" className="w-full h-full object-cover max-w-full" alt="" />
+            <div className="h-[530px] ">
+                <img src={`http://localhost:1337${largePreview.url}`} className="w-full h-full object-cover max-w-full" alt="" />
             </div>
 
-<p className="text-sm pt-1">BROWN BLENDED KAMEEZ SHALWAR - AL-KS-2967</p>
+<p className="text-sm pt-1">{Name}</p>
 
 <div className="flex gap-x-7 w-full justify-center">
-    <p>Rs.8,170.00 </p>
-    <p>Rs.6,120.00 </p>
+    <p>Rs.{Price}.00   </p>
+    <p>Rs.{DiscountedPrice}.00 </p>
 
 </div>
 
@@ -33,7 +55,7 @@ export const  ProductCard = ({small})=>{
 
 
 
-        </div>
+        </Link>
 
 
 
@@ -43,7 +65,9 @@ export const  ProductCard = ({small})=>{
 
 
 
-export const DifferentProductsPreview = ({heading})=>{
+export const DifferentProductsPreview = ({productsData})=>{
+
+    console.log(productsData,'productsData productsData');
 
     return (
 
@@ -51,16 +75,11 @@ export const DifferentProductsPreview = ({heading})=>{
         <div className="space-y-10">
 
 
-<div className="text-4xl text-center font-semibold pb-2 border-b-4  border-b-red-500">
-    <p>{heading}</p>
-</div>
-
-
 <div className="flex gap-5 justify-center flex-wrap">
 
 
-{[1,2,3,4,5,6,7,8].map((elem)=>{
-    return <ProductCard/>
+{productsData.data.map((eachProd)=>{
+    return <ProductCard  eachProd={eachProd} />
 })}
 
 

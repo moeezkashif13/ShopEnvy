@@ -1,201 +1,59 @@
-"use client"
-
-import { useState,useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { increaseCart,updateSingleItemInCart } from '@/app/globalredux/features/cart/cartSlice';
 
-
-import { AiOutlineMinus, AiOutlinePlus,AiFillHeart } from "react-icons/ai"
-import { useRouter } from 'next/navigation';
-
-
-const selectionNotification = (type)=>{
-
-    toast.success(`${type} has been selected`,{
-        duration:3000,
-        position:'top-center',
-    
-    });
-
-}
-
-
-export default function Product(props){
-    
-    const router = useRouter();
-    
-    const [likedProduct,setLikedProduct] = useState(false)
-
-    const [productDetails,setProductDetails] = useState({});
-    const [quantity,setQuantity] = useState(1);
-    const [color,setColor] = useState('');
-    const [size,setSize] = useState('32');
-    const [disableAddToCart,setDisableAddToCart] = useState(false);
-    const [dontAllowToAdd,setDontAllowToAdd] = useState(false);
-
-    const [changes,setChanges] = useState({
-        changeInQuantity:'initial',
-        changeInSize:'initial',
-    })
-
-
-    useEffect(()=>{
-
-        setProductDetails({
-
-        id: props.searchParams.id,
-            
-            name : props.params.slug,
-            sku : props.searchParams.sku,
-            description : "description description description description",
-
-            price : `${Math.floor(Math.random()*75)}.00`,
-
-            discountedprice : `$${Math.floor(Math.random()*499)}.00`,
-
-            leftinstock  : `${Math.floor(Math.random()*100)}`,
-
-            sizes: ['32','34','36','38'],
-
-            colors : ['#000000',"#f8523f","#40E0D0","#DA70D6","#6495ED","#FF007F","#EE82EE","#FFD700","#43ddc9",],
-
-
-        })
+import {AiFillHeart } from "react-icons/ai"
+// import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { AddToCartButton, SelectQuantity, SelectSize } from '@/components/ProductPage/InteractiveElems';
+import { useDispatch } from 'react-redux';
 
 
 
-},[])
 
-
-const dispatch = useDispatch();
-const cartArray = useSelector(state=>state.usercart.cart);
-
-
-const addToCart = async ()=>{
-
-    // const broadcast = new BroadcastChannel('productRelated')
-
-    const finalDataToSend = {
-        
-        ...productDetails,
-        sizes : size,
-        quantity : quantity
-    
+export async function getSpecificProductData(searchParams) {
+    const res = await fetch(`http://127.0.0.1:1337/api/products/${searchParams.id}?populate[0]=ProductPreviewImage&populate[1]=ProductImages`)
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+   
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data')
     }
+   
+    const toJSON = await res.json()
+
+
+    return toJSON.data;
+
+    
+  }
+  
+
+
+export default async function Product(props){
+
+    const data = await getSpecificProductData(props.searchParams)
+// console.log(data);
+    // console.log(data,'data data data data');
+    const {Name,Description,SKU,Price,DiscountedPrice,LeftInStock,ProductSizes,ProductImages} = data.attributes;
 
     
 
-    // const gatherQuantity = cartArray.map(eachItem=>{
-    //     return eachItem.quantity
-    // })
+    // const [likedProduct,setLikedProduct] = useState(false)
 
+    // const [productDetails,setProductDetails] = useState({});
+    // const [color,setColor] = useState('');
+    // const [disableAddToCart,setDisableAddToCart] = useState(false);
+    // const [dontAllowToAdd,setDontAllowToAdd] = useState(false);
+
+
+
+// const dispatch = useDispatch();
+// const cartArray = useSelector(state=>state.usercart.cart);
+
+console.log(ProductImages);
     
-    const ifItemExist = cartArray.filter(eachItem=>{
-        console.log(eachItem);
-        console.log(finalDataToSend);
-        return eachItem.id == finalDataToSend.id
-      })
 
-      console.log(ifItemExist);
-
-      if(ifItemExist.length>0){
-
-console.log('i shoulddd nott runnn');
-
-        if(changes.changeInQuantity == 'changed' || changes.changeInSize == 'changed'  ){
-
-            toast.success(`Updated! Size: ${size} Quantity: ${quantity} `);
-
-            dispatch(increaseCart({finalDataToSend,type:'update',
-        
-            updatedQuantity:quantity,updatedSize:size
-        
-        }))
-
-        }
-
-
-      }else{
-        
-
-        if((changes.changeInQuantity == 'changed' && changes.changeInSize == 'changed') || changes.changeInQuantity == 'initial' && changes.changeInSize == 'initial'  ){
-        
-
-        toast.success(`Added to cart! Size: ${size} Quantity: ${quantity} `);
-      
-dispatch(increaseCart({finalDataToSend,type:'add'}))
-
-        }
-
-}
-
-
-
-setChanges({
-changeInQuantity:'initial',
-changeInSize:'initial'
-})
-
-
-
-}
-
-
-
-
-
-const changeQuantity = (type)=>{
-
-
-    if(type == 'minus'){
-        setQuantity(oldVal=>{
-
-            if(quantity==1){
-                return 1;
-            }
-            return oldVal-1
-        })
-    }else{
-        setQuantity(oldVal=>{
-
-            if(quantity == productDetails.leftinstock){
-                return quantity;
-            }  
-            return oldVal+1
-            })
-    }
-
-    // selectionNotification('Quantity')
-
-
-    setChanges({changeInQuantity:'changed'})
-
-    // setDontAllowToAdd(false);
-
-
-}
-
-const changeSize = (productSize)=>{
-
-    selectionNotification('Size')
-
-    setSize(productSize)
-
-    setChanges({changeInSize:'changed'})
-
-    // setDontAllowToAdd(false);
-
-
-}
-
-
-useEffect(()=>{
-    console.log(cartArray);
-},[cartArray])
-
-    
     
     return <div>
         
@@ -208,6 +66,7 @@ useEffect(()=>{
 
     <div className="font-semibold text-3xl">
         <p>Shop Envy</p>
+
     </div>
 
 
@@ -224,7 +83,7 @@ useEffect(()=>{
 
     <div className="w-[420px] h-[570px] bg-[#DAD3CF] ">
 
-        <img src="/sampleimages/men-suit.png" className='w-full h-full max-w-full object-cover' alt="" />
+        <img src={`http://localhost:1337${ProductImages.data[0].attributes.formats.large.url}`} className='w-full h-full max-w-full object-cover' alt="" />
 
 
     </div>
@@ -233,7 +92,7 @@ useEffect(()=>{
 
     <div className="border-2 shadow-2xl w-[320px] h-[430px] bg-[#DAD3CF]  absolute bottom-8 right-0"> 
     
-    <img src="/sampleimages/men-suit.png" className='w-full h-full max-w-full object-cover' alt="" />
+    <img src={`http://localhost:1337${ProductImages.data[1].attributes.formats.large.url}`} className='w-full h-full max-w-full object-cover' alt="" />
 
     
     </div>
@@ -241,7 +100,17 @@ useEffect(()=>{
 
     </div>
 
+<div className='pl-32  flex flex-wrap justify-between gap-y-4'>
+    
+        {ProductImages.data.map((elem,index)=>{
+            console.log(elem.attributes);
+            return  index>1&& <div style={{transition:'all 0.4s'}} className='hover:scale-110 h-[300px] w-[200px] rounded-lg '>
+                <img src={`http://127.0.0.1:1337${elem.attributes.formats.large.url}`} alt="" className='w-full h-full max-w-full object-cover rounded-lg' srcset="" />
+            </div>
+        })}
 
+
+</div>
 
 
 
@@ -258,9 +127,12 @@ useEffect(()=>{
 <div >
 
 <div className="flex font-semibold text-lg">
-    <p className="max-w-[240px]">{productDetails.name} </p>
-    <p className="ml-auto">${productDetails.price}</p>
+    <p className="max-w-[240px]">{Name} </p>
+    <p className="ml-auto">{Price}.00</p>
+
 </div>
+
+
 
 
 <div className="text-sm text-[#323232] font-medium flex items-center">
@@ -268,24 +140,26 @@ useEffect(()=>{
     
     <p>Cropped turtleneck</p>
 
-        <button onClick={()=>setLikedProduct(oldVal=>!oldVal)}  
+        {/* <button onClick={()=>setLikedProduct(oldVal=>!oldVal)}  
         
         className='cursor-pointer ml-auto text-4xl '>
             
             
 <AiFillHeart    style={{transition:'all 0.4s'}}
 
-className={`${likedProduct?'text-red-500':'text-inherit'}`} /></button>
+className={`${likedProduct?'text-red-500':'text-inherit'}`} /></button> */}
+
+
+</div>
+
 
 
 </div>
 
 </div>
 
-</div>
 
-
-<div className="space-y-3">
+{/* <div className="space-y-3">
 
 
 <p className="font-semibold ">Select a color</p>
@@ -300,9 +174,14 @@ className={`${likedProduct?'text-red-500':'text-inherit'}`} /></button>
 </div>
 
 
-</div>
+</div> */}
 
-<div className="space-y-3 ">
+<SelectQuantity/>
+
+
+<SelectSize/>
+
+{/* <div className="space-y-3 ">
 
 
 <p className="font-semibold ">Select Quantity</p>
@@ -338,38 +217,23 @@ border-2 border-[#E3E3E3] cursor-pointer rounded-full" style={{transition:'all 0
 </div>
 
 
-</div>
-
-
-<div className="space-y-3">
-
-
-<p className="font-semibold ">Select a size</p>
-
-
-<div className="flex gap-x-3   text-xs font-semibold gap-y-4 flex-wrap">
-    {productDetails?.sizes?.map((eachSize)=>{
-        return <button onClick={()=>changeSize(eachSize)}  className="opacity-60 focus:opacity-100 flex justify-center items-center w-12 h-12 bg-white border-2 border-[#E3E3E3] cursor-pointer rounded-full" style={{transition:'all 0.3s'}}>{eachSize}</button>
-    })}
-</div>
-
-
-</div>
+</div> */}
 
 
 
-<div  onClick={addToCart} className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
-    Add to Cart - ${productDetails.price*quantity}
-</div>
 
 
-<div  onClick={()=>router.push('/secondcheckout')} className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
+
+<AddToCartButton/>
+
+
+<div   className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
     Proceed to checkout
 </div>
 
 
 
-<p className="text-[#424242] font-medium text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo eos rem quod delectus reiciendis molestias fugiat nostrum voluptatum maiores quisquam.</p>
+<p className="text-[#424242] font-medium text-sm leading-6">{Description}</p>
 
 
 

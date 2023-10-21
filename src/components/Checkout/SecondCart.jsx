@@ -3,10 +3,12 @@ import { useSelector } from "react-redux"
 
 const Checking = (item)=>{
 
-    var number = parseFloat(item.price.replace(/,/g, ''));
+    
+    var number = parseFloat(item?.Price?.toString().replace(/,/g, ''))
 
-    // Multiply by 4
-    var result = number * item.quantity;
+    
+    
+    var result = number * item.selectedQuantity;
     
     // Format the result back to a string with two decimal places and commas
     var resultString = result.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 });
@@ -21,11 +23,12 @@ export default function SecondCart(){
     const cartArray = useSelector(state=>state.usercart.cart)
 
     
-    const subTotal = cartArray.map(eachItem=>{
+    const subTotal = cartArray?.map(eachItem=>{
        
         return Checking(eachItem)
 
     })
+
     
 
 // Initialize a variable to store the sum
@@ -39,6 +42,7 @@ for (var i = 0; i < subTotal.length; i++) {
 
 // Format the sum back to a string with two decimal places and commas
 var result = sum.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 });
+
 
 
 
@@ -64,7 +68,7 @@ return <div className="w-1/2  px-20 py-12 space-y-12 linearBG text-white relativ
     
         <p>Continue your checkout process</p>
     
-        <p className="text-5xl font-semibold">US ${result}</p>
+        <p className="text-5xl font-semibold">PKR {result} </p>
     
     
     </div>
@@ -73,14 +77,16 @@ return <div className="w-1/2  px-20 py-12 space-y-12 linearBG text-white relativ
     
     
     {cartArray.length>0?cartArray.map((eachItemFromCart)=>{
+
+        
         return   <div style={{transition:'all 0.8s'}} className="rounded-lg  px-5 py-3 bg-[#39514A] hover:bg-[hsl(163,17%,5%)] flex">
     
         <div className="space-y-2">
-            <p>{eachItemFromCart.name}</p>
+            <p>{eachItemFromCart.Name}</p>  
             
             <div className="flex gap-x-5">
-            <p className="text-sm">Quantity: {eachItemFromCart.quantity}</p>
-            <p className="text-sm">Size: {eachItemFromCart.sizes}</p>
+            <p className="text-sm">Quantity: {eachItemFromCart.selectedQuantity}</p>
+            <p className="text-sm">Size: {eachItemFromCart.selectedSize}</p>
             </div>
 
         </div>
@@ -88,8 +94,9 @@ return <div className="w-1/2  px-20 py-12 space-y-12 linearBG text-white relativ
         
     
         <div className="ml-auto text-right space-y-2">
-            <p>US ${eachItemFromCart.price}</p>
-            <p>Total: ${Checking(eachItemFromCart)}</p>
+            <p>PKR {new Intl.NumberFormat().format(eachItemFromCart.Price)}.00</p>
+            <p>Total: {Checking(eachItemFromCart)}</p>
+
         </div>
     
             </div>
@@ -105,7 +112,7 @@ return <div className="w-1/2  px-20 py-12 space-y-12 linearBG text-white relativ
     
     <div className="flex">
         <p>Subtotal</p>
-        <p className="ml-auto">US ${result}</p>
+        <p className="ml-auto">PKR {result}</p>
     </div>
     
     {/* <div className="bg-[#183028] h-1"></div>

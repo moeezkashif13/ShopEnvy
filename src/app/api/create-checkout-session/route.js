@@ -13,19 +13,33 @@ export async function POST(request,response) {
 
 try {
 
-    const {cartArray} = await request.json();
+    const {cartArray,convertedPreview,userDetails} = await request.json();
 
 const LineItemsArray = cartArray.map(eachItem=>{
+
+    const findRelevantPreviewImage = convertedPreview.filter(eachImage=>{
+                return eachImage.id == eachItem.id
+    })
+
+   
     return {
         price_data:{
-            currency:"usd",
+            currency:"pkr",
             product_data:{
-                name : eachItem.name,
-                description: eachItem.description
+                name : eachItem.Name,
+                description: eachItem.Description,
+                images : [`${findRelevantPreviewImage[0]?.data?.url}`],
+                metadata: {
+                    Name: userDetails.name,
+                    Email : userDetails.email,
+                    PreviewImage : findRelevantPreviewImage[0]?.data?.url,
+                    ProductName : eachItem.Name,
+
+                }
             },
-            unit_amount : eachItem.price*100
+            unit_amount : eachItem.Price*100
         },
-        quantity : eachItem.quantity
+        quantity : eachItem.selectedQuantity
     }
 })
     

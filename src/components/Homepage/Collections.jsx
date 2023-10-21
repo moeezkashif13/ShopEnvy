@@ -7,7 +7,7 @@ export default function Collections(){
 
 ]
 
-const gotAllWork = ['https://cdn.shopify.com/s/files/1/0041/8797/9905/products/2_ab1b2c23-a735-4128-81c3-79e6cff15f19_400x.jpg?v=1680007053','https://cdn.shopify.com/s/files/1/0041/8797/9905/files/2_96283854-d3b9-4c38-91d8-d8c829d92e8a_400x.jpg?v=1685976680','https://cdn.shopify.com/s/files/1/0041/8797/9905/products/2_d4280d7b-e15c-496c-9ae8-c65f028c8ccc_400x.jpg?v=1680007247','https://cdn.shopify.com/s/files/1/0041/8797/9905/products/2_830e6648-24ec-4929-8cc6-97083c36573a_400x.jpg?v=1680007273','https://cdn.shopify.com/s/files/1/0041/8797/9905/products/2_5b499c3e-0bd6-4880-a45e-71cb02fbab36_400x.jpg?v=1680007502','https://cdn.shopify.com/s/files/1/0041/8797/9905/files/2_ecc93f46-8ffb-4274-9c66-c1eaab12dbe1_400x.jpg?v=1691131675']
+const gotAllWork = ['https://uniworthdress.com/uploads/product/0e5b23266cda72e1fbb31d026de7acc0.jpg?h=120','https://uniworthdress.com/uploads/product/db99de265d84b55416a5a4227ef4ad0f.jpg?h=120','https://uniworthdress.com/uploads/product/0b9a9229981f4a391592490abfc6d917.JPG?h=120']
    
 
     

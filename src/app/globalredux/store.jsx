@@ -8,13 +8,22 @@ import { authReducer } from "./features/auth/authslice";
 
 import cartReducer from './features/cart/cartSlice'
 
-import storage from "./customStorage";
+import productReducer from './features/productslice/productslice'
 
-import localStorage from 'redux-persist/lib/storage'
+import userReducer from './features/userslice/userslice'
+
+
+
+import localStorage from "./customStorage";
+
+// import localStorage from 'redux-persist/lib/storage'
+
+// import localStorage from '@react-native-async-storage/async-storage';
 
 import {createStateSyncMiddleware, initMessageListener} from "redux-state-sync";
 
 const reduxStateSyncConfig = {};
+
 
 
 
@@ -35,12 +44,29 @@ const cartPersistConfig = {
   whitelist: ["cart"]
 };
 
+const productSlicePersistConfig = {
+  key: "productslice",
+  // storage: storage,
+  storage : localStorage,
+
+  whitelist: ["config","changes","productRelated"]
+};
+
+
+const userSlicePersistConfig = {
+  key: "userslice",
+  // storage: storage,
+  storage : localStorage,
+
+  whitelist: ["userDataObj"]
+};
+
 
 const counterPersistConfig = {
   key: "counter",
   // storage: storage,
   storage : localStorage,
-  whitelist: ["value",]
+  whitelist: ["value"]
 };
 
 
@@ -52,6 +78,10 @@ const rootReducer = combineReducers({
 
   usercart: persistReducer(cartPersistConfig, cartReducer),
 
+  productRelated : persistReducer(productSlicePersistConfig,productReducer),
+
+
+  userRelated : persistReducer(userSlicePersistConfig,userReducer)
   
   // counter: counterReducer,
   //add all your reducers here

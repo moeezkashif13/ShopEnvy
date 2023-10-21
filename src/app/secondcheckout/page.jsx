@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useSelector } from "react-redux"
 import Loader from "@/components/Loader"
+import { toBase64 } from "@/utils/toBase64"
 
 const schema = yup
   .object({
@@ -59,7 +60,7 @@ export default function SecondCheckout(){
     const router = useRouter()
 
     const [userLoggedIn,setUserLoggedIn] = useState({
-        status:true,
+        status:false,
         // message:'Logged in status'
     message:'You are not logged in, please login or register on ShopEnvy to continue the checkout process'
     })
@@ -90,13 +91,63 @@ export default function SecondCheckout(){
     //   }, []);
     
     const cartArray = useSelector(state=>state.usercart.cart)
+    const [convertedPreview,setConvertedPreview] = useState([])
     
+    useEffect(async ()=>{
+
+
+        const previewImagesForUpload = cartArray.map(eachItem=>{
+            return {
+                id :    eachItem.id,
+                url :   `http://127.0.0.1:1337${eachItem.ProductPreviewImage.url}`
+            }
+        })
+
+await previewImagesForUpload.map(async eachImage=>{
+
+             await toBase64(eachImage.url,(async dataUrl=>{
+
+                const formData = new FormData();
+
+                formData.set("image",dataUrl.split('base64,')[1])
+              
+                // console.log(formData.get("image"));
+                
+              return await axios.post('https://api.imgbb.com/1/upload?key=ecd9aca473a2b9286cda81b8ac68dc53',formData,{
+                  headers:{
+                    "Content-Type" : "multipart/form-data"
+                  }
+                }).then(resp=>{
+                    console.log(resp.data.data);
+                //   return resp.data.data.thumb
+                // check.push(resp.data.data.thumb)
+            //     setConvertedPreview(
+            //          [...convertedPreview,{id:eachImage.id,data:resp.data.data.thumb}]
+            // )
+
+            setConvertedPreview(oldVal=>{
+                return [...oldVal,{id:eachImage.id,data:resp.data.data.thumb}]
+            })
+
+
+                }).catch(err=>{
+                  console.log(err);
+                })
+
+            }))
+            
+        })
+        
+    },[])
+
+
+
     const [submittingForm,setSubmittingForm] = useState(false);
     const [submittingMessage,setSubmittingMessage] = useState('');
 
       const onSubmit = async (data) => {
 
-        if(!userLoggedIn.status||submittingForm){
+        if(!userLoggedIn.status||submittingForm||cartArray.length==0){
             return;
         };
 
@@ -104,8 +155,8 @@ export default function SecondCheckout(){
         setSubmittingMessage('Reaching out to Stripe....')
         
         try {
-            
-        const sessionURL = await axios.post('/api/create-checkout-session',{cartArray})
+ 
+            const sessionURL = await axios.post('/api/create-checkout-session',{cartArray,convertedPreview,userDetails})
 
         setSubmittingForm(false);
 
@@ -158,7 +209,7 @@ export default function SecondCheckout(){
 
         }
 
-        // isUserLoggedIn()
+        isUserLoggedIn()
 
 
     },[])
@@ -218,7 +269,7 @@ export default function SecondCheckout(){
 
 
  
-<button type="submit" disabled={!userLoggedIn.status||submittingForm}  className="w-full  py-3.5 rounded-lg bg-[#093125] disabled:opacity-70 opacity-100 text-white font-semibold cursor-pointer text-center">Continue to payment</button>
+<button type="submit" disabled={!userLoggedIn.status||submittingForm||cartArray.length==0}  className="w-full  py-3.5 rounded-lg bg-[#093125] disabled:opacity-70 opacity-100 text-white font-semibold cursor-pointer text-center">Continue to payment</button>
 
 </form>
 

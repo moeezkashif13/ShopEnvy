@@ -105,7 +105,7 @@ const menClothingProducts = [
   
   
   
-const toSlug = (text)=>{
+ const toSlug = (text)=>{
     return slugify(text, {
         replacement: '-',  // replace spaces with replacement character, defaults to `-`
         remove: undefined, // remove characters that match regex, defaults to `undefined`

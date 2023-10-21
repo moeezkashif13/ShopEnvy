@@ -22,8 +22,8 @@ export const cartSlice = createSlice({
         state.cart.forEach(eachItem=>{
         
           if(eachItem.id==payload.payload.finalDataToSend.id){
-            eachItem['quantity'] = payload.payload.finalDataToSend.quantity
-            eachItem['sizes'] = payload.payload.finalDataToSend.sizes
+            eachItem['selectedQuantity'] = payload.payload.finalDataToSend.selectedQuantity
+            eachItem['selectedSize'] = payload.payload.finalDataToSend.selectedSize
           }
   
         });
