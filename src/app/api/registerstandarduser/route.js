@@ -6,7 +6,7 @@ import { sendMail } from '@/utils/sendmails'
 
 
 const bcrypt = require("bcryptjs")
-const jwt = require('jsonwebtoken')
+
 
 export async function POST(request,response) {
 

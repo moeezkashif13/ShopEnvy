@@ -13,7 +13,7 @@ import { AiFillDelete, AiFillLock, AiOutlineCreditCard, AiOutlineHeart, AiOutlin
 import { GrNotification } from "react-icons/gr";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../globalredux/features/userslice/userslice";
 import Loader from "@/components/Loader";
 
@@ -24,10 +24,10 @@ import Loader from "@/components/Loader";
 const profileNavLinks = [
 
     {text:'Profile',icon:<AiOutlineUser/>,component:<MyProfile/>},
-    {text:'Security',icon:<AiFillLock/>,component:<SecurityTab/>},
+    {text:'Security',help:'security-tab',icon:<AiFillLock/>,component:<SecurityTab/>},
     {text:'Notifications',icon:<IoMdNotificationsOutline/>,component:<NotificationsTab/>},
-    {text:'Billing',icon:<AiOutlineCreditCard/>,component:<Billing/>},
-    {text:'Order History',icon:<AiOutlineHistory/>,component:<OrderHistory/>},
+    // {text:'Billing',icon:<AiOutlineCreditCard/>,component:<Billing/>},
+    {text:'Order History',help:'orders-history',icon:<AiOutlineHistory/>,component:<OrderHistory/>},
     {text:'WishList',icon:<AiOutlineHeart/>,component:<WishList/>},
    
     {text:'Delete Account',icon:<MdDeleteOutline/>,component:<DeleteAccount/>},
@@ -35,11 +35,38 @@ const profileNavLinks = [
 ]
 
 
+const selectTab = (profileNavLinks,setActiveTab,index)=>{
+    const firstElement = profileNavLinks[index];
+    const secondElement = profileNavLinks[index+1];
+    const thirdElement = profileNavLinks[index+2];
+
+    const goToPrevious = profileNavLinks[index-1]
+    const goToTWOPrevious = profileNavLinks[index-2]
+
+    if(!secondElement){
+
+        console.log('hellooo');
+
+        setActiveTab([firstElement.component,goToPrevious.component,goToTWOPrevious.component])
+        return;
+
+    } else if(!thirdElement){
+        setActiveTab([firstElement.component,secondElement.component,goToPrevious.component])
+        return;
+    }  
+    
+
+    setActiveTab([firstElement.component,secondElement.component,thirdElement.component])
+}
+
 
 export default function Profile(props){
 
-    const [userData,setUserData] = useState();
-    const [userLoading,setUserLoading] = useState(false);
+    const userInfo = useSelector(state=>state.userRelated.userDataObj);
+
+console.log(userInfo);
+
+    const [userLoading,setUserLoading] = useState(true);
 
     const dispatch = useDispatch();
 
@@ -77,6 +104,40 @@ export default function Profile(props){
     },[])
 
 
+    useEffect(()=>{
+
+        const findingNeededTab = ()=>{
+            
+        const getVisitParam = new URLSearchParams(window.location.search).get('visit')
+        
+        const findRelavantIndex = profileNavLinks.findIndex(eachLink=>{
+            return eachLink.help == getVisitParam
+        })
+
+        console.log(findRelavantIndex);
+
+        if(findRelavantIndex == -1 || !findRelavantIndex){
+            return;
+        }else{
+            
+        selectTab(profileNavLinks,setActiveTab,findRelavantIndex)
+
+            
+        }
+
+    }
+
+    findingNeededTab();
+
+        // if(findRelavantIndex){
+        // selectTab(profileNavLinks,setActiveTab,4)
+        // }
+
+
+    },[])
+
+
+
     return  userLoading?<Loader/>:
 
 
@@ -87,10 +148,12 @@ export default function Profile(props){
 
 
 <div className="flex  -ml-4  gap-x-4 items-center">
-    <div className="bg-orange-500 w-14 h-14 rounded-full"></div>
+    <div className="w-14 h-14 rounded-full ">
+        <img src={userInfo?.profilepic?.avatarurl} className="w-full h-full max-w-full object-cover rounded-full" alt="" />
+    </div>
 
     <div className="font-semibold">
-        Abdul Moeez
+        {userInfo?.name}
     </div>
 
 </div>
@@ -104,32 +167,7 @@ export default function Profile(props){
 return <div className="gap-x-3 flex cursor-pointer items-center text-lg" 
 
 
-onClick={()=>{
-
-    const firstElement = profileNavLinks[index];
-    const secondElement = profileNavLinks[index+1];
-    const thirdElement = profileNavLinks[index+2];
-
-    const goToPrevious = profileNavLinks[index-1]
-    const goToTWOPrevious = profileNavLinks[index-2]
-
-    if(!secondElement){
-
-        console.log('hellooo');
-
-        setActiveTab([firstElement.component,goToPrevious.component,goToTWOPrevious.component])
-        return;
-
-    } else if(!thirdElement){
-        setActiveTab([firstElement.component,secondElement.component,goToPrevious.component])
-        return;
-    }  
-    
-
-    setActiveTab([firstElement.component,secondElement.component,thirdElement.component])
-
-    
-}}
+onClick={()=>selectTab(profileNavLinks,setActiveTab,index)}
 
 >
 
@@ -159,7 +197,9 @@ onClick={()=>{
 <div >
 
 
-<div className="mb-7 font-semibold text-2xl " >Account Settings</div>
+<div className="mb-4 font-semibold text-2xl " >Account Settings</div>
+
+{userInfo?.status=='pending'&&<div className="mb-7 font-medium text-lg text-red-500" >Your email account is not verified. We have already sent you a confirmation email.</div>}
 
 
 {/* {activeTab} */}

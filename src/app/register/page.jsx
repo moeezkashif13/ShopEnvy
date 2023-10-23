@@ -15,7 +15,19 @@ import Loader from "@/components/Loader"
 const schema = yup.object({
 
     name: yup.string().required('Name is required'),
-  
+
+    address: yup.string().required('Address is required'),
+
+    city: yup.string().required('City is required'),
+
+    country: yup.string().required('Country is required'),
+    
+    zipCode: yup.string()
+    .min(3, "Please enter more than 2 characters").max(5,'Maximum 5 characters allowed')
+    .required("This field is required"),
+    
+    
+
     email: yup.string()
     .email('Invalid email address')
     .required('Email is required'),
@@ -85,6 +97,7 @@ export default function Register(){
     resolver: yupResolver(schema),
   })
 
+  const searchParams = useSearchParams();
 
 
   const onSubmit = async (data) => {
@@ -111,7 +124,8 @@ export default function Register(){
             status:'successfull'
           })
 
-          router.push('/profile')
+          searchParams.get('redirect')?router.push(searchParams.get('redirect')):router.push('/profile')
+          
 
           // redirect('/profile')
           
@@ -186,6 +200,7 @@ export default function Register(){
               </div>
               <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-xs">
 
+
                 
               <input
                   {...register("name")}
@@ -210,11 +225,55 @@ export default function Register(){
                   className={inputFieldsCommonClasses}
                   type="password"
                   placeholder="Password"
-                  value="Netview@12"
                 />
       <p className="mb-2 text-sm text-red-500 font-semibold">{errors.password?.message}</p>
 
 
+<input
+  {...register("address")}
+
+  className={inputFieldsCommonClasses}
+  type="text"
+  placeholder="Address"
+/>
+<p className="mb-2 text-sm text-red-500 font-semibold">{errors.address?.message}</p>
+
+
+{/*  */}
+
+<input
+  {...register("city")}
+
+  className={inputFieldsCommonClasses}
+  type="text"
+  placeholder="City"
+/>
+<p className="mb-2 text-sm text-red-500 font-semibold">{errors.city?.message}</p>
+
+
+{/*  */}
+
+<input
+  {...register("zipCode")}
+
+  className={inputFieldsCommonClasses}
+  type="text"
+  placeholder="Zip Code"
+/>
+<p className="mb-2 text-sm text-red-500 font-semibold">{errors.zipCode?.message}</p>
+
+{/*  */}
+
+<input
+  {...register("country")}
+
+  className={inputFieldsCommonClasses}
+  type="text"
+  placeholder="Country"
+/>
+<p className="mb-2 text-sm text-red-500 font-semibold">{errors.country?.message}</p>
+
+{/*  */}
                   <input
                   {...register("profileimagefile")}
 

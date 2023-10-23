@@ -1,5 +1,7 @@
+
 import { useSelector } from "react-redux"
 
+import {useRouter} from 'next/navigation'
 
 const Checking = (item)=>{
 
@@ -22,6 +24,7 @@ export default function SecondCart(){
 
     const cartArray = useSelector(state=>state.usercart.cart)
 
+    const router = useRouter()
     
     const subTotal = cartArray?.map(eachItem=>{
        
@@ -100,7 +103,7 @@ return <div className="w-1/2  px-20 py-12 space-y-12 linearBG text-white relativ
         </div>
     
             </div>
-    }):<div className="text-center font-semibold text-2xl">No items in cart</div>}
+    }):<div className="space-y-4"><div className="text-center font-semibold text-2xl">No items in cart</div><div onClick={()=>router.push('/')} className="bg-[hsl(160,33%,25%)] cursor-pointer w-full text-center py-3 text-xl rounded-md">Shop Now</div></div>}
     
     
     

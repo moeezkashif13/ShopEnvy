@@ -34,12 +34,13 @@ export const DivContainer = ({children})=>{
 }
 
 
-export const LittleInfo = ({inputField})=>{
+export const LittleInfo = ({data,inputField})=>{
 
-    return <div className="w-[calc(50%-10px)] font-medium space-y-2 ">
-    <p className="text-[#475974]">First Name</p>
+    return <div className={`w-[calc(50%-10px)] font-medium space-y-2 ${data?.heading!=='Email'&&'capitalize'} `}>
     
-{inputField?<input type="text" className="bg-gray-100 px-3 text-gray-800 outline-none w-full py-2" />:<p>Rafiqur</p>}
+    <p className="text-[#475974]">{data?.heading}</p>
+    
+{inputField?<input type="text" className="bg-gray-100 px-3 text-gray-800 outline-none w-full py-2" />:<p>{data?.text}</p>}
 
 </div>
 

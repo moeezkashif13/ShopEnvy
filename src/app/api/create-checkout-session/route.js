@@ -49,8 +49,8 @@ const LineItemsArray = cartArray.map(eachItem=>{
         line_items: LineItemsArray,
         mode: 'payment',
          payment_method_types : ["card"],
-        success_url: `${YOUR_DOMAIN}/secondcheckout/payment?success=true`,
-        cancel_url: `${YOUR_DOMAIN}/secondcheckout/payment?canceled=true`,
+        success_url: `${YOUR_DOMAIN}/checkout/payment/order-placed?success=true`,
+        cancel_url: `${YOUR_DOMAIN}/checkout/payment/order-placed?success=false`,
       });    
     
 

@@ -4,14 +4,24 @@ import toast, { Toaster } from 'react-hot-toast';
 import {AiFillHeart } from "react-icons/ai"
 // import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { AddToCartButton, SelectQuantity, SelectSize } from '@/components/ProductPage/InteractiveElems';
-import { useDispatch } from 'react-redux';
+import { AddToCartButton, JSONPlaceHolder, ProceedToCheckout, SelectQuantity, SelectSize } from '@/components/ProductPage/InteractiveElems';
 
+import { Suspense } from 'react';
+import Image from 'next/image';
 
 
 
 export async function getSpecificProductData(searchParams) {
-    const res = await fetch(`http://127.0.0.1:1337/api/products/${searchParams.id}?populate[0]=ProductPreviewImage&populate[1]=ProductImages`)
+
+
+    // await new Promise(resolve=>setTimeout(() => {
+    //     resolve();
+    // }, 3000))
+
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products/${searchParams.id}`)
+
+
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
    
@@ -37,6 +47,9 @@ export default async function Product(props){
     // console.log(data,'data data data data');
     const {Name,Description,SKU,Price,DiscountedPrice,LeftInStock,ProductSizes,ProductImages} = data.attributes;
 
+    const ProductImagesToArray = ProductImages.split(',')
+
+    console.log(ProductImagesToArray);
     
 
     // const [likedProduct,setLikedProduct] = useState(false)
@@ -81,36 +94,48 @@ console.log(ProductImages);
     </div>
 
 
-    <div className="w-[420px] h-[570px] bg-[#DAD3CF] ">
+    <div className="w-[420px] h-[570px] relative bg-[#DAD3CF] ">
 
-        <img src={`http://localhost:1337${ProductImages.data[0].attributes.formats.large.url}`} className='w-full h-full max-w-full object-cover' alt="" />
+        {/* <img src={`${ProductImagesToArray[0]}`}  className='w-full h-full max-w-full object-cover' alt="" /> */}
+
+<Image src={ProductImagesToArray[0]} fill />
+
+    </div>
+
+
+
+    <div className="border-2 shadow-2xl  w-[320px] h-[430px] bg-[#DAD3CF]  absolute bottom-8 right-0"> 
+    
+    {/* <img src={`${ProductImagesToArray[1]}`} className='w-full h-full max-w-full object-cover' alt="" /> */}
+
+<Image src={ProductImagesToArray[1]} fill />
+
+
+    
+    </div>
 
 
     </div>
 
-
-
-    <div className="border-2 shadow-2xl w-[320px] h-[430px] bg-[#DAD3CF]  absolute bottom-8 right-0"> 
+<div className={` pl-32  flex flex-wrap  gap-y-4 ${ProductImagesToArray.length==4?'gap-x-8':'justify-between'} `}>
     
-    <img src={`http://localhost:1337${ProductImages.data[1].attributes.formats.large.url}`} className='w-full h-full max-w-full object-cover' alt="" />
-
-    
-    </div>
-
-
-    </div>
-
-<div className='pl-32  flex flex-wrap justify-between gap-y-4'>
-    
-        {ProductImages.data.map((elem,index)=>{
-            console.log(elem.attributes);
+        {ProductImagesToArray.map((elem,index)=>{
             return  index>1&& <div style={{transition:'all 0.4s'}} className='hover:scale-110 h-[300px] w-[200px] rounded-lg '>
-                <img src={`http://127.0.0.1:1337${elem.attributes.formats.large.url}`} alt="" className='w-full h-full max-w-full object-cover rounded-lg' srcset="" />
+                <img src={`${elem}`} alt="" className='w-full h-full max-w-full object-cover rounded-lg' srcset="" />
             </div>
         })}
 
 
 </div>
+
+
+<Suspense fallback={<p>Loading</p>}>
+
+<div className='pt-40 text-lg'>
+    <JSONPlaceHolder/>
+</div>
+
+</Suspense>
 
 
 
@@ -126,9 +151,9 @@ console.log(ProductImages);
 
 <div >
 
-<div className="flex font-semibold text-lg">
-    <p className="max-w-[240px]">{Name} </p>
-    <p className="ml-auto">{Price}.00</p>
+<div className="flex font-semibold text-lg ">
+    <p className="max-w-[200px]">{Name} </p>
+    <p className="ml-auto">PKR {Price}.00</p>
 
 </div>
 
@@ -138,7 +163,7 @@ console.log(ProductImages);
 <div className="text-sm text-[#323232] font-medium flex items-center">
     
     
-    <p>Cropped turtleneck</p>
+    <p className='mt-2 text-base'>Left In Stock: {LeftInStock}</p>
 
         {/* <button onClick={()=>setLikedProduct(oldVal=>!oldVal)}  
         
@@ -176,10 +201,15 @@ className={`${likedProduct?'text-red-500':'text-inherit'}`} /></button> */}
 
 </div> */}
 
-<SelectQuantity/>
 
 
-<SelectSize/>
+<SelectQuantity productData={data} />
+
+
+<SelectSize  productData={data} />
+
+
+
 
 {/* <div className="space-y-3 ">
 
@@ -224,12 +254,10 @@ border-2 border-[#E3E3E3] cursor-pointer rounded-full" style={{transition:'all 0
 
 
 
-<AddToCartButton/>
+<AddToCartButton  productData={data} />
 
 
-<div   className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
-    Proceed to checkout
-</div>
+<ProceedToCheckout/>
 
 
 

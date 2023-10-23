@@ -5,10 +5,14 @@ import toast from 'react-hot-toast';
 import { finalSelection, setChanges } from "@/app/globalredux/features/productslice/productslice";
 import { getSpecificProductData } from "@/app/productpage/[slug]/page";
 
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
+
 import { AiOutlineMinus, AiOutlinePlus,AiFillHeart } from "react-icons/ai"
 import { useDispatch, useSelector } from "react-redux";
 import { increaseCart } from '@/app/globalredux/features/cart/cartSlice';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+
 
 const selectionNotification = (type)=>{
 
@@ -33,30 +37,13 @@ const Checking = async()=>{
 
 
 
-export const SelectQuantity =  ()=>{
+export const SelectQuantity =  ({productData})=>{
 
     const [quantity,setQuantity] = useState(1);
 
     const dispatch = useDispatch();
 
-    const [productData,setProductData] = useState({});
-
-
-    useEffect( ()=>{
-
-        const ChalOye = async()=>{
-            
-
-           const getProduct =  await Checking();
-           
-            setProductData(getProduct)
-
-        }
-
-        ChalOye()
-
-
-    },[])
+   
     
 
 
@@ -103,7 +90,7 @@ export const SelectQuantity =  ()=>{
     
     <div className="flex items-center justify-between font-semibold text-[#595757]">
        
-    <button onClick={()=>changeQuantity('minus')} className="text-3xl flex justify-center items-center w-14 h-14 bg-white 
+    <button onClick={()=>changeQuantity('minus')} className="text-3xl flex justify-center items-center w-12 h-12 bg-white 
     
     active:bg-black active:text-white
     
@@ -116,7 +103,7 @@ export const SelectQuantity =  ()=>{
     
     <p className="text-5xl font-bold ">{quantity}</p>
     
-    <button onClick={()=>changeQuantity('plus')}  className="text-3xl flex justify-center items-center w-14 h-14 bg-white 
+    <button onClick={()=>changeQuantity('plus')}  className="text-3xl flex justify-center items-center w-12 h-12 bg-white 
     
     active:bg-black active:text-white
     
@@ -137,7 +124,7 @@ export const SelectQuantity =  ()=>{
 
 
 
-export const AddToCartButton = ()=>{
+export const AddToCartButton = ({productData})=>{
 
         // const broadcast = new BroadcastChannel('productRelated')
     
@@ -149,22 +136,6 @@ export const AddToCartButton = ()=>{
         const dispatch = useDispatch()
 
 
-        const [productData,setProductData] = useState({});
-
-    useEffect( ()=>{
-
-        const ChalOye = async()=>{
-            
-
-           const getProduct =  await Checking()
-            setProductData(getProduct)
-
-        }
-
-        ChalOye()
-
-
-    },[])
         
     const addToCart = async ()=>{
         
@@ -241,34 +212,18 @@ export const AddToCartButton = ()=>{
 
     
     return <div  onClick={addToCart} className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
-    Add to Cart - $
+    Add to Cart
 </div>
 }
 
 
 
-export const SelectSize = ()=>{
+export const SelectSize = ({productData})=>{
 
 
     const [size,setSize] = useState('S');
     const dispatch = useDispatch();
 
-    const [productData,setProductData] = useState({});
-
-    useEffect( ()=>{
-
-        const ChalOye = async()=>{
-            
-
-           const getProduct =  await Checking()
-            setProductData(getProduct)
-
-        }
-
-        ChalOye()
-
-
-    },[])
     
 const changeSize = (productSize)=>{
 
@@ -299,13 +254,41 @@ useEffect(()=>{
 
     <p className="font-semibold ">Select a size</p>
     
-    
     <div className="flex gap-x-3   text-xs font-semibold gap-y-4 flex-wrap">
         {productData.attributes?.ProductSizes?.split(',').map((eachSize)=>{
             return <button onClick={()=>changeSize(eachSize)}  className="opacity-60 focus:opacity-100 flex justify-center items-center w-12 h-12 bg-white border-2 border-[#E3E3E3] cursor-pointer rounded-full" style={{transition:'all 0.3s'}}>{eachSize}</button>
         })}
     </div>
+
     
-    
+    </div>
+}
+
+
+export const ProceedToCheckout = ()=>{
+
+    const router = useRouter();
+
+
+    return <div onClick={()=>router.push('/secondcheckout')}  className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
+    Proceed to checkout
+</div>
+}
+
+
+
+
+export const JSONPlaceHolder = async ()=>{
+
+        await new Promise(resolve=>setTimeout(()=>resolve(),4000))
+const posts =         await axios.get('https://jsonplaceholder.typicode.com/posts')
+
+    return <div className='space-y-5'>
+
+        {posts.data.map(eachPost=>{
+            return <p>{eachPost.id}: {eachPost.title}</p>
+        })}
+
+
     </div>
 }

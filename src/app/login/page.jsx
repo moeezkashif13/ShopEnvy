@@ -2,14 +2,15 @@
 
 import { afterGettingAuthCode,startGoogleOAuth } from "@/utils/authrelated"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { useForm } from "react-hook-form"
 
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import axios from "axios"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import Loader from "@/components/Loader"
 
 const schema = yup.object({
 
@@ -43,6 +44,18 @@ export default function Login(){
 
 
   const router = useRouter()
+   const searchParams = useSearchParams()
+ 
+  
+
+  const [formSubmitting,setFormSubmitting] = useState({
+
+    status : 'initial',
+    message:''
+
+  })
+
+
   
   afterGettingAuthCode()
 
@@ -56,19 +69,49 @@ export default function Login(){
     resolver: yupResolver(schema),
   })
 
+  
+
 
   const onSubmit = async (data) => {
 
+    if(formSubmitting.status == 'submitting' || formSubmitting.status == 'successfull' ){
+      return;
+    }
+
 
     try {
+
+      
+      setFormSubmitting({
+        message:'',
+        status:'submitting'
+      })
+
           const response = await axios.post('/api/registerstandarduser',{
             ...data,
             login:true
           }    )
 
+          setFormSubmitting({
+            message:'Logged in successfully',
+            status:'successfull'
+          })
+
+            searchParams.get('redirect')?router.push(searchParams.get('redirect')):router.push('/profile')
+
+          
+
 
   } catch (error) {
   console.log(error);      
+
+
+  setFormSubmitting({
+    message:'An error occured while logging in',
+    status:'error'
+  })
+
+
   }
 
 
@@ -79,7 +122,19 @@ export default function Login(){
 
 
 
-    return  <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+    return  <> 
+    
+    {formSubmitting.status == 'submitting' &&
+    
+    <Loader/>
+
+}
+    
+    
+    <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+
+
+
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex flex-row-reverse justify-center flex-1">
 
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
@@ -144,7 +199,8 @@ export default function Login(){
 <p className=" text-sm text-red-500 font-semibold mb-2">{errors.password?.message}</p>
 
                 
-                <button type="submit" className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                <button disabled={formSubmitting.status=='submitting'|| formSubmitting.status=='successfull'} type="submit" className=" tracking-wide font-semibold bg-indigo-500 disabled:bg-indigo-300 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+
                   <svg
                     className="w-6 h-6 -ml-2"
                     fill="none"
@@ -159,6 +215,15 @@ export default function Login(){
                   </svg>
                   <span className="ml-3">Login</span>
                 </button>
+
+                {formSubmitting.status == 'successfull' ?<p className="text-green-500 font-semibold text-center mt-4">{formSubmitting.message}</p>
+
+:
+
+<p className="text-red-500 font-semibold text-center mt-4">{formSubmitting.message}</p>
+
+
+}
 
                 <p className="mt-6 text-xs text-gray-600 text-center">
                   New to Shop Envy? <Link href='/register' className="underline"> Go to Register Page </Link> 
@@ -191,7 +256,7 @@ export default function Login(){
       </div>
     </div>
 
-  
+  </>
 
 
 }

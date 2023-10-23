@@ -3,24 +3,25 @@
 import SecondCart from "@/components/Checkout/SecondCart"
 import axios from "axios"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Loader from "@/components/Loader"
 import { toBase64 } from "@/utils/toBase64"
+import { setUser } from "../globalredux/features/userslice/userslice"
 
 const schema = yup
   .object({
 
-    address1: yup.string().required('Address is required'),
+    address: yup.string().required('Address is required'),
 
 zipCode: yup.string()
 .min(3, "Please enter more than 2 characters").max(5,'Maximum 5 characters allowed')
-.required("This field is required"),
+.required("Zip Code is required"),
 
 city:yup.string().required('City Name is Required'),
     
@@ -65,7 +66,7 @@ export default function SecondCheckout(){
     message:'You are not logged in, please login or register on ShopEnvy to continue the checkout process'
     })
 
-    const [userDetails,setUserDetails] = useState({});
+    const userDetails = useSelector(state=>state.userRelated.userDataObj);
 
     const {
         register,
@@ -93,50 +94,55 @@ export default function SecondCheckout(){
     const cartArray = useSelector(state=>state.usercart.cart)
     const [convertedPreview,setConvertedPreview] = useState([])
     
-    useEffect(async ()=>{
+    useEffect( ()=>{
 
-
-        const previewImagesForUpload = cartArray.map(eachItem=>{
-            return {
-                id :    eachItem.id,
-                url :   `http://127.0.0.1:1337${eachItem.ProductPreviewImage.url}`
-            }
-        })
-
-await previewImagesForUpload.map(async eachImage=>{
-
-             await toBase64(eachImage.url,(async dataUrl=>{
-
-                const formData = new FormData();
-
-                formData.set("image",dataUrl.split('base64,')[1])
-              
-                // console.log(formData.get("image"));
-                
-              return await axios.post('https://api.imgbb.com/1/upload?key=ecd9aca473a2b9286cda81b8ac68dc53',formData,{
-                  headers:{
-                    "Content-Type" : "multipart/form-data"
-                  }
-                }).then(resp=>{
-                    console.log(resp.data.data);
-                //   return resp.data.data.thumb
-                // check.push(resp.data.data.thumb)
-            //     setConvertedPreview(
-            //          [...convertedPreview,{id:eachImage.id,data:resp.data.data.thumb}]
-            // )
-
-            setConvertedPreview(oldVal=>{
-                return [...oldVal,{id:eachImage.id,data:resp.data.data.thumb}]
+        const creatingImagePreviews = async ()=>{
+            const previewImagesForUpload = cartArray.map(eachItem=>{
+                return {
+                    id :    eachItem.id,
+                    url :   `${process.env.NEXT_PUBLIC_STRAPI_URL}${eachItem.ProductPreviewImage.url}`
+                }
             })
-
-
-                }).catch(err=>{
-                  console.log(err);
+    
+    await previewImagesForUpload.map(async eachImage=>{
+    
+                 await toBase64(eachImage.url,(async dataUrl=>{
+    
+                    const formData = new FormData();
+    
+                    formData.set("image",dataUrl.split('base64,')[1])
+                  
+                    // console.log(formData.get("image"));
+                    
+                  return await axios.post('https://api.imgbb.com/1/upload?key=ecd9aca473a2b9286cda81b8ac68dc53',formData,{
+                      headers:{
+                        "Content-Type" : "multipart/form-data"
+                      }
+                    }).then(resp=>{
+                        console.log(resp.data.data);
+                    //   return resp.data.data.thumb
+                    // check.push(resp.data.data.thumb)
+                //     setConvertedPreview(
+                //          [...convertedPreview,{id:eachImage.id,data:resp.data.data.thumb}]
+                // )
+    
+                setConvertedPreview(oldVal=>{
+                    return [...oldVal,{id:eachImage.id,data:resp.data.data.thumb}]
                 })
+    
+    
+                    }).catch(err=>{
+                      console.log(err);
+                    })
+    
+                }))
+                
+            })
+        }
 
-            }))
-            
-        })
+        creatingImagePreviews()
+
+
         
     },[])
 
@@ -179,6 +185,7 @@ await previewImagesForUpload.map(async eachImage=>{
       }
     
     
+      const dispatch = useDispatch()
 
     useEffect(()=>{
 
@@ -188,21 +195,21 @@ await previewImagesForUpload.map(async eachImage=>{
                 
                 const response = await axios.get('/api/getuserdetails');
 
-                
 
             setUserLoggedIn({
                 message:"You are logged in that's why we can prefill your data",
                 status:true
             });
 
-            setUserDetails(response.data.user)
+            // setUserDetails(response.data.user)
+            dispatch(setUser(response.data.user));
 
 
 
 
         } catch (error) {
             setUserLoggedIn({
-                message: 'You are not logged in so please login or register on ShopEnvy to continue the checkout process',
+                message: 'You are not logged in, please login or register on ShopEnvy to continue the checkout process',
                 status:false
             });
         }
@@ -215,7 +222,9 @@ await previewImagesForUpload.map(async eachImage=>{
     },[])
     
 
-    
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+  
 
 
 
@@ -246,7 +255,7 @@ await previewImagesForUpload.map(async eachImage=>{
         
 <div className="flex flex-col gap-y-4">
         <span className="text-red-500 w-full ">{userLoggedIn.message}</span>
-            <div className="text-center text-xl">Proceed to <Link className="underline" href='/login'> Login </Link> OR <Link className="underline" href='/register'>Register</Link></div>
+            <div className="text-center text-xl">Proceed to <Link className="underline" href={`/login?redirect=${pathname.slice(1)}`}> Login </Link> OR <Link className="underline" href={`/register?redirect=${pathname.slice(1)}`}>Register</Link></div>
 
         </div>
 }
@@ -257,11 +266,11 @@ await previewImagesForUpload.map(async eachImage=>{
 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 
 
-    <InputField errors={errors} register={register} valueFromSchema='address1' text='Address 1' userLoggedIn={userLoggedIn.status}  placeholder='Your Address' />
+    <InputField errors={errors} register={register} valueFromSchema='address' text='Address' userLoggedIn={userLoggedIn.status} prefilled={userDetails['address']}  placeholder='Your Address' />
 
-    <InputField errors={errors} register={register} valueFromSchema='zipCode' text='Zip Code' userLoggedIn={userLoggedIn.status}  placeholder='Your Zip Code' />
+    <InputField errors={errors} register={register} valueFromSchema='zipCode' text='Zip Code' userLoggedIn={userLoggedIn.status} prefilled={userDetails['zipCode']}  placeholder='Your Zip Code' />
 
-    <InputField errors={errors} register={register} valueFromSchema='city' text='City' userLoggedIn={userLoggedIn.status}  placeholder='Your City' />
+    <InputField errors={errors} register={register} valueFromSchema='city' text='City' userLoggedIn={userLoggedIn.status} prefilled={userDetails['city']}   placeholder='Your City' />
 
 
 
@@ -277,7 +286,7 @@ await previewImagesForUpload.map(async eachImage=>{
 {submittingMessage&&<p className={`${submittingMessage.startsWith("There")?'text-red-500':'text-green-500'} text-center font-medium text-3xl`}>{submittingMessage}</p>}
 
 
-<p className="text-center ">By clicking on "Continue to payment" button, you will be redirected to a page hosted by Stripe itself to ensure maximum trust and security while charging for your payment</p>
+<p className="text-center ">By clicking on "Continue to payment" button, you will be redirected to a payment page hosted by Stripe itself to ensure maximum trust and security while charging for your payment</p>
 
 
 

@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
-const jwt = require('jsonwebtoken')
+
 
 const bcrypt = require("bcryptjs")
 
@@ -39,6 +39,11 @@ export async function createUser(userdata,provider,isOAuth=true) {
           profilepic:{
             avatarurl:userdata.picture?userdata.picture:'https://www.google.com'
           },
+
+          address: userdata.address,
+          city: userdata.city,
+          zipCode: userdata.zipCode,
+          country: userdata.country,
 
           emailConfirmationCode : emailConfirmationCode
 

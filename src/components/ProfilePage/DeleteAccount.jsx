@@ -35,7 +35,7 @@ setTimeout(() => {
 }
 
 
-        <div className="text-center text-xl font-semibold text-red-500 h-[400px] flex justify-center items-center">
+        <div className="text-center text-xl font-semibold text-red-500 h-[250px] flex justify-center items-center">
 
 
 <div onClick={confirmDeleteAccount} className="cursor-pointer bg-red-500 text-white px-4 py-3 rounded-lg">Delete Account</div>

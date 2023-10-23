@@ -33,7 +33,7 @@ console.log(findingProducts,'findingProducts findingProducts findingProducts');
 
     try {
 
-        await axios.post('http://127.0.0.1:1337/api/orders?populate=PlacedOrders', {
+        await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/orders?populate=PlacedOrders`, {
 
 
         "data":{

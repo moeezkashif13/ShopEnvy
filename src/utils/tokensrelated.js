@@ -1,7 +1,4 @@
 import jwt from 'jsonwebtoken'
-import * as jose from 'jose'
-import { cookies } from 'next/headers';
-
 
 export const verifyJWTToken = async (request)=>{
 

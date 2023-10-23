@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { DivContainer, FirstContainer, LittleInfo, commonClasses } from "./Container"
 
 const ProfileImage = ()=>{
@@ -19,19 +20,26 @@ const ProfileImage = ()=>{
 
 const PersonalInformation = ()=>{
 
-    
+    const userInfo = useSelector(state=>state.userRelated.userDataObj);
 
+    const relavantArr = [
+        {heading:'First Name',text:userInfo.name.split(' ')[0]},
+        {heading:'Last Name',text:userInfo.name.split(' ')[1]},
+        {heading:'Email',text:userInfo.email},
+        {heading:'Account Status',text:userInfo.status},
+
+    ]
 
     return <DivContainer>
 
 
     <p className="font-semibold text-lg">Personal Information</p>
 
-    <div className={`${commonClasses}`}>
+    <div className={`${commonClasses} `}>
 
 
-    {[1,2,3,4,5].map((elem)=>{
-        return <LittleInfo/>
+    {relavantArr.map((elem)=>{
+        return <LittleInfo data={elem} />
     })}
 
 
@@ -47,6 +55,19 @@ const PersonalInformation = ()=>{
 
 
 const Address = ()=>{
+
+
+    const userInfo = useSelector(state=>state.userRelated.userDataObj);
+
+    const relavantArr = [
+        {heading:'Address',text:userInfo.address},
+        {heading:'City',text:userInfo.city},
+        {heading:'Zip Code',text:userInfo.zipCode},
+        {heading:'Country',text:userInfo.country},
+
+    ]
+
+
     return <DivContainer>
 
 
@@ -55,8 +76,8 @@ const Address = ()=>{
     <div className={`${commonClasses}`}>
 
 
-    {[1,2,3,4,5].map((elem)=>{
-        return <LittleInfo/>
+    {relavantArr.map((elem)=>{
+        return <LittleInfo data={elem} />
     })}
 
 

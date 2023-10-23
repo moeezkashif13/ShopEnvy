@@ -5,6 +5,8 @@ export async function GET(request,{params}) {
 
 
     try {
+
+        
         
 const findUser = await getLoggedInUser(null,params.confirmationcode.join('/'))
 

@@ -39,7 +39,7 @@ export default function OrderHistory (){
 
     useEffect(()=>{
 
-        axios.get(`http://127.0.0.1:1337/api/orders?populate=*&filters[Email][$eq]=${userInfo.email}`,config).then(resp=>{
+        axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/orders?populate=*&filters[Email][$eq]=${userInfo.email}`,config).then(resp=>{
             // console.log(resp.data.data);
 
             resp.data.data.forEach(eachOrder=>{

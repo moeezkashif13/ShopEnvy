@@ -9,30 +9,27 @@ export async function middleware(request) {
 
     const path = request.nextUrl.pathname;
 
-    const isPublicPath = path === '/login' || path === '/register';
+    // const isPublicPath = path === '/login' || path === '/register';
 
-    const getToken = request.cookies.get('token')?.value || null;
+    // const getToken = request.cookies.get('token')?.value || null;
 
 
     try {
 
 
-      if(!getToken){
+    //   if(!getToken){
         
-        return NextResponse.redirect(new URL('/login',request.nextUrl))
+    //     return NextResponse.redirect(new URL('/login',request.nextUrl))
 
-      }
+    //   }
 
-      const verifyingToken = await fetch('http://localhost:3000/api/verifyinguser',{method:'POST',body:JSON.stringify({
-        getToken
-    }),})
+    //   const verifyingToken = await fetch('http://localhost:3000/api/verifyinguser',{method:'POST',body:JSON.stringify({
+    //     getToken
+    // }),})
 
-      const data = await verifyingToken.json()
+    //   const data = await verifyingToken.json()
 
-      console.log(data,'data data data data data');
-
-      NextResponse.json({checking:'aviennn'},{status:200})
-
+        return NextResponse.redirect(new URL('/profile',request.nextUrl))
 
 
       

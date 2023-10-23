@@ -6,11 +6,10 @@ export async function POST(request,response) {
 
 
     try {
-console.log('insideee posttt');
-// console.log(request);
-        const bodyData = await request.json()
-        console.log(bodyData,'bodyData bodyData');
 
+        const bodyData = await request.json()
+       
+        
       const verifyingToken = await verifyJWTToken(bodyData.getToken)
 
 

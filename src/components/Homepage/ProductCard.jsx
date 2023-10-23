@@ -4,7 +4,7 @@ import Link from "next/link";
 const slugify = require('slugify')
 
 
- const toSlug = (text)=>{
+export const toSlug = (text)=>{
     return slugify(text, {
         replacement: '-',  // replace spaces with replacement character, defaults to `-`
         remove: undefined, // remove characters that match regex, defaults to `undefined`
@@ -32,7 +32,7 @@ const {id} = eachProd
         <Link href={`/productpage/${toSlug(Name)}?sku=${SKU}&id=${id}`} className="w-[330px]   text-center space-y-2">
 
             <div className="h-[530px] ">
-                <img src={`http://localhost:1337${largePreview.url}`} className="w-full h-full object-cover max-w-full" alt="" />
+                <img src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${largePreview.url}`} className="w-full h-full object-cover max-w-full" alt="" />
             </div>
 
 <p className="text-sm pt-1">{Name}</p>

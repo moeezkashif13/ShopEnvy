@@ -4,6 +4,9 @@ import counterReducer from "./features/counter/counterSlice";
 
 import { persistReducer } from "redux-persist";
 
+import { PERSIST, PURGE } from 'redux-persist/es/constants';
+
+
 import { authReducer } from "./features/auth/authslice";
 
 import cartReducer from './features/cart/cartSlice'
@@ -22,7 +25,10 @@ import localStorage from "./customStorage";
 
 import {createStateSyncMiddleware, initMessageListener} from "redux-state-sync";
 
-const reduxStateSyncConfig = {};
+const reduxStateSyncConfig = {
+  blacklist: [PERSIST, PURGE],
+
+};
 
 
 
@@ -90,7 +96,7 @@ const rootReducer = combineReducers({
 export const store = configureStore({
   reducer: rootReducer,
 
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(createStateSyncMiddleware(reduxStateSyncConfig)),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck:false}).concat(createStateSyncMiddleware(reduxStateSyncConfig)),
 
 
   // middleware: [applyMiddleware(createStateSyncMiddleware(reduxStateSyncConfig))]

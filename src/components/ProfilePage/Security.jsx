@@ -10,8 +10,8 @@ export default function SecurityTab (){
 
 <div className={` ${commonClasses} justify-between`}>
 
-        <LittleInfo inputField={true}/>
-        <LittleInfo inputField={true}/>
+        <LittleInfo data={{heading:'Old Password'}} inputField={true}/>
+        <LittleInfo data={{heading:'New Password'}} inputField={true}/>
 
         <div className="w-full bg-orange-500 py-3 rounded-lg text-center cursor-pointer">Change Password </div>
 

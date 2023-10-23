@@ -1,5 +1,6 @@
 "use client"
 
+import { products } from '@/components/impdata'
 import { base64Image } from '@/components/temp'
 import { config } from '@/utils/superadminconfig'
 import axios from 'axios'
@@ -83,7 +84,7 @@ useEffect(()=>{
 
     try {
 
-      await axios.post('http://127.0.0.1:1337/api/orders?populate=PlacedOrders', {
+      await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/orders?populate=PlacedOrders`, {
 
 
       "data":{
@@ -103,10 +104,82 @@ useEffect(()=>{
   }
 
 
-  Check()
+  // Check()
 
 
+  // axios.get('http://127.0.0.1:1337/api/products?populate=categories&sort[0]=createdAt:desc&pagination[page]=1&pagination[pageSize]=8').then(resp=>{
+  //   console.log(resp.data.data);
+  // }).catch(err=>{
+  //   console.log(err);
+  // })
+
+
+  // axios.get('http://127.0.0.1:1337/api/categories').then(resp=>{
+  //   console.log(resp.data.data);
+  // }).catch(err=>{
+  //   console.log(err);
+  // })
+
+  // 4d54d7bc4e9c781d7cebb1d17a7d4c8edeca8a56d387f7b21f842c1936cec89bcb395591e0466a38eca69cdb8a41afc93f2633500ffcc552a75ee424efa787d83ad2008ea8834300d7e1a2ac261e1220b7321499280ce9de043b3e95842903dbf9de6978f2811eda209b6978fade86c4770d56dc16740e21592d11b83d7a787d
+
+  const well = async()=>{
+    
+    const getCategs = await axios.get('http://localhost:5050/api/categories').then(resp=>{
+      return resp.data.data
+    })
+
+const allCategs = getCategs.map(eachCateg=>{
+  return eachCateg.attributes.Name
 })
+
+console.log(allCategs);
+  
+// allCategs.forEach(async checking=>{
+
+//   axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/categories`,{
+//     "data":{
+//       "Name" : checking
+//     },
+//   },{
+//     headers:{
+//       Authorization: 'Bearer 4d54d7bc4e9c781d7cebb1d17a7d4c8edeca8a56d387f7b21f842c1936cec89bcb395591e0466a38eca69cdb8a41afc93f2633500ffcc552a75ee424efa787d83ad2008ea8834300d7e1a2ac261e1220b7321499280ce9de043b3e95842903dbf9de6978f2811eda209b6978fade86c4770d56dc16740e21592d11b83d7a787d'
+//     }
+//   }).then(resp=>{
+//     console.log(resp.data);
+//   }).catch(err=>{
+//     console.log(err);
+//   })
+
+// })
+
+  //   axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/categories`).then(resp=>{
+  //   console.log(resp.data);
+  // }).catch(err=>{
+  //   console.log(err);
+  // })
+
+   
+  }
+
+  // well()
+  
+  const avien = async()=>{
+    
+
+    const wellCheck = await fetch('/api/send-products')
+
+    const sendCheck = await wellCheck.json();
+    
+    console.log(sendCheck);
+
+
+
+}
+
+
+
+
+},[])
 
 
 

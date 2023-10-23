@@ -1,6 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode:false
+    reactStrictMode:false,
+
+    images:{
+        domains:['images.unsplash.com','uniworthdress.com']
+    },
+
+    
+    eslint:{
+        ignoreDuringBuilds:true,
+        
+    }
+
+
 }
 
 module.exports = nextConfig
