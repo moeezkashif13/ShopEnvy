@@ -268,7 +268,7 @@ border-2 border-[#E3E3E3] cursor-pointer rounded-full" style={{transition:'all 0
 <div className="text-[#2D2D2D] font-medium">
 
 
-{[1,2,3,4].map(()=>{
+{/* {[1,2,3,4].map(()=>{
     return <div className="border-t-2 last:border-b-2 border-[#E3E3E3]">
 
     <div className="flex py-3.5">
@@ -278,7 +278,7 @@ border-2 border-[#E3E3E3] cursor-pointer rounded-full" style={{transition:'all 0
 
 
     </div>
-})}
+})} */}
 
 
 

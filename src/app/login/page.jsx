@@ -1,6 +1,6 @@
 "use client"
 
-import { afterGettingAuthCode,startGoogleOAuth } from "@/utils/authrelated"
+import { afterGettingAuthCode,startGoogleOAuth, startTwitterOAuth } from "@/utils/authrelated"
 import Link from "next/link"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
@@ -11,6 +11,7 @@ import * as yup from "yup"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import Loader from "@/components/Loader"
+import { useSelector } from "react-redux"
 
 const schema = yup.object({
 
@@ -33,17 +34,16 @@ const schema = yup.object({
 
 export default function Login(){
 
-  // useEffect(()=>{
-
-  //   axios.post('/api/getuserdetails').then(resp=>{
-  //     console.log(resp.data);
-  //   })
-
-  // },[])
-
-
-
+  const userInfo = useSelector(state=>state.userRelated.userDataObj);
   const router = useRouter()
+  
+  
+  if(Object.keys(userInfo).length>0){
+
+    router.push('/profile')
+    
+  }
+
    const searchParams = useSearchParams()
  
   
@@ -57,7 +57,7 @@ export default function Login(){
 
 
   
-  afterGettingAuthCode()
+  afterGettingAuthCode(setFormSubmitting)
 
 
   
@@ -69,7 +69,7 @@ export default function Login(){
     resolver: yupResolver(schema),
   })
 
-  
+
 
 
   const onSubmit = async (data) => {
@@ -143,7 +143,7 @@ export default function Login(){
             <h1 className="text-2xl xl:text-3xl font-extrabold">Login</h1>
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
-                <button onClick={()=>startGoogleOAuth(router)} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                <button onClick={()=>startGoogleOAuth(router,setFormSubmitting)} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                   <div className="bg-white p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
                       <path
@@ -166,7 +166,7 @@ export default function Login(){
                   </div>
                   <span className="ml-4">Login with Google</span>
                 </button>
-                <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
+                <button onClick={()=>startTwitterOAuth(router,setFormSubmitting)} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
                   <div className="bg-white w-8 h-8 p-1 rounded-full flex justify-center items-center">
                    <img src="/sampleimages/twitter.svg"  width={20} alt="" />
                   </div>
@@ -229,16 +229,6 @@ export default function Login(){
                   New to Shop Envy? <Link href='/register' className="underline"> Go to Register Page </Link> 
                 </p>
 
-                <p className="mt-6 text-xs text-gray-600 text-center">
-                  I agree to abide by Shop Envy 
-                  <a href="#" className="border-b border-gray-500 border-dotted">
-                    {" "}Terms of Service {" "}
-                  </a>
-                  and its  {" "}
-                  <a href="#" className="border-b border-gray-500 border-dotted">
-                    Privacy Policy
-                  </a>
-                </p>
               
               </form>
             </div>

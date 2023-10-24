@@ -24,6 +24,9 @@ zipCode: yup.string()
 .required("Zip Code is required"),
 
 city:yup.string().required('City Name is Required'),
+
+country:yup.string().required('Country is Required'),
+
     
 
 
@@ -93,58 +96,59 @@ export default function SecondCheckout(){
     
     const cartArray = useSelector(state=>state.usercart.cart)
     const [convertedPreview,setConvertedPreview] = useState([])
+    const dispatch = useDispatch()
     
-    useEffect( ()=>{
+    // useEffect( ()=>{
 
-        const creatingImagePreviews = async ()=>{
-            const previewImagesForUpload = cartArray.map(eachItem=>{
-                return {
-                    id :    eachItem.id,
-                    url :   `${process.env.NEXT_PUBLIC_STRAPI_URL}${eachItem.ProductPreviewImage.url}`
-                }
-            })
+    //     const creatingImagePreviews = async ()=>{
+    //         const previewImagesForUpload = cartArray.map(eachItem=>{
+    //             return {
+    //                 id :    eachItem.id,
+    //                 url :   `${process.env.NEXT_PUBLIC_STRAPI_URL}${eachItem.ProductPreviewImage.url}`
+    //             }
+    //         })
     
-    await previewImagesForUpload.map(async eachImage=>{
+    // await previewImagesForUpload.map(async eachImage=>{
     
-                 await toBase64(eachImage.url,(async dataUrl=>{
+    //              await toBase64(eachImage.url,(async dataUrl=>{
     
-                    const formData = new FormData();
+    //                 const formData = new FormData();
     
-                    formData.set("image",dataUrl.split('base64,')[1])
+    //                 formData.set("image",dataUrl.split('base64,')[1])
                   
-                    // console.log(formData.get("image"));
+    //                 // console.log(formData.get("image"));
                     
-                  return await axios.post('https://api.imgbb.com/1/upload?key=ecd9aca473a2b9286cda81b8ac68dc53',formData,{
-                      headers:{
-                        "Content-Type" : "multipart/form-data"
-                      }
-                    }).then(resp=>{
-                        console.log(resp.data.data);
-                    //   return resp.data.data.thumb
-                    // check.push(resp.data.data.thumb)
-                //     setConvertedPreview(
-                //          [...convertedPreview,{id:eachImage.id,data:resp.data.data.thumb}]
-                // )
+    //               return await axios.post('https://api.imgbb.com/1/upload?key=ecd9aca473a2b9286cda81b8ac68dc53',formData,{
+    //                   headers:{
+    //                     "Content-Type" : "multipart/form-data"
+    //                   }
+    //                 }).then(resp=>{
+    //                     console.log(resp.data.data);
+    //                 //   return resp.data.data.thumb
+    //                 // check.push(resp.data.data.thumb)
+    //             //     setConvertedPreview(
+    //             //          [...convertedPreview,{id:eachImage.id,data:resp.data.data.thumb}]
+    //             // )
     
-                setConvertedPreview(oldVal=>{
-                    return [...oldVal,{id:eachImage.id,data:resp.data.data.thumb}]
-                })
+    //             setConvertedPreview(oldVal=>{
+    //                 return [...oldVal,{id:eachImage.id,data:resp.data.data.thumb}]
+    //             })
     
     
-                    }).catch(err=>{
-                      console.log(err);
-                    })
+    //                 }).catch(err=>{
+    //                   console.log(err);
+    //                 })
     
-                }))
+    //             }))
                 
-            })
-        }
+    //         })
+    //     }
 
-        creatingImagePreviews()
+    //     // creatingImagePreviews()
 
 
         
-    },[])
+    // },[])
 
 
 
@@ -152,16 +156,38 @@ export default function SecondCheckout(){
     const [submittingMessage,setSubmittingMessage] = useState('');
 
       const onSubmit = async (data) => {
-
         if(!userLoggedIn.status||submittingForm||cartArray.length==0){
             return;
         };
 
         setSubmittingForm(true);
         setSubmittingMessage('Reaching out to Stripe....')
-        
+        console.log(data);
+console.log(userDetails);
+
+
+
+
         try {
+
+
+    if(userDetails.isOAuth && !userDetails.address){
+
+        try {
+        const response = await axios.post('/api/update-user',{userInfo:userDetails,fieldsToUpdate:data})
+        
+        dispatch(setUser(response.data.updatedUser));
+        
+
+        } catch (error) {
+          throw new Error('Error while updating shipping details')
+        }
+
+}
+
  
+      console.log('i shoulldddd runnnnn');
+
             const sessionURL = await axios.post('/api/create-checkout-session',{cartArray,convertedPreview,userDetails})
 
         setSubmittingForm(false);
@@ -185,7 +211,6 @@ export default function SecondCheckout(){
       }
     
     
-      const dispatch = useDispatch()
 
     useEffect(()=>{
 
@@ -271,6 +296,10 @@ export default function SecondCheckout(){
     <InputField errors={errors} register={register} valueFromSchema='zipCode' text='Zip Code' userLoggedIn={userLoggedIn.status} prefilled={userDetails['zipCode']}  placeholder='Your Zip Code' />
 
     <InputField errors={errors} register={register} valueFromSchema='city' text='City' userLoggedIn={userLoggedIn.status} prefilled={userDetails['city']}   placeholder='Your City' />
+
+
+    <InputField errors={errors} register={register} valueFromSchema='country' text='Country' userLoggedIn={userLoggedIn.status} prefilled={userDetails['country']}   placeholder='Your Country' />
+
 
 
 

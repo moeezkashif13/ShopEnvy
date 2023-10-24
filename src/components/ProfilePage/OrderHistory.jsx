@@ -83,7 +83,7 @@ export default function OrderHistory (){
 
 
         <div className="w-[80px] h-[80px] ">
-            <img src={eachRelatedOrder?.PreviewImage} className="w-full h-full object-cover max-w-full" alt="" />
+            <img src={eachRelatedOrder?.PreviewImage} className="w-full h-full object-contain max-w-full" alt="" />
         </div>
     
         <div className="space-y-1 ml-4 ">

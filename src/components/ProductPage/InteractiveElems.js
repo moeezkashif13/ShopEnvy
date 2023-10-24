@@ -143,7 +143,7 @@ export const AddToCartButton = ({productData})=>{
             id:productData.id,
             ...productData.attributes,
             ProductImages : 0,
-            ProductPreviewImage : productData.attributes.ProductPreviewImage.data.attributes.formats.large,
+            ProductPreviewImage : productData.attributes.ProductPreviewImage,
             selectedSize : userSelections.selectedSize,
             selectedQuantity : userSelections.selectedQuantity
         

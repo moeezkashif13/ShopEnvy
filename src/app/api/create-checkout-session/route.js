@@ -17,9 +17,9 @@ try {
 
 const LineItemsArray = cartArray.map(eachItem=>{
 
-    const findRelevantPreviewImage = convertedPreview.filter(eachImage=>{
-                return eachImage.id == eachItem.id
-    })
+    // const findRelevantPreviewImage = convertedPreview.filter(eachImage=>{
+    //             return eachImage.id == eachItem.id
+    // })
 
    
     return {
@@ -28,11 +28,11 @@ const LineItemsArray = cartArray.map(eachItem=>{
             product_data:{
                 name : eachItem.Name,
                 description: eachItem.Description,
-                images : [`${findRelevantPreviewImage[0]?.data?.url}`],
+                images : [`${eachItem.ProductPreviewImage}`],
                 metadata: {
                     Name: userDetails.name,
                     Email : userDetails.email,
-                    PreviewImage : findRelevantPreviewImage[0]?.data?.url,
+                    PreviewImage : eachItem.ProductPreviewImage,
                     ProductName : eachItem.Name,
 
                 }

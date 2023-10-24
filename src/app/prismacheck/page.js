@@ -177,6 +177,52 @@ console.log(allCategs);
 }
 
 
+// , {
+
+
+//   "data":{
+//       "Name" : findingProducts[0].metadata.Name,
+//       "Email": findingProducts[0].metadata.Email,
+//       "PlacedOrders":[...placedOrders],
+//       "Status" : "Order Received"
+//   }
+
+//   }
+
+console.log(config);
+
+const aienCheck = async ()=>{
+
+  try {
+      const helloWello = await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/orders?populate=PlacedOrders` , {
+
+
+        "data":{
+            "Name" : "findingProducts[0].metadata.Name",
+            "Email": "email@gmail.com",
+            "PlacedOrders":[{ProductName:"NAME",PreviewImage:"dasdasdsad"}],
+            "Status" : "Order Received"
+        }
+      
+        }, config )
+
+      console.log(helloWello);
+
+
+
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+
+// aienCheck()
+
+
+
+
+
 
 
 },[])

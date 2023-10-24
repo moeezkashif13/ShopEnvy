@@ -29,7 +29,8 @@ console.log(findingProducts,'findingProducts findingProducts findingProducts');
     })
 
     // console.log();
-      
+      console.log(findingProducts[0],'findingProducts[0] findingProducts[0] findingProducts[0]');
+    console.log(placedOrders,'placedOrders placedOrders placedOrders');
 
     try {
 
@@ -43,7 +44,11 @@ console.log(findingProducts,'findingProducts findingProducts findingProducts');
             "Status" : "Order Received"
         }
 
-        } ,config )
+        } , {
+            headers:{
+                Authorization : `Bearer 4d54d7bc4e9c781d7cebb1d17a7d4c8edeca8a56d387f7b21f842c1936cec89bcb395591e0466a38eca69cdb8a41afc93f2633500ffcc552a75ee424efa787d83ad2008ea8834300d7e1a2ac261e1220b7321499280ce9de043b3e95842903dbf9de6978f2811eda209b6978fade86c4770d56dc16740e21592d11b83d7a787d`
+            }
+        } )
 
     } catch (error) {
         console.log(error,'error.message error.message error.message');

@@ -1,6 +1,8 @@
 import {NextResponse} from 'next/server'
 
 import {createUser} from '@/utils/dbrelated'
+import { settingCookiesForLoginSignup } from '@/utils/cookiesrelated';
+import { cookies } from 'next/headers';
 
 
 
@@ -43,13 +45,14 @@ async function verify(id_token) {
 
 
 
-const state = crypto.randomBytes(32).toString('base64')
 
 
 
 export async function POST(request,response) {
 
   const bodyData = await request.json()
+  console.log('we are runningggg');
+let state = crypto.randomBytes(32).toString('base64')
 
 
   if(bodyData.startprocess){
@@ -71,7 +74,7 @@ export async function POST(request,response) {
 
       });
 
-
+      cookies().set('state',state,{httpOnly:true,});
 
 
   return NextResponse.json({ url:url }, { status: 200 })
@@ -82,40 +85,37 @@ export async function POST(request,response) {
 
 
 
-
 }else if(bodyData.afterredirection){
+
+  
 
   try {
     
-    if(bodyData.state != state){
+    if(bodyData.state != cookies().get('state').value){
       throw new Error('maslaa aagyaa ustadd')
     }
 
-    console.log('heelllooooo');
-
     // VALIDDD CODE
-  // let {tokens}  = await oauth2Client.getToken(bodyData.authcode);
-  // oauth2Client.setCredentials(tokens);
+  let {tokens}  = await oauth2Client.getToken(bodyData.authcode);
+  oauth2Client.setCredentials(tokens);
 
-  // console.log(tokens,'tokens tokens tokens');
+  console.log(tokens,'tokens tokens tokens');
 
-  // const {id_token,expiry_date}  = tokens;
+  const {id_token,expiry_date}  = tokens;
 
 
-  // const gotuserdata = await  verify(id_token)
+  const gotuserdata = await  verify(id_token)
 
-  // console.log(gotuserdata,'gotuserdata gotuserdata');
+  gotuserdata['profileimagefile'] = gotuserdata.picture
 
-  // const prismaResp = await createUser(gotuserdata,'google')
-  // console.log(prismaResp,'prismaResp prismaResp prismaResp');
-
-    // VALIDDD CODE
-    
-  // prisma.$disconnect();
   
+  
+  const creatingUser = await createUser(gotuserdata,'google')
 
+  
+  await settingCookiesForLoginSignup(creatingUser)
 
-
+  cookies().delete('state');
 
 
 

@@ -1,6 +1,6 @@
 import { createUser, loginUser } from '@/utils/dbrelated'
 import {NextResponse} from 'next/server'
-import {cookies} from 'next/headers'
+
 import { settingCookiesForLoginSignup } from '@/utils/cookiesrelated'
 import { sendMail } from '@/utils/sendmails'
 
@@ -11,7 +11,6 @@ const bcrypt = require("bcryptjs")
 export async function POST(request,response) {
 
   const bodyData = await request.json()
-  const cookiesInstance = cookies()
 
 
     if(bodyData.registration){

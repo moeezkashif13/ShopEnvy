@@ -11,11 +11,13 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { AiFillDelete, AiFillLock, AiOutlineCreditCard, AiOutlineHeart, AiOutlineHistory, AiOutlineUser } from "react-icons/ai";
 import { GrNotification } from "react-icons/gr";
+import {TbLogout2} from 'react-icons/tb'
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../globalredux/features/userslice/userslice";
 import Loader from "@/components/Loader";
+import Logout from "@/components/ProfilePage/Logout";
 
 
 
@@ -31,6 +33,9 @@ const profileNavLinks = [
     {text:'WishList',icon:<AiOutlineHeart/>,component:<WishList/>},
    
     {text:'Delete Account',icon:<MdDeleteOutline/>,component:<DeleteAccount/>},
+
+    {text:'Logout',icon:<TbLogout2/>,component:<Logout/>},
+
 
 ]
 
@@ -199,7 +204,7 @@ onClick={()=>selectTab(profileNavLinks,setActiveTab,index)}
 
 <div className="mb-4 font-semibold text-2xl " >Account Settings</div>
 
-{userInfo?.status=='pending'&&<div className="mb-7 font-medium text-lg text-red-500" >Your email account is not verified. We have already sent you a confirmation email.</div>}
+{(userInfo?.status=='pending' && !userInfo.isOAuth)&&<div className="mb-7 font-medium text-lg text-red-500" >Your email account is not verified. We have already sent you a confirmation email.</div>}
 
 
 {/* {activeTab} */}

@@ -26,7 +26,7 @@ import localStorage from "./customStorage";
 import {createStateSyncMiddleware, initMessageListener} from "redux-state-sync";
 
 const reduxStateSyncConfig = {
-  blacklist: [PERSIST, PURGE],
+  blacklist: [PERSIST, PURGE,'persist/REHYDRATE'],
 
 };
 

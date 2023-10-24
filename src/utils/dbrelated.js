@@ -20,6 +20,12 @@ export async function createUser(userdata,provider,isOAuth=true) {
 
     if(isEmailExist){
       console.log('i existtttt');
+
+      if(isOAuth){
+        return isEmailExist
+      }
+
+
   throw new Error('User already exists')
   
   
@@ -32,20 +38,25 @@ export async function createUser(userdata,provider,isOAuth=true) {
         data: {
           name: userdata.name,
           email: userdata.email,
+
           role : 'user',
           ...((!isOAuth&&provider=='standard')&&{password:userdata.password}),
+          
           isOAuth: isOAuth,
           provider : provider,
           profilepic:{
-            avatarurl:userdata.picture?userdata.picture:'https://www.google.com'
+            avatarurl:userdata.profileimagefile?userdata.profileimagefile:'https://www.google.com'
           },
 
-          address: userdata.address,
-          city: userdata.city,
-          zipCode: userdata.zipCode,
-          country: userdata.country,
+          
+          ...((!isOAuth&&provider=='standard')&&{address: userdata.address,
+            city: userdata.city,
+            zipCode: userdata.zipCode,
+            country: userdata.country,
+  
+            emailConfirmationCode : emailConfirmationCode}),
 
-          emailConfirmationCode : emailConfirmationCode
+          
 
 
         },

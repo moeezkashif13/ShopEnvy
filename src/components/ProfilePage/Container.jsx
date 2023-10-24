@@ -40,7 +40,7 @@ export const LittleInfo = ({data,inputField})=>{
     
     <p className="text-[#475974]">{data?.heading}</p>
     
-{inputField?<input type="text" className="bg-gray-100 px-3 text-gray-800 outline-none w-full py-2" />:<p>{data?.text}</p>}
+{inputField?<input id={data?.heading.replace(/ +/g, "")} type="text" className="bg-gray-100 px-3 text-gray-800 outline-none w-full py-2" />:<p>{data?.text}</p>}
 
 </div>
 

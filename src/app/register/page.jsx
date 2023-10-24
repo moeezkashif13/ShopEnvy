@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import Loader from "@/components/Loader"
+import { useSelector } from "react-redux"
 
 
 const schema = yup.object({
@@ -78,7 +79,20 @@ const inputFieldsCommonClasses = 'w-full px-8 py-4 rounded-lg font-medium bg-gra
 
 export default function Register(){
 
+
+  
+
+  const userInfo = useSelector(state=>state.userRelated.userDataObj);
   const router = useRouter()
+  
+  
+  if(Object.keys(userInfo).length>0){
+
+    router.push('/profile')
+    
+  }
+  
+
 
   const [formSubmitting,setFormSubmitting] = useState({
 
@@ -87,38 +101,65 @@ export default function Register(){
 
   })
   
-  afterGettingAuthCode()
+  afterGettingAuthCode(setFormSubmitting)
 
   const {
     register,
     handleSubmit,
+
     formState: { errors },
   } = useForm({
+    mode:'onChange',
     resolver: yupResolver(schema),
   })
 
+
+
+
+  
   const searchParams = useSearchParams();
 
-
   const onSubmit = async (data) => {
+
     if(formSubmitting.status == 'submitting' || formSubmitting.status == 'successfull' ){
       return;
     }
 
-    try {
+    
+const formData = new FormData();
+var reader = new FileReader();
 
-      setFormSubmitting({
-        message:'',
-        status:'submitting'
-      })
+    setFormSubmitting({
+      message:'',
+      status:'submitting'
+    })
+    
+    reader.onloadend = function() {
+  const profileImage =   reader.result.split('base64,')[1];
 
-          const response = await axios.post('/api/registerstandarduser',{
-            ...data,
+  formData.set("image",profileImage)
+
+  axios.post('https://api.imgbb.com/1/upload?key=ecd9aca473a2b9286cda81b8ac68dc53',formData,{
+    headers:{
+      "Content-Type" : "multipart/form-data"
+      
+    }
+  }).then(resp=>{
+  
+    const newData = {...data,profileimagefile:resp.data.data.thumb.url}
+
+    console.log(newData);
+
+        try {
+
+    
+          const response =  axios.post('/api/registerstandarduser',{
+            ...newData,
             registration:true
           }    )
 
-          console.log(response.data);
 
+          
           setFormSubmitting({
             message:'Thank you for signing up. Welcome to Shop Envy',
             status:'successfull'
@@ -142,6 +183,63 @@ export default function Register(){
 }
 
 
+  }).catch(err=>{
+    console.log(err);
+
+    setFormSubmitting({
+      message:'There is an issue with your profile pic',
+      status:'error'
+    })
+
+  })
+
+
+
+    }
+    
+    reader.readAsDataURL(data.profileimagefile[0]);
+  
+
+
+
+
+//     try {
+
+      // setFormSubmitting({
+      //   message:'',
+      //   status:'submitting'
+      // })
+
+//           const response = await axios.post('/api/registerstandarduser',{
+//             ...data,
+//             registration:true
+//           }    )
+
+//           console.log(response.data);
+
+//           setFormSubmitting({
+//             message:'Thank you for signing up. Welcome to Shop Envy',
+//             status:'successfull'
+//           })
+
+//           searchParams.get('redirect')?router.push(searchParams.get('redirect')):router.push('/profile')
+          
+
+//           // redirect('/profile')
+          
+
+//   } catch (error) {
+
+//     console.log(error);
+
+//     setFormSubmitting({
+//       message:'An error occured while registering you',
+//       status:'error'
+//     })
+    
+// }
+
+
 
   }
   
@@ -163,7 +261,7 @@ export default function Register(){
             <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
-                <button onClick={()=>startGoogleOAuth(router)} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                <button onClick={()=>startGoogleOAuth(router,setFormSubmitting)} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                   <div className="bg-white p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
                       <path
@@ -186,7 +284,7 @@ export default function Register(){
                   </div>
                   <span className="ml-4">Sign Up with Google</span>
                 </button>
-                <button onClick={()=>startTwitterOAuth(router)} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
+                <button onClick={()=>startTwitterOAuth(router,setFormSubmitting)} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
                   <div className="bg-white w-8 h-8 p-1 rounded-full flex justify-center items-center">
                    <img src="/sampleimages/twitter.svg"  width={20} alt="" />
                   </div>
@@ -275,7 +373,8 @@ export default function Register(){
 
 {/*  */}
                   <input
-                  {...register("profileimagefile")}
+
+{...register("profileimagefile")}
 
                   className={inputFieldsCommonClasses}
                   type="file"
@@ -317,16 +416,7 @@ export default function Register(){
                 </p>
 
 
-                <p className="mt-4 text-xs text-gray-600 text-center">
-                  I agree to abide by templatana's {" "}
-                  <a href="#" className="border-b border-gray-500 border-dotted">
-                   Terms of Service
-                  </a>
-                  {" "} and its {" "}
-                  <a href="#" className="border-b border-gray-500 border-dotted">
-                    Privacy Policy
-                  </a>
-                </p>
+             
               </form>
             </div>
           </div>
