@@ -9,8 +9,8 @@ const crypto = require('crypto')
 // To set environment variables on macOS or Linux, run the export commands below from the terminal:
 // export CONSUMER_KEY='YOUR-KEY'
 // export CONSUMER_SECRET='YOUR-SECRET'
-const consumer_key = 'Bs3vr9KHWPkQCS7LwadiRMbF1';
-const consumer_secret = 'iGEyaJnfUvRklrXFhjXVJU1CVWiwML2Jd5CeNmexCkyZYjVSwb';
+const consumer_key = process.env.Twitter_Consumer_Key;
+const consumer_secret = process.env.Twitter_Consumer_Secret;
 
 // These are the parameters for the API request
 // specify Tweet IDs to fetch, and any additional fields that are required

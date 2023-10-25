@@ -35,7 +35,7 @@ async function getData() {
 
   // const fetchProducts = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?populate[0]=categories&populate[1]=ProductPreviewImage&sort[0]=createdAt:desc&pagination[page]=1&pagination[pageSize]=8`)
 
-  const fetchProducts = await fetch(`http://localhost:3000/api/send-products`)
+  const fetchProducts = await fetch(`${process.env.NEXT_PUBLIC_WEBSITE}/api/send-products`)
 
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -44,7 +44,7 @@ async function getData() {
   // const fetchCategories = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/categories?populate=products`);
 
 
-  const fetchCategories = await fetch(`http://localhost:3000/api/send-categs`);
+  const fetchCategories = await fetch(`${process.env.NEXT_PUBLIC_WEBSITE}/api/send-categs`);
 
 
   if (!fetchProducts.ok || !fetchCategories.ok) {

@@ -111,7 +111,7 @@ export const afterGettingAuthCode = (setFormSubmitting)=>{
 
     setFormSubmitting({message:'',status:'submitting'})
 
-    axios.post('http://localhost:3000/api/startgoogleoauth',{
+    axios.post(`${process.env.NEXT_PUBLIC_WEBSITE}/api/startgoogleoauth`,{
       afterredirection:true,
       authcode: googleoauthCode,
       state
@@ -137,7 +137,7 @@ export const afterGettingAuthCode = (setFormSubmitting)=>{
     setFormSubmitting({message:'',status:'submitting'})
 
 
-    axios.post('http://localhost:3000/api/starttwitteroauth',{
+    axios.post(`${process.env.NEXT_PUBLIC_WEBSITE}/api/starttwitteroauth`,{
       afterredirection:true,
       oauth_token,
       oauth_verifier
