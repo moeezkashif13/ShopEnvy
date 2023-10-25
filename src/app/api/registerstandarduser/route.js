@@ -72,6 +72,7 @@ export async function POST(request,response) {
     return NextResponse.json({error:'email or password not present'},{status:404})
   }
 
+console.log(email,password,'email,password email,password email,password');
 
   const checkingUserInDB = await loginUser(email,password);
 

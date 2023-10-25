@@ -76,6 +76,7 @@ export default function SecondCheckout(){
         handleSubmit,
         formState: { errors },
       } = useForm({
+        mode:'onChange',
         resolver: yupResolver(schema),
       })
     

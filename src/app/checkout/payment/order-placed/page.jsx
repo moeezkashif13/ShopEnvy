@@ -2,13 +2,31 @@
 
 "use client"
 
+import { refreshCart } from "@/app/globalredux/features/cart/cartSlice";
+import { finalSelection, setChanges } from "@/app/globalredux/features/productslice/productslice";
 import Link from "next/link";
+import { useEffect } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function OrderPlaced(){
 
     const userInfo = useSelector(state=>state.userRelated.userDataObj);
+    const dispatch = useDispatch();
+
+
+    useEffect(()=>{
+
+        dispatch(refreshCart([]))
+
+        dispatch(setChanges({changeInQuantity:'initial',changeInSize:'initial'}))
+
+        dispatch(finalSelection({selectedQuantity:1,selectedSize:'S'}));
+
+        
+
+
+    },[])
 
 
     return <div className="flex justify-center items-center bg-[#F2F2F2]  h-screen">

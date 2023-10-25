@@ -18,15 +18,17 @@ import userReducer from './features/userslice/userslice'
 
 
 import localStorage from "./customStorage";
+import { createStateSyncMiddleware } from "redux-state-sync";
 
 // import localStorage from 'redux-persist/lib/storage'
 
 // import localStorage from '@react-native-async-storage/async-storage';
 
-import {createStateSyncMiddleware, initMessageListener} from "redux-state-sync";
+// import {createStateSyncMiddleware, initMessageListener} from "redux-state-sync";
 
 const reduxStateSyncConfig = {
   blacklist: [PERSIST, PURGE,'persist/REHYDRATE'],
+  channel: 'my_broadcast_channel',
 
 };
 
@@ -93,15 +95,20 @@ const rootReducer = combineReducers({
   //add all your reducers here
 },);
 
+const checkingStateSync = [createStateSyncMiddleware(reduxStateSyncConfig)]
+
 export const store = configureStore({
   reducer: rootReducer,
 
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck:false}).concat(createStateSyncMiddleware(reduxStateSyncConfig)),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck:false}).concat(createStateSyncMiddleware(reduxStateSyncConfig)),
 
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck:false}).concat(...checkingStateSync),
+
+  
 
   // middleware: [applyMiddleware(createStateSyncMiddleware(reduxStateSyncConfig))]
 
 
  });
 
- initMessageListener(store);
+//  initMessageListener(store);

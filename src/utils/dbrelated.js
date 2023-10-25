@@ -91,9 +91,13 @@ export async function loginUser(email,password){
       throw new Error('User not found brrroooooo')
     } else {
       // return user;
+console.log('yahann takk aagyaa');
+console.log(user);
+console.log(password);
+console.log(user.password);
 
       const comparingPassword = await bcrypt.compare(password, user.password)
-
+console.log(comparingPassword,'comparingPassword comparingPassword comparingPassword');
       if(comparingPassword){
         return user;
       }else{
@@ -150,10 +154,14 @@ export async function getLoggedInUser(userdata,confirmationCode){
 
     if(isUserExist){
 console.log(isUserExist,'isUserExist isUserExist isUserExist');
-      const excludedFields = exclude(isUserExist, ['password','emailConfirmationCode'])
+      // const excludedFields = exclude(isUserExist, ['password','emailConfirmationCode'])
 
 
-      return excludedFields
+      // return excludedFields
+
+      return isUserExist
+
+
     }else{
     throw new Error('Error in finding user')
 

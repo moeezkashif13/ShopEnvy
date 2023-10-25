@@ -19,7 +19,7 @@ const ProfileImage = ()=>{
     <div className="flex gap-x-3.5 items-center font-semibold">
     
         <div className="w-20 h-20 rounded-full ">
-            <img src={userInfo.profilepic.avatarurl} className="w-full max-w-full h-full object-cover rounded-full" alt="" />
+            <img src={userInfo?.profilepic?.avatarurl} className="w-full max-w-full h-full object-cover rounded-full" alt="" />
         </div>
     
         <div>

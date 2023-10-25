@@ -144,7 +144,7 @@ var reader = new FileReader();
       "Content-Type" : "multipart/form-data"
       
     }
-  }).then(resp=>{
+  }).then(async resp=>{
   
     const newData = {...data,profileimagefile:resp.data.data.thumb.url}
 
@@ -153,11 +153,10 @@ var reader = new FileReader();
         try {
 
     
-          const response =  axios.post('/api/registerstandarduser',{
+          const response = await  axios.post('/api/registerstandarduser',{
             ...newData,
             registration:true
           }    )
-
 
           
           setFormSubmitting({
