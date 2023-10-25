@@ -15,6 +15,12 @@ export const metadata = {
 }
 
 export default function RootLayout(props) {
+
+  if(!process.env.NEXT_PUBLIC_WEBSITE){
+    return null;
+  };
+
+
   return (
     <html lang="en">
       <body className={inter.className}>
