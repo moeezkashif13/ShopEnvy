@@ -4,20 +4,14 @@ import {NextResponse} from 'next/server'
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // Find your endpoint's secret in your Dashboard's webhook settings
-const endpointSecret = 'whsec_cfac85dc6531ee63e3354a2b30ef47d20cd63ac5e85b6f4cc8c918668c20b2f1';
+const endpointSecret = process.env.STRIPE_WEBHOOK_KEY;
 
 const fulfillOrder = async (lineItems) => {
 
-  
-
-  // TODO: fill me in
-  console.log("Fulfilling order");
 
    await createOrderInStrapi(lineItems);
 
-   console.log('donnnneeeeeee');
-
-  
+   
 
 }
 

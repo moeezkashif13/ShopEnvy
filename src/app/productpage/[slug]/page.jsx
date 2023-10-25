@@ -10,7 +10,6 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 
 
-
 export async function getSpecificProductData(searchParams) {
 
 
@@ -38,6 +37,8 @@ export async function getSpecificProductData(searchParams) {
     
   }
   
+
+
 
 
 export default async function Product(props){
@@ -71,10 +72,10 @@ console.log(ProductImages);
     return <div>
         
 
-<div className="flex">
+<div className="flex flex-col lg:flex-row bg-pink-500">
 
 
-<div className="relative pl-16 py-8 pr-8 productpagebg w-[65%] space-y-8">
+<div className="relative pl-4 lg:pl-16 py-8 pr-4 lg:pr-8 productpagebg w-full lg:w-[65%]  space-y-8">
     
 
     <div className="font-semibold text-3xl">
@@ -84,9 +85,9 @@ console.log(ProductImages);
 
 
 
-    <div className="  relative flex justify-between px-32">
+    <div className="  relative flex justify-between px-0 lg:px-32 ">
 
-    <div className="flex  flex-row-reverse  absolute left-0 bottom-0 text-6xl font-bold tracking-wider gap-x-2  rotate-180" style={{writingMode:'vertical-rl',textOrientation:'mixed',}}>
+    <div className=" hidden lg:flex  flex-row-reverse  absolute left-0 bottom-0 text-6xl font-bold tracking-wider gap-x-2  rotate-180" style={{writingMode:'vertical-rl',textOrientation:'mixed',}}>
         {/* <p>lanosaeS </p>
         <p>sucof</p> */}
         <p>focus</p>
@@ -104,23 +105,22 @@ console.log(ProductImages);
 
 
 
-    <div className="border-2 shadow-2xl  w-[320px] h-[430px] bg-[#DAD3CF]  absolute bottom-8 right-0"> 
+    <div className="border-2 shadow-2xl  w-[320px] h-[430px] bg-[#DAD3CF]  absolute -bottom-[450px] lg:bottom-8 right-0"> 
     
     {/* <img src={`${ProductImagesToArray[1]}`} className='w-full h-full max-w-full object-cover' alt="" /> */}
 
 <Image src={ProductImagesToArray[1]} fill />
 
-
     
     </div>
 
 
     </div>
 
-<div className={` pl-32  flex flex-wrap  gap-y-4 ${ProductImagesToArray.length==4?'gap-x-8':'justify-between'} `}>
+<div className={` pl-4 lg:pl-32 pt-[450px] lg:pt-0  flex flex-wrap  gap-y-4 ${ProductImagesToArray.length==4?'gap-x-8':'justify-center lg:justify-between'} `}>
     
         {ProductImagesToArray.map((elem,index)=>{
-            return  index>1&& <div style={{transition:'all 0.4s'}} className='hover:scale-110 h-[300px] w-[200px] rounded-lg '>
+            return  index>1&& <div style={{transition:'all 0.4s'}} className='hover:scale-105 hover:lg:scale-110 h-[300px] w-[200px] rounded-lg '>
                 <img src={`${elem}`} alt="" className='w-full h-full max-w-full object-cover rounded-lg' srcset="" />
             </div>
         })}
@@ -129,20 +129,13 @@ console.log(ProductImages);
 </div>
 
 
-<Suspense fallback={<p>Loading</p>}>
-
-<div className='pt-40 text-lg'>
-    <JSONPlaceHolder/>
-</div>
-
-</Suspense>
 
 
 
 </div>
 
 
-<div className="px-16 py-8 bg-[#F7F7F7] w-[35%] space-y-7">
+<div className="px-4 lg:px-16 py-8 bg-[#F7F7F7] w-full lg:w-[35%] space-y-7">
     
 
 <div className="space-y-2">

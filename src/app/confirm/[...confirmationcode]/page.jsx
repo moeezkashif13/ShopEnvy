@@ -1,8 +1,11 @@
 "use client"
 
+import Loader from "@/components/Loader"
 import axios from "axios"
 import { useRouter,useParams } from "next/navigation"
 import { useEffect, useState } from "react"
+
+
 
 export default function WelcomePage({params}){
 // console.log(props);
@@ -11,8 +14,11 @@ export default function WelcomePage({params}){
 
     const [userConfirmed,setUserConfirmed] = useState(false)
 
+    const [loading,setLoading] = useState(true);
 
     useEffect(()=>{
+
+        setLoading(true);
 
         const verifyEmailConfirmationCode = async ()=>{
 
@@ -25,11 +31,14 @@ const joined = confirmationcode.join('/')
                 const response = await axios.get(`/api/confirm/${joined}`)
 
                 setUserConfirmed(true)
+                setLoading(false);
 
 
             } catch (error) {
                 console.log(error);
                 setUserConfirmed(false)
+        setLoading(false);
+
             }
 
         }
@@ -44,10 +53,10 @@ const joined = confirmationcode.join('/')
 
 
 
-    return <div>
+    return loading?<Loader/>: <div className="text-center text-lg w-full">
 
 
-Welcome Page {userConfirmed?'Confirmed':'Not confirmed'}
+{userConfirmed?'Email Confirmed':'Error in confirming your email'}
 
 
     </div>

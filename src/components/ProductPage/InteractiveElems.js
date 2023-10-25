@@ -270,7 +270,7 @@ export const ProceedToCheckout = ()=>{
     const router = useRouter();
 
 
-    return <div onClick={()=>router.push('/secondcheckout')}  className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
+    return <div onClick={()=>router.push('/checkout')}  className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
     Proceed to checkout
 </div>
 }

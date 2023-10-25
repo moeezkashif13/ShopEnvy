@@ -49,7 +49,7 @@ var result = sum.toLocaleString('en-US', { style: 'decimal', minimumFractionDigi
 
 
 
-return <div className="w-1/2  px-20 py-12 space-y-12 linearBG text-white relative z-20">
+return <div className="w-full lg:w-1/2  px-4 lg:px-20 py-3 lg:py-12 space-y-6 lg:space-y-12 linearBG text-white relative z-20">
 
 
     <div className="w-full h-full absolute left-0 top-0 -z-10 ">
@@ -82,7 +82,7 @@ return <div className="w-1/2  px-20 py-12 space-y-12 linearBG text-white relativ
     {cartArray.length>0?cartArray.map((eachItemFromCart)=>{
 
         
-        return   <div style={{transition:'all 0.8s'}} className="rounded-lg  px-5 py-3 bg-[#39514A] hover:bg-[hsl(163,17%,5%)] flex">
+        return   <div style={{transition:'all 0.8s'}} className="rounded-lg  px-5 py-3 bg-[#39514A] hover:bg-[hsl(163,17%,5%)] flex flex-col lg:flex-row text-sm lg:text-base">
     
         <div className="space-y-2">
             <p>{eachItemFromCart.Name}</p>  
@@ -96,7 +96,7 @@ return <div className="w-1/2  px-20 py-12 space-y-12 linearBG text-white relativ
 
         
     
-        <div className="ml-auto text-right space-y-2">
+        <div className=" lg:ml-auto lg:text-right flex gap-y-2 justify-between mt-2 lg:block lg:space-y-2 lg:mt-0">
             <p>PKR {new Intl.NumberFormat().format(eachItemFromCart.Price)}.00</p>
             <p>Total: {Checking(eachItemFromCart)}</p>
 

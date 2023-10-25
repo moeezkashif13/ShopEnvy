@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../globalredux/features/userslice/userslice";
 import Loader from "@/components/Loader";
 import Logout from "@/components/ProfilePage/Logout";
+import { useRouter } from "next/navigation";
 
 
 
@@ -30,7 +31,7 @@ const profileNavLinks = [
     {text:'Notifications',icon:<IoMdNotificationsOutline/>,component:<NotificationsTab/>},
     // {text:'Billing',icon:<AiOutlineCreditCard/>,component:<Billing/>},
     {text:'Order History',help:'orders-history',icon:<AiOutlineHistory/>,component:<OrderHistory/>},
-    {text:'WishList',icon:<AiOutlineHeart/>,component:<WishList/>},
+    // {text:'WishList',icon:<AiOutlineHeart/>,component:<WishList/>},
    
     {text:'Delete Account',icon:<MdDeleteOutline/>,component:<DeleteAccount/>},
 
@@ -69,10 +70,9 @@ export default function Profile(props){
 
     const userInfo = useSelector(state=>state.userRelated.userDataObj);
 
-console.log(userInfo);
 
     const [userLoading,setUserLoading] = useState(true);
-
+const router = useRouter()
     const dispatch = useDispatch();
 
     const [activeTab,setActiveTab] = useState([
@@ -99,7 +99,8 @@ console.log(userInfo);
 
 
             } catch (error) {
-                setUserLoading(false)
+                
+                router.push('/login')
             }
 
         }
@@ -143,13 +144,13 @@ console.log(userInfo);
 
 
 
-    return  userLoading?<Loader/>:
+    // return  userLoading?<Loader/>:
 
 
-<div className="flex mt-6">
+return <div className="flex mt-6 flex-col lg:flex-row  ">
 
 
-<div className="w-[20%]  px-10 space-y-8">
+<div className="w-full lg:w-[20%] pb-6 lg:pb-0 px-6 lg:px-10 space-y-8">
 
 
 <div className="flex  -ml-4  gap-x-4 items-center">
@@ -196,7 +197,7 @@ onClick={()=>selectTab(profileNavLinks,setActiveTab,index)}
 
 
 
-<div className="w-[80%] bg-[#F6F6F6] rounded-xl px-7 py-7">
+<div className="w-full lg:w-[80%]  bg-[#F6F6F6]  lg:rounded-xl px-4 lg:px-7 py-7">
     
 
 <div >
@@ -220,7 +221,7 @@ onClick={()=>selectTab(profileNavLinks,setActiveTab,index)}
 </div>
 
  
-<div className="w-[calc(50%-10px)] hideScrollbar max-h-[400px] overflow-scroll rounded-lg ">
+<div className="w-full lg:w-[calc(50%-10px)] hideScrollbar max-h-[400px] overflow-scroll rounded-lg ">
 
     {activeTab[1]}
 
@@ -228,7 +229,7 @@ onClick={()=>selectTab(profileNavLinks,setActiveTab,index)}
 </div>
 
 
-<div className="w-[calc(50%-10px)] hideScrollbar max-h-[400px] overflow-scroll rounded-lg ">
+<div className="w-full lg:w-[calc(50%-10px)] hideScrollbar max-h-[400px] overflow-scroll rounded-lg ">
 
 {activeTab[2]}
 

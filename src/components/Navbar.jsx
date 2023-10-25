@@ -6,7 +6,7 @@ async function getCategories() {
 
     // const fetchProducts = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?populate[0]=categories&populate[1]=ProductPreviewImage&sort[0]=createdAt:desc&pagination[page]=1&pagination[pageSize]=8`)
   
-    const fetchProducts = await fetch(`http://localhost:3000/api/send-products`)
+    const fetchProducts = await fetch(`http://127.0.0.1:3000/api/send-products`)
   
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
@@ -15,7 +15,7 @@ async function getCategories() {
     // const fetchCategories = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/categories?populate=products`);
   
   
-    const fetchCategories = await fetch(`http://localhost:3000/api/send-categs`);
+    const fetchCategories = await fetch(`http://127.0.0.1:3000/api/send-categs`);
   
   
     if (!fetchProducts.ok || !fetchCategories.ok) {
@@ -101,10 +101,10 @@ export default async function Navbar(){
 <div className="flex text-2xl gap-x-4">
     
 
-<div  className='relative cursor-pointer'>
+{/* <div  className='relative cursor-pointer'>
 <AiOutlineHeart />
 <div className='absolute text-xs font-semibold flex justify-center items-center -right-1 -bottom-1 w-4 h-4 rounded-full bg-yellow-500'>5</div>
-</div>
+</div> */}
 
 
 
