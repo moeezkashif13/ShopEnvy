@@ -3,7 +3,9 @@ import Navbar from "@/components/Navbar";
 
 export const metadata = {
   title: 'Authentication - Shop Envy',
-  
+  icons: {
+    icon: '/icon.png',
+  },
 }
 
 

@@ -102,7 +102,9 @@ return chalCheck
 export const metadata = {
   title: 'Shop Envy - Your One-Stop E-commerce Destination',
   description: 'Discover a wide range of products at Shop Envy. Find everything you need in one place',
-
+  icons: {
+    icon: '/icon.png',
+  },
   openGraph: {
     title: 'Next.js',
     description: 'The React Framework for the Web',

@@ -407,6 +407,66 @@ export const products = {
     ]
     }
     }
+    },
+    {
+    "id": 14,
+    "attributes": {
+    "Name": "Maroon/Brown Relaxed Fit Flannel Plaid Over Shirt",
+    "SKU": "CSK2309",
+    "Description": "Exclusive to Trunk, this Flannel Plaid Vintage Over shirt combines vintage classiness with contemporary ease and utility. Featuring open-end chest pocket, a tonal plaid cotton flannel material with a French placket and button-down collar, a rounded hemline, and a relaxed-fit construction. Ideal for chillier times, layer it over a tee during autumn or wear it with a sweater in colder weather.",
+    "Price": 3500,
+    "DiscountedPrice": 3000,
+    "LeftInStock": "5",
+    "ProductSizes": "M,L,XL,2XL",
+    "createdAt": "2023-10-25T14:46:31.186Z",
+    "updatedAt": "2023-10-25T14:46:49.816Z",
+    "publishedAt": "2023-10-25T14:46:49.749Z",
+    "ProductImages": "https://uniworthdress.com/uploads/product/c60797af842b6af34bcd8018c58e9a70.JPG,https://uniworthdress.com/uploads/product/cb481c3106e99142a0b15acb21388fbd.jpg,https://uniworthdress.com/uploads/product/5fd89b887f41752ed618cd43d4a69775.JPG,https://uniworthdress.com/uploads/product/f92a0aa5dd904edccc9120a72d541bcc.JPG,https://uniworthdress.com/uploads/product/66a2fcd5c8e9d59c524dc9dbdfae5ce0.JPG,https://uniworthdress.com/uploads/product/CSK2309..jpg",
+    "ProductPreviewImage": "https://uniworthdress.com/uploads/product/66a2fcd5c8e9d59c524dc9dbdfae5ce0.JPG?h=120",
+    "categories": {
+    "data": [
+    {
+    "id": 40,
+    "attributes": {
+    "Name": "Shackets & Shirts",
+    "createdAt": "2023-10-22T22:07:26.280Z",
+    "updatedAt": "2023-10-22T22:07:26.280Z",
+    "publishedAt": "2023-10-22T22:07:26.279Z"
+    }
+    }
+    ]
+    }
+    }
+    },
+    {
+    "id": 15,
+    "attributes": {
+    "Name": "Navy/Camel Relaxed Fit Flannel Plaid Over Shirt",
+    "SKU": "CSK2310",
+    "Description": "This Flannel Plaid Vintage Over shirt combines vintage classiness with contemporary ease and utility. Featuring an open-end chest pocket, a tonal plaid cotton flannel material with a French placket and button-down collar, a rounded hemline, and a relaxed-fit construction. Ideal for chillier times, layer it over a tee during autumn or wear it with a sweater in colder weather.",
+    "Price": 4000,
+    "DiscountedPrice": 3000,
+    "LeftInStock": "24",
+    "ProductSizes": "S,M,L,XL,LG",
+    "createdAt": "2023-10-25T14:48:11.377Z",
+    "updatedAt": "2023-10-25T14:48:16.278Z",
+    "publishedAt": "2023-10-25T14:48:16.079Z",
+    "ProductImages": "https://uniworthdress.com/uploads/product/4a6bf3efe66a0819c8738846761a86f6.JPG,https://uniworthdress.com/uploads/product/b49690527a3fd39d5fb33c0c55547c63.JPG,https://uniworthdress.com/uploads/product/e3a381f4fad4f8f93c4f1f23c243900f.JPG,https://uniworthdress.com/uploads/product/c770b8643afa80a3e4d419dcb17862ad.JPG,https://uniworthdress.com/uploads/product/CSK2310.jpg",
+    "ProductPreviewImage": "https://uniworthdress.com/uploads/product/4a6bf3efe66a0819c8738846761a86f6.JPG?h=120",
+    "categories": {
+    "data": [
+    {
+    "id": 40,
+    "attributes": {
+    "Name": "Shackets & Shirts",
+    "createdAt": "2023-10-22T22:07:26.280Z",
+    "updatedAt": "2023-10-22T22:07:26.280Z",
+    "publishedAt": "2023-10-22T22:07:26.279Z"
+    }
+    }
+    ]
+    }
+    }
     }
     ],
     "meta": {
@@ -414,7 +474,7 @@ export const products = {
     "page": 1,
     "pageSize": 25,
     "pageCount": 1,
-    "total": 13
+    "total": 15
     }
     }
     }
@@ -768,6 +828,40 @@ export const products = {
         "publishedAt": "2023-10-23T07:38:04.231Z",
         "ProductImages": "https://uniworthdress.com/uploads/product/TSS2306%20(2).jpg,https://uniworthdress.com/uploads/product/TSS2306%20(3).jpg,https://uniworthdress.com/uploads/product/TSS2306%20(1).jpg,https://uniworthdress.com/uploads/product/TSS2306%20(4).jpg",
         "ProductPreviewImage": "https://uniworthdress.com/uploads/product/TSS2306%20(2).jpg"
+        }
+        },
+        {
+        "id": 14,
+        "attributes": {
+        "Name": "Maroon/Brown Relaxed Fit Flannel Plaid Over Shirt",
+        "SKU": "CSK2309",
+        "Description": "Exclusive to Trunk, this Flannel Plaid Vintage Over shirt combines vintage classiness with contemporary ease and utility. Featuring open-end chest pocket, a tonal plaid cotton flannel material with a French placket and button-down collar, a rounded hemline, and a relaxed-fit construction. Ideal for chillier times, layer it over a tee during autumn or wear it with a sweater in colder weather.",
+        "Price": 3500,
+        "DiscountedPrice": 3000,
+        "LeftInStock": "5",
+        "ProductSizes": "M,L,XL,2XL",
+        "createdAt": "2023-10-25T14:46:31.186Z",
+        "updatedAt": "2023-10-25T14:46:49.816Z",
+        "publishedAt": "2023-10-25T14:46:49.749Z",
+        "ProductImages": "https://uniworthdress.com/uploads/product/c60797af842b6af34bcd8018c58e9a70.JPG,https://uniworthdress.com/uploads/product/cb481c3106e99142a0b15acb21388fbd.jpg,https://uniworthdress.com/uploads/product/5fd89b887f41752ed618cd43d4a69775.JPG,https://uniworthdress.com/uploads/product/f92a0aa5dd904edccc9120a72d541bcc.JPG,https://uniworthdress.com/uploads/product/66a2fcd5c8e9d59c524dc9dbdfae5ce0.JPG,https://uniworthdress.com/uploads/product/CSK2309..jpg",
+        "ProductPreviewImage": "https://uniworthdress.com/uploads/product/66a2fcd5c8e9d59c524dc9dbdfae5ce0.JPG?h=120"
+        }
+        },
+        {
+        "id": 15,
+        "attributes": {
+        "Name": "Navy/Camel Relaxed Fit Flannel Plaid Over Shirt",
+        "SKU": "CSK2310",
+        "Description": "This Flannel Plaid Vintage Over shirt combines vintage classiness with contemporary ease and utility. Featuring an open-end chest pocket, a tonal plaid cotton flannel material with a French placket and button-down collar, a rounded hemline, and a relaxed-fit construction. Ideal for chillier times, layer it over a tee during autumn or wear it with a sweater in colder weather.",
+        "Price": 4000,
+        "DiscountedPrice": 3000,
+        "LeftInStock": "24",
+        "ProductSizes": "S,M,L,XL,LG",
+        "createdAt": "2023-10-25T14:48:11.377Z",
+        "updatedAt": "2023-10-25T14:48:16.278Z",
+        "publishedAt": "2023-10-25T14:48:16.079Z",
+        "ProductImages": "https://uniworthdress.com/uploads/product/4a6bf3efe66a0819c8738846761a86f6.JPG,https://uniworthdress.com/uploads/product/b49690527a3fd39d5fb33c0c55547c63.JPG,https://uniworthdress.com/uploads/product/e3a381f4fad4f8f93c4f1f23c243900f.JPG,https://uniworthdress.com/uploads/product/c770b8643afa80a3e4d419dcb17862ad.JPG,https://uniworthdress.com/uploads/product/CSK2310.jpg",
+        "ProductPreviewImage": "https://uniworthdress.com/uploads/product/4a6bf3efe66a0819c8738846761a86f6.JPG?h=120"
         }
         }
         ]

@@ -1,16 +1,15 @@
 "use client"
 
-import Billing from "@/components/ProfilePage/Billing";
 import DeleteAccount from "@/components/ProfilePage/DeleteAccount";
 import MyProfile from "@/components/ProfilePage/MyProfile";
 import NotificationsTab from "@/components/ProfilePage/Notifications";
 import OrderHistory from "@/components/ProfilePage/OrderHistory";
 import SecurityTab from "@/components/ProfilePage/Security";
-import WishList from "@/components/ProfilePage/WishList";
+
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { AiFillDelete, AiFillLock, AiOutlineCreditCard, AiOutlineHeart, AiOutlineHistory, AiOutlineUser } from "react-icons/ai";
-import { GrNotification } from "react-icons/gr";
+import { AiFillLock, AiOutlineHistory, AiOutlineUser } from "react-icons/ai";
+
 import {TbLogout2} from 'react-icons/tb'
 import { MdDeleteOutline } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -144,10 +143,7 @@ const router = useRouter()
 
 
 
-    // return  userLoading?<Loader/>:
-
-
-return <div className="flex mt-6 flex-col lg:flex-row  ">
+    return  userLoading?<Loader/>: <div className="flex mt-6 flex-col lg:flex-row  ">
 
 
 <div className="w-full lg:w-[20%] pb-6 lg:pb-0 px-6 lg:px-10 space-y-8">
