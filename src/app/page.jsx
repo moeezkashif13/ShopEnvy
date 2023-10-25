@@ -35,7 +35,10 @@ async function getData() {
 
   // const fetchProducts = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?populate[0]=categories&populate[1]=ProductPreviewImage&sort[0]=createdAt:desc&pagination[page]=1&pagination[pageSize]=8`)
 
+  
   const fetchProducts = await fetch(`${process.env.NEXT_PUBLIC_WEBSITE}/api/send-products`)
+
+  // console.log(fetchProducts,'fetchProducts fetchProducts fetchProducts');
 
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.

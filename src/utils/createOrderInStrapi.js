@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { config } from './superadminconfig';
+
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
