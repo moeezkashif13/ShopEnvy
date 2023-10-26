@@ -13,6 +13,7 @@ import { useEffect, useState } from "react"
 import Loader from "@/components/Loader"
 import { useSelector } from "react-redux"
 
+
 const schema = yup.object({
 
   email: yup.string()
@@ -38,11 +39,7 @@ export default function Login(){
   const router = useRouter()
   
   
-  if(Object.keys(userInfo).length>0){
-
-    router.push('/profile')
-    
-  }
+  
 
    const searchParams = useSearchParams()
  
@@ -139,6 +136,9 @@ export default function Login(){
 
           <div className="mt-12 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">Login</h1>
+            <Link href='/' className="underline text-2xl xl:text-3xl font-extrabold mt-3">Go to Homepage</Link>
+
+
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
                 <button onClick={()=>startGoogleOAuth(router,setFormSubmitting)} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">

@@ -1,7 +1,8 @@
 
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import {useRouter} from 'next/navigation'
+import { clearCartAndItsRelated } from "@/utils/reduxrelated";
 
 const Checking = (item)=>{
 
@@ -32,6 +33,7 @@ export default function SecondCart(){
 
     })
 
+    const dispatch = useDispatch();
     
 
 // Initialize a variable to store the sum
@@ -54,7 +56,7 @@ return <div className="w-full lg:w-1/2  px-4 lg:px-20 py-3 lg:py-12 space-y-6 lg
 
     <div className="w-full h-full absolute left-0 top-0 -z-10 ">
     
-    <svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='70' height='8' patternTransform='scale(2) rotate(135)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)'/><path d='M-.02 22c8.373 0 11.938-4.695 16.32-9.662C20.785 7.258 25.728 2 35 2c9.272 0 14.215 5.258 18.7 10.338C58.082 17.305 61.647 22 70.02 22M-.02 14.002C8.353 14 11.918 9.306 16.3 4.339 20.785-.742 25.728-6 35-6 44.272-6 49.215-.742 53.7 4.339c4.382 4.967 7.947 9.661 16.32 9.664M70 6.004c-8.373-.001-11.918-4.698-16.3-9.665C49.215-8.742 44.272-14 35-14c-9.272 0-14.215 5.258-18.7 10.339C11.918 1.306 8.353 6-.02 6.002'  stroke-width='0.5' stroke='hsla(163, 69%, 16%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(#a)'/></svg>
+    <svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='70' height='8' patternTransform='scale(2) rotate(135)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)'/><path d='M-.02 22c8.373 0 11.938-4.695 16.32-9.662C20.785 7.258 25.728 2 35 2c9.272 0 14.215 5.258 18.7 10.338C58.082 17.305 61.647 22 70.02 22M-.02 14.002C8.353 14 11.918 9.306 16.3 4.339 20.785-.742 25.728-6 35-6 44.272-6 49.215-.742 53.7 4.339c4.382 4.967 7.947 9.661 16.32 9.664M70 6.004c-8.373-.001-11.918-4.698-16.3-9.665C49.215-8.742 44.272-14 35-14c-9.272 0-14.215 5.258-18.7 10.339C11.918 1.306 8.353 6-.02 6.002'  strokeWidth='0.5' stroke='hsla(163, 69%, 16%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(#a)'/></svg>
     
     </div>
     
@@ -72,9 +74,22 @@ return <div className="w-full lg:w-1/2  px-4 lg:px-20 py-3 lg:py-12 space-y-6 lg
         <p>Continue your checkout process</p>
     
         <p className="text-5xl font-semibold">PKR {result} </p>
-    
-    
     </div>
+
+
+<div onClick={()=>{
+
+    clearCartAndItsRelated(dispatch);
+
+    setTimeout(() => {
+        router.push('/')
+    }, 1000);
+
+}}
+ className="bg-[hsl(160,33%,34%)]  cursor-pointer font-medium text-center py-3 text-xl rounded-md ">
+    Clear cart and go to homepage
+</div>
+
     
     <div className="space-y-6">
     

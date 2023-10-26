@@ -3,6 +3,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import { Providers } from './globalredux/provider'
+import HiddenComp from '@/components/HiddenComp'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +21,7 @@ export default function RootLayout(props) {
     return null;
   };
 
-
+  
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -28,6 +29,9 @@ export default function RootLayout(props) {
 <Providers>
 
         {props.children}
+
+<HiddenComp/>
+
         </Providers>
 
 {/* <Footer/> */}

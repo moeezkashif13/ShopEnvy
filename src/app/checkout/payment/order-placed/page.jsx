@@ -4,6 +4,7 @@
 
 import { refreshCart } from "@/app/globalredux/features/cart/cartSlice";
 import { finalSelection, setChanges } from "@/app/globalredux/features/productslice/productslice";
+import { clearCartAndItsRelated } from "@/utils/reduxrelated";
 import Link from "next/link";
 import { useEffect } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
@@ -17,11 +18,7 @@ export default function OrderPlaced(){
 
     useEffect(()=>{
 
-        dispatch(refreshCart([]))
-
-        dispatch(setChanges({changeInQuantity:'initial',changeInSize:'initial'}))
-
-        dispatch(finalSelection({selectedQuantity:1,selectedSize:'S'}));
+        clearCartAndItsRelated(dispatch)
 
         
 

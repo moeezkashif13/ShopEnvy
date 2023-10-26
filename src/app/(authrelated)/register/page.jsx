@@ -75,8 +75,6 @@ const schema = yup.object({
 const inputFieldsCommonClasses = 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-2 '
 
 
-
-
 export default function Register(){
 
 
@@ -84,14 +82,7 @@ export default function Register(){
 
   const userInfo = useSelector(state=>state.userRelated.userDataObj);
   const router = useRouter()
-  
-  
-  if(Object.keys(userInfo).length>0){
 
-    router.push('/profile')
-    
-  }
-  
 
 
   const [formSubmitting,setFormSubmitting] = useState({
@@ -258,6 +249,8 @@ var reader = new FileReader();
           
           <div className="mt-12 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
+            <Link href='/' className="underline text-2xl xl:text-3xl font-extrabold mt-3">Go to Homepage</Link>
+
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
                 <button onClick={()=>startGoogleOAuth(router,setFormSubmitting)} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
