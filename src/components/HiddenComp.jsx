@@ -1,21 +1,45 @@
 "use client"
 
-import axios from "axios"
-import { useEffect } from "react"
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
+const API_ENDPOINT = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products`;
+const MAX_RETRIES = 25;
+const RETRY_DELAY = 8000; // 5 seconds in milliseconds
 
-export default function HiddenComp(){
+function MyComponent() {
+  const [response, setResponse] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
 
-    useEffect(()=>{
+  const makeRequest = async () => {
+    try {
+      const res = await axios.get(API_ENDPOINT);
+      setResponse(res.data);
+    } catch (error) {
+      console.error(`Request failed. Retrying in ${RETRY_DELAY / 1000} seconds...`);
+      setTimeout(() => {
+        setRetryCount(retryCount + 1);
+      }, RETRY_DELAY);
+    }
+  };
 
-        axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products/9`).then(resp=>{
+  useEffect(() => {
+    if (retryCount < MAX_RETRIES) {
+      makeRequest();
+    } else {
+      console.error(`Max retries reached. Could not get a successful response from ${API_ENDPOINT}`);
+    }
+  }, [retryCount]);
 
-        }).catch(err=>{
-
-        })
-
-    },[])
-
-
-    return <div className="hidden">I am hidden bro</div>
+  return (
+    <div className='hidden'>
+      {response ? (
+        <p>Request successful! Response: {JSON.stringify(response)}</p>
+      ) : (
+        <p>Retrying... Retry count: {retryCount}</p>
+      )}
+    </div>
+  );
 }
+
+export default MyComponent;
