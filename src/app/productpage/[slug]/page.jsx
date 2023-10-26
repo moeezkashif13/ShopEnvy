@@ -10,6 +10,21 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 
 
+export async function generateStaticParams() {
+    console.log("->RUN 1");
+    const posts = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products`).then((res) => res.json())
+
+   const productsName =   posts.data.map((post) => ({
+     slug: post.id.toString()
+    }))
+
+    console.log(productsName,'productsName productsNameproductsNameproductsName productsName');
+
+    return productsName
+
+  } 
+  
+
 export async function getSpecificProductData(searchParams) {
 
 
@@ -42,6 +57,8 @@ export async function getSpecificProductData(searchParams) {
 
 
 export default async function Product(props){
+
+    console.log(props,'props props props props');
 
     const data = await getSpecificProductData(props.searchParams)
 // console.log(data);
