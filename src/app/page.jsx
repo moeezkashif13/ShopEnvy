@@ -158,10 +158,10 @@ export default async function Home() {
 
 <div className='space-y-7'>
 
-<p className='text-center text-4xl font-bold uppercase'>Shop {data.productsByRandomCategory.categoryName} </p>
+<p className='text-center text-2xl lg:text-4xl font-bold uppercase'>Shop {data.productsByRandomCategory.categoryName} </p>
 
 
-<div className='flex flex-wrap gap-x-3 justify-center'>
+<div className='flex flex-wrap gap-x-3 justify-center gap-y-7 '>
 
 
 {data.productsByRandomCategory.products.map((elem,key)=>{
@@ -208,7 +208,7 @@ export default async function Home() {
 <div className='space-y-7'>
 
 
-<p className='text-center text-4xl font-bold uppercase'>Newest Arrivals </p>
+<p className='text-center text-2xl lg:text-4xl font-bold uppercase'>Newest Arrivals </p>
 
 {/* <p className='font-bold text-4xl'>Trending</p> */}
 
@@ -261,7 +261,7 @@ export default async function Home() {
 
 
 
-<div className='bg-[#F6F6F6] h-[620px] w-full flex gap-x-0 justify-center relative z-10   text-[#4a4848] '>
+<div className='bg-[#F6F6F6] h-[620px] w-full hidden lg:flex gap-x-0 justify-center relative z-10   text-[#4a4848] '>
 
 
 <div className=' text-[4rem] text-center  h-full font-bold absolute top-0 left-5  w-full -z-10 ' style={{writingMode:'vertical-lr',textOrientation:'mixed',}}>The best decision </div>

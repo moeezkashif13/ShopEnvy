@@ -99,7 +99,7 @@ const router = useRouter()
 
             } catch (error) {
                 
-                router.push('/login')
+                router.push('/login',)
             }
 
         }

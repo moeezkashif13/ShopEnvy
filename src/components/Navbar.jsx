@@ -82,15 +82,15 @@ export default async function Navbar(){
     <p>Note: All orders shall be delivered in 2-3 working days.</p>
 </div> */}
 
-<div className="px-6 flex justify-between items-center py-5">
+<div className="px-6 flex flex-col lg:flex-row space-y-3 lg:space-y-0 justify-between items-center py-5">
 
 <div>
     <img src="https://monark.com.pk/cdn/shop/files/logo_white_opt_265x_2fb3956e-3294-4982-9512-7a4483174909.png?v=1644069341&width=200" alt="" />
 </div>
 
-<div className="px-3 py-3 bg-white flex gap-x-6 rounded-xl text-black text-sm">
+<div className=" px-3 py-3 bg-white hidden lg:flex gap-x-6 rounded-xl text-black text-sm">
 
-<input type="text" placeholder='Search for products' className="text-black outline-none bg-transparent w-[400px]" />
+<input type="text" placeholder='Search for products' className="text-black outline-none bg-transparent  lg:w-[400px]" />
 
 
 <div>magni</div>
@@ -110,7 +110,7 @@ export default async function Navbar(){
 
 <div  className='relative cursor-pointer'>
 <AiOutlineShoppingCart/>
-<div className='absolute text-xs font-semibold flex justify-center items-center -right-1 -bottom-1 w-4 h-4 rounded-full bg-yellow-500'>5</div>
+<div className='absolute text-xs font-semibold flex justify-center items-center -right-1 -bottom-1 w-4 h-4 rounded-full bg-yellow-500'>0</div>
 
 </div>
 
@@ -127,12 +127,11 @@ export default async function Navbar(){
 </div>
 
 
+<div className='mt-3 px-5 lg:px-16 text-center lg:text-left flex gap-y-3 text-sm lg:justify-center flex-wrap  lg:gap-x-10 lg:gap-y-6 lg:text-lg '>
 
-<div className='mt-3 px-16 flex justify-center flex-wrap gap-x-10 gap-y-6 text-lg '>
 
-
-{categories.map(eachCategory=>{
-    return <div style={{transition:'all 0.4s'}} className='hover:scale-125 cursor-pointer' >{eachCategory.attributes.Name}</div>
+{categories.map((eachCategory,key)=>{
+    return <div key={key} style={{transition:'all 0.4s'}} className='lg:hover:scale-125 cursor-pointer w-full lg:w-auto' >{eachCategory.attributes.Name}</div>
 })}
 
 
