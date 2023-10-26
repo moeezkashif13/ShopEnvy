@@ -80,14 +80,18 @@ return <div className="w-full lg:w-1/2  px-4 lg:px-20 py-3 lg:py-12 space-y-6 lg
 <div onClick={()=>{
 
     clearCartAndItsRelated(dispatch);
-
-    setTimeout(() => {
-        router.push('/')
-    }, 1000);
-
 }}
  className="bg-[hsl(160,33%,34%)]  cursor-pointer font-medium text-center py-3 text-xl rounded-md ">
-    Clear cart and go to homepage
+    Clear cart 
+</div>
+
+<div onClick={()=>{
+
+router.push('/')
+
+}}
+className="bg-[hsl(160,33%,34%)]  cursor-pointer font-medium text-center py-3 text-xl rounded-md ">
+Go To Homepage
 </div>
 
     

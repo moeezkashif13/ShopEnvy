@@ -20,9 +20,7 @@ export default function OrderPlaced(){
 
         clearCartAndItsRelated(dispatch)
 
-        
-
-
+    
     },[])
 
 

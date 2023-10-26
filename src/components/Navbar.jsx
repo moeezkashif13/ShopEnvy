@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import {AiOutlineShoppingCart,AiOutlineHeart,AiOutlineUser, AiFillHeart} from 'react-icons/ai'
+import { NavbarCartIcon } from './Homepage/HeroSect';
+
 
 
 async function getCategories() {
@@ -75,6 +77,7 @@ export default async function Navbar(){
     const {categories} = await getCategories();
 
     
+    
     return (
         <div className='py-3'>
 
@@ -93,7 +96,7 @@ export default async function Navbar(){
 <input type="text" placeholder='Search for products' className="text-black outline-none bg-transparent  lg:w-[400px]" />
 
 
-<div>magni</div>
+<div>icon</div>
 
 </div>
 
@@ -108,11 +111,7 @@ export default async function Navbar(){
 
 
 
-<div  className='relative cursor-pointer'>
-<AiOutlineShoppingCart/>
-<div className='absolute text-xs font-semibold flex justify-center items-center -right-1 -bottom-1 w-4 h-4 rounded-full bg-yellow-500'>0</div>
-
-</div>
+<NavbarCartIcon/>
 
 
 <Link  href={'/profile'} >

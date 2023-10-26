@@ -279,14 +279,14 @@ export default async function Home() {
 
 <div className='h-full pt-10 w-[500px]   '>
   
-  <img src="https://o.remove.bg/downloads/f12a7e53-0fe8-48e6-b73c-8dfe989f58b1/0de83b72d5a655e822f7ad5e289be7e0-removebg-preview.png" className='w-full h-full max-w-full object-contain' alt="" />
+  <img src="/first.png" className='w-full h-full max-w-full object-contain' alt="" />
 </div>
 
 
 <div className='h-full pt-10 w-[500px]   '>
 
 
-<img src="https://o.remove.bg/downloads/aa91099f-f74a-46e3-9eb4-78f601d22527/cd3b62109828823046c605820289ea10-removebg-preview.png" className='w-full h-full max-w-full object-contain' alt="" />
+<img src="/second.png" className='w-full h-full max-w-full object-contain' alt="" />
 
 
 

@@ -8,6 +8,10 @@ export const createOrderInStrapi = async(lineItems)=>{
 
     // console.log(lineItems,'lineItems lineItems lineItems');
 
+    
+
+
+
     const checking = await lineItems.data.map(eachItem=>{
         
         return eachItem.price.product

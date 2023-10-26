@@ -8,7 +8,7 @@ import SecurityTab from "@/components/ProfilePage/Security";
 
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { AiFillLock, AiOutlineHistory, AiOutlineUser } from "react-icons/ai";
+import { AiFillLock, AiOutlineHistory, AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 
 import {TbLogout2} from 'react-icons/tb'
 import { MdDeleteOutline } from "react-icons/md";
@@ -18,6 +18,7 @@ import { setUser } from "../globalredux/features/userslice/userslice";
 import Loader from "@/components/Loader";
 import Logout from "@/components/ProfilePage/Logout";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 
@@ -162,6 +163,16 @@ const router = useRouter()
 
 
 <div className="space-y-6 text-[#475974]  ">
+
+
+<Link href='/' className="gap-x-3 flex cursor-pointer items-center text-lg" >
+
+
+    <div className="text-2xl"><AiOutlineHome/></div>
+
+<p className="pt-1">Go to Homepage</p>
+
+</Link>
 
 
 {profileNavLinks.map((eachNav,index)=>{
