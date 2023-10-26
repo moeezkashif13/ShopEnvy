@@ -165,7 +165,9 @@ export default async function Home() {
 
 
 {data.productsByRandomCategory.products.map((elem,key)=>{
-  return <Link key={key} href={`/productpage/${toSlug(elem.attributes.Name)}?sku=${elem.attributes.SKU}&id=${elem.id}`} className='w-[320px] space-y-2  '>
+  return <Link key={key} href={`/productpage/${elem.attributes.SKU}?product=${toSlug(elem.attributes.Name)}&id=${elem.id}`} className='w-[320px] space-y-2  '>
+  
+  {/* return <Link key={key} href={`/productpage/${elem.id}`} className='w-[320px] space-y-2  '> */}
 
     <div className='w-full h-[440px]  relative'>
       {/* <img src={`${elem.attributes.ProductPreviewImage}`} className='w-full max-w-full object-cover h-full' alt="" /> */}
@@ -218,7 +220,11 @@ export default async function Home() {
 
 {data.products.data.map((eachProduct,key)=>{
   
-  return <Link key={key} href={`/productpage/${toSlug(eachProduct.attributes.Name)}?sku=${eachProduct.attributes.SKU}&id=${eachProduct.id}`} className='w-[320px] space-y-2  '>
+  return <Link key={key} href={`/productpage/${eachProduct.attributes.SKU}?product=${toSlug(eachProduct.attributes.Name)}&id=${eachProduct.id}`} className='w-[320px] space-y-2  '>
+
+
+  {/* // return <Link key={key} href={`/productpage/${eachProduct.id}`} className='w-[320px] space-y-2  '> */}
+
 
 
     <div className='w-full h-[440px]  relative'>

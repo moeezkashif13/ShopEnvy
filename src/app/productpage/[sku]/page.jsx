@@ -15,7 +15,7 @@ export async function generateStaticParams() {
     const posts = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products`).then((res) => res.json())
 
    const productsName =   posts.data.map((post) => ({
-     slug: post.id.toString()
+     sku: post.attributes.SKU
     }))
 
     console.log(productsName,'productsName productsNameproductsNameproductsName productsName');
@@ -25,15 +25,15 @@ export async function generateStaticParams() {
   } 
   
 
-export async function getSpecificProductData(searchParams) {
+export async function getSpecificProductData(neededData) {
 
 
     // await new Promise(resolve=>setTimeout(() => {
     //     resolve();
     // }, 3000))
+console.log(neededData,'neededData neededDataneededData neededData');
 
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products/${searchParams.id}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?filters[SKU][$eqi]=${neededData.sku}`)
 
 
     // The return value is *not* serialized
@@ -47,7 +47,7 @@ export async function getSpecificProductData(searchParams) {
     const toJSON = await res.json()
 
 
-    return toJSON.data;
+    return toJSON.data[0];
 
     
   }
@@ -56,19 +56,18 @@ export async function getSpecificProductData(searchParams) {
 
 
 
-export default async function Product(props){
+export default async function Product({params,searchParams}){
 
-    console.log(props,'props props props props');
 
-    const data = await getSpecificProductData(props.searchParams)
+    
+    const data = await getSpecificProductData(params)
+    console.log(data,'data data data data');
 // console.log(data);
     // console.log(data,'data data data data');
     const {Name,Description,SKU,Price,DiscountedPrice,LeftInStock,ProductSizes,ProductImages} = data.attributes;
 
     const ProductImagesToArray = ProductImages.split(',')
 
-    console.log(ProductImagesToArray);
-    
 
     // const [likedProduct,setLikedProduct] = useState(false)
 
@@ -82,8 +81,7 @@ export default async function Product(props){
 // const dispatch = useDispatch();
 // const cartArray = useSelector(state=>state.usercart.cart);
 
-console.log(ProductImages);
-    
+
 
     
     return <div>
@@ -137,7 +135,7 @@ console.log(ProductImages);
 <div className={` pl-4 lg:pl-32 pt-[450px] lg:pt-0  flex flex-wrap  gap-y-4 ${ProductImagesToArray.length==4?'gap-x-8':'justify-center lg:justify-between'} `}>
     
         {ProductImagesToArray.map((elem,index)=>{
-            return  index>1&& <div style={{transition:'all 0.4s'}} className='hover:scale-105 hover:lg:scale-110 h-[300px] w-[200px] rounded-lg '>
+            return  index>1&& <div key={index} style={{transition:'all 0.4s'}} className='hover:scale-105 hover:lg:scale-110 h-[300px] w-[200px] rounded-lg '>
                 <img src={`${elem}`} alt="" className='w-full h-full max-w-full object-cover rounded-lg' srcset="" />
             </div>
         })}

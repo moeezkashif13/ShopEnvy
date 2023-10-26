@@ -3,7 +3,7 @@
 import toast from 'react-hot-toast';
 
 import { finalSelection, setChanges } from "@/app/globalredux/features/productslice/productslice";
-import { getSpecificProductData } from "@/app/productpage/[slug]/page";
+
 
 import {  useEffect, useState } from "react";
 
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { increaseCart } from '@/app/globalredux/features/cart/cartSlice';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { getSpecificProductData } from '@/app/productpage/[sku]/page';
 
 
 const selectionNotification = (type)=>{
