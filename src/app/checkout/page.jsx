@@ -79,7 +79,14 @@ export default function SecondCheckout(){
         handleSubmit,
         formState: { errors },
       } = useForm({
-        mode:'onChange',
+
+        values: {
+            address:userDetails.address,
+            city:userDetails.city,
+            zipCode:userDetails.zipCode,
+            country:userDetails.country,
+        },
+        
         resolver: yupResolver(schema),
       })
     

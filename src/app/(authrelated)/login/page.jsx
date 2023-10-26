@@ -12,6 +12,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import Loader from "@/components/Loader"
 import { useSelector } from "react-redux"
+import DemoAccount from "@/components/DemoAccount"
 
 
 const schema = yup.object({
@@ -54,6 +55,7 @@ export default function Login(){
   
   afterGettingAuthCode(setFormSubmitting)
 
+  const [demoAccount,setUsingDemoAccount] = useState(false);
 
   
   const {
@@ -62,6 +64,10 @@ export default function Login(){
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+
+    values:{email:demoAccount?'demo@email.com':'',password:demoAccount?'Demo@1234':''}
+
+
   })
 
 
@@ -137,6 +143,8 @@ export default function Login(){
           <div className="mt-12 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">Login</h1>
             <Link href='/' className="underline text-2xl xl:text-3xl font-extrabold mt-3">Go to Homepage</Link>
+
+<DemoAccount setUsingDemoAccount={setUsingDemoAccount}/>
 
 
             <div className="w-full flex-1 mt-8">

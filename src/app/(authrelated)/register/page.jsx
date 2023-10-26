@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import Loader from "@/components/Loader"
 import { useSelector } from "react-redux"
+import DemoAccount from "@/components/DemoAccount"
 
 
 const schema = yup.object({
@@ -94,7 +95,14 @@ export default function Register(){
   
   afterGettingAuthCode(setFormSubmitting)
 
+  const [demoAccount,setUsingDemoAccount] = useState(false);
+
+  if(demoAccount){
+    router.push('/login')
+  }
+
   const {
+
     register,
     handleSubmit,
 
@@ -250,6 +258,8 @@ var reader = new FileReader();
           <div className="mt-12 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
             <Link href='/' className="underline text-2xl xl:text-3xl font-extrabold mt-3">Go to Homepage</Link>
+
+<DemoAccount setUsingDemoAccount={setUsingDemoAccount} />
 
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
