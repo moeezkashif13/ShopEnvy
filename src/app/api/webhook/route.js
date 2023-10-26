@@ -51,7 +51,7 @@ export async function POST(request,response) {
     const lineItems = sessionWithLineItems.line_items;
 
     // Fulfill the purchase...
-    fulfillOrder(lineItems);
+    await fulfillOrder(lineItems);
   }
 
 
