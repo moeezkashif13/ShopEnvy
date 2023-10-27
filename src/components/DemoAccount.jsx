@@ -24,7 +24,10 @@ useEffect(()=>{
 },[params,demoAccount])
 
 useEffect(()=>{
-    const hello =  <div className="bg-black text-white mx-auto font-semibold w-[250px]  text-center py-3 rounded-md cursor-pointer" onClick={()=>setUsingDemoAccount(true)} >Use Demo Account  {JSON.parse(window.localStorage.getItem('setFromRegisterPage'))&&params.includes('login')&&'Click again'} </div>
+    const hello =  <div className="bg-black text-white mx-auto font-semibold w-[250px]  text-center py-3 rounded-md cursor-pointer" onClick={()=>{
+        setUsingDemoAccount(true)
+        window.scrollTo({behavior:'smooth',top:150})
+    }} >Use Demo Account  {JSON.parse(window.localStorage.getItem('setFromRegisterPage'))&&params.includes('login')&&'Click again'} </div>
 
     setBTN(hello)
 },[])
