@@ -259,7 +259,7 @@ var reader = new FileReader();
             <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
             <Link href='/' className="underline text-2xl xl:text-3xl font-extrabold mt-3">Go to Homepage</Link>
 
-<DemoAccount setUsingDemoAccount={setUsingDemoAccount} />
+<DemoAccount demoAccount={demoAccount} setUsingDemoAccount={setUsingDemoAccount} />
 
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">

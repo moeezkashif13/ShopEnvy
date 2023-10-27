@@ -41,7 +41,7 @@ const profileNavLinks = [
 ]
 
 
-const selectTab = (profileNavLinks,setActiveTab,index)=>{
+const selectTab = (profileNavLinks,setActiveTab,index,onMobile)=>{
     const firstElement = profileNavLinks[index];
     const secondElement = profileNavLinks[index+1];
     const thirdElement = profileNavLinks[index+2];
@@ -63,6 +63,15 @@ const selectTab = (profileNavLinks,setActiveTab,index)=>{
     
 
     setActiveTab([firstElement.component,secondElement.component,thirdElement.component])
+
+    if(onMobile){
+
+        window.scrollTo({behavior:'smooth',top:500})
+
+    }
+
+
+
 }
 
 
@@ -109,6 +118,7 @@ const router = useRouter()
         getUser()
     },[])
 
+    const [onMobile,setOnMobile] = useState(false)
 
     useEffect(()=>{
 
@@ -126,7 +136,7 @@ const router = useRouter()
             return;
         }else{
             
-        selectTab(profileNavLinks,setActiveTab,findRelavantIndex)
+        selectTab(profileNavLinks,setActiveTab,findRelavantIndex,onMobile)
 
             
         }
@@ -134,6 +144,13 @@ const router = useRouter()
     }
 
     findingNeededTab();
+
+
+    if(window.innerWidth<1000){
+        
+        setOnMobile(true);
+    }
+
 
         // if(findRelavantIndex){
         // selectTab(profileNavLinks,setActiveTab,4)
@@ -180,7 +197,7 @@ const router = useRouter()
 return <div className="gap-x-3 flex cursor-pointer items-center text-lg" 
 
 
-onClick={()=>selectTab(profileNavLinks,setActiveTab,index)}
+onClick={()=>selectTab(profileNavLinks,setActiveTab,index,onMobile)}
 
 >
 

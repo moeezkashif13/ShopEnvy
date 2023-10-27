@@ -71,6 +71,12 @@ export default function Login(){
   })
 
 
+  useEffect(()=>{
+    window.localStorage.setItem('setFromRegisterPage',false)
+
+  },[])
+
+
 
 
   const onSubmit = async (data) => {
@@ -144,7 +150,7 @@ export default function Login(){
             <h1 className="text-2xl xl:text-3xl font-extrabold">Login</h1>
             <Link href='/' className="underline text-2xl xl:text-3xl font-extrabold mt-3">Go to Homepage</Link>
 
-<DemoAccount setUsingDemoAccount={setUsingDemoAccount}/>
+            <DemoAccount demoAccount={demoAccount} setUsingDemoAccount={setUsingDemoAccount} />
 
 
             <div className="w-full flex-1 mt-8">
