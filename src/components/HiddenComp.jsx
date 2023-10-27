@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const API_ENDPOINT = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products`;
+const API_ENDPOINT = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products/2`;
 const MAX_RETRIES = 25;
 const RETRY_DELAY = 8000; // 5 seconds in milliseconds
 

@@ -18,8 +18,6 @@ export async function generateStaticParams() {
      sku: post.attributes.SKU
     }))
 
-    console.log(productsName,'productsName productsNameproductsNameproductsName productsName');
-
     return productsName
 
   } 
@@ -27,8 +25,6 @@ export async function generateStaticParams() {
 
 export async function getSpecificProductData(neededData) {
 
-    
-console.log(neededData,'neededData neededDataneededData neededData');
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?filters[SKU][$eqi]=${neededData.sku}`)
 
@@ -58,8 +54,8 @@ export default async function Product({params,searchParams}){
 
     
     const data = await getSpecificProductData(params)
-    console.log(data,'data data data data');
-// console.log(data);
+
+    // console.log(data);
     // console.log(data,'data data data data');
     const {Name,Description,SKU,Price,DiscountedPrice,LeftInStock,ProductSizes,ProductImages} = data.attributes;
 
