@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.12.0",
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.4.2",
     "@react-native-async-storage/async-storage": "^1.19.3",
@@ -23,6 +25,8 @@
     "google-auth-library": "^9.1.0",
     "googleapis": "^127.0.0",
     "got": "^13.0.0",
+    "imagemin": "^8.0.1",
+    "imagemin-webp": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
     "next": "13.5.4",
     "nodemailer": "^6.9.6",
@@ -38,6 +42,7 @@
     "redux-persist": "^6.0.0",
     "redux-state-sync": "^3.1.4",
     "request": "^2.79.0",
+    "sharp": "^0.32.6",
     "slugify": "^1.6.6",
     "stripe": "^14.1.0",
     "swiper": "^11.0.2",

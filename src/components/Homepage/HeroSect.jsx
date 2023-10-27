@@ -19,11 +19,10 @@ export const HeroSect = ()=>{
 
     useEffect(()=>{
 
-        setTimeout(() => {
-        setShowSlider(true);
-            
-        }, 100);
-        
+
+      setShowSlider(true);
+
+      
     },[])
 
 
@@ -47,12 +46,20 @@ export const HeroSect = ()=>{
 <div className=' z-10 w-full h-full absolute left-0 ' style={{backgroundColor:'rgba(0,0,0,0.4)'}}></div>
 
     <SplideTrack className='h-full '>
-        {['https://plus.unsplash.com/premium_photo-1676225680209-19a398a9b38a?auto=format&fit=crop&q=80&w=1469&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D','https://images.unsplash.com/photo-1550246140-480ae9bf13c6?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D','https://images.unsplash.com/photo-1496346530827-534816eed3be?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D','https://plus.unsplash.com/premium_photo-1661281366900-88b41445a004?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'].map((elem,index)=>{
+        {[
+          
+        'https://res.cloudinary.com/dtcwpaba5/image/upload/q_80,w_1000/v1698402732/Hero%20Sect%20Images%20Shop%20Envy/xff5j4qs4h4shvmp9og0.webp',
+        
+        'https://res.cloudinary.com/dtcwpaba5/image/upload/c_scale,q_80,w_1000/v1698402740/Hero%20Sect%20Images%20Shop%20Envy/rrkif7zf7j5suqpj931m.jpg',
+        
+        
+        
+        'https://res.cloudinary.com/dtcwpaba5/image/upload/c_scale,q_80,w_1000/v1698402759/Hero%20Sect%20Images%20Shop%20Envy/yzuqz2afefwinbfxobwh.webp'].map((elem,index)=>{
             return <SplideSlide key={index}>
                 
-                {/* <Image src={elem} fill></Image> */}
+                <Image src={elem} fill></Image>
                 
-                <img src={elem} className='w-full h-full max-w-full object-cover' alt="" />
+                {/* <img src={elem} className='w-full h-full max-w-full object-cover' alt="" /> */}
                 
                 </SplideSlide>
 
@@ -113,10 +120,10 @@ export const Testimonials = ()=>{
 
     useEffect(()=>{
 
-        setTimeout(() => {
-            setShowSlider(true)
-        }, 100);
 
+      setShowSlider(true)
+
+      
     },[])
 
     return(

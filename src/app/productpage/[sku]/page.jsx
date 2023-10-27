@@ -27,10 +27,7 @@ export async function generateStaticParams() {
 
 export async function getSpecificProductData(neededData) {
 
-
-    // await new Promise(resolve=>setTimeout(() => {
-    //     resolve();
-    // }, 3000))
+    
 console.log(neededData,'neededData neededDataneededData neededData');
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?filters[SKU][$eqi]=${neededData.sku}`)

@@ -133,13 +133,33 @@ export const metadata = {
 
 }
 
+const randomlySelectedArray = [];
+
+function selectRandomElements(originalArray) {
+  while (randomlySelectedArray.length < 8) {
+    // Generate a random index within the range of originalArray
+    const randomIndex = Math.floor(Math.random() * originalArray.length);
+
+    // Get the element at the random index
+    const randomElement = originalArray[randomIndex];
+
+    // Add the element to randomlySelectedArray
+    randomlySelectedArray.push(randomElement);
+
+    // Remove the selected element from originalArray to avoid duplicates
+    originalArray.splice(randomIndex, 1);
+  }
+}
+
 
 export default async function Home() {
 
 
   const data = await getData();
 
+  selectRandomElements(data.products.data)
 
+  
 
   return (
    
@@ -218,7 +238,8 @@ export default async function Home() {
 <div className='flex flex-wrap gap-x-3 gap-y-7 justify-center'>
 
 
-{data.products.data.map((eachProduct,key)=>{
+
+{randomlySelectedArray.map((eachProduct,key)=>{
   
   return <Link key={key} href={`/productpage/${eachProduct.attributes.SKU}?product=${toSlug(eachProduct.attributes.Name)}&id=${eachProduct.id}`} className='w-[320px] space-y-2  '>
 
@@ -267,7 +288,7 @@ export default async function Home() {
 
 
 
-<div className='bg-[#F6F6F6] h-[620px] w-full hidden lg:flex gap-x-0 justify-center relative z-10   text-[#4a4848] '>
+<div className='bg-[#F6F6F6] h-[620px] w-full hidden lg:flex gap-x-0 justify-center relative z-10   text-[#4a4848] overflow-hidden'>
 
 
 <div className=' text-[4rem] text-center  h-full font-bold absolute top-0 left-5  w-full -z-10 ' style={{writingMode:'vertical-lr',textOrientation:'mixed',}}>The best decision </div>
@@ -279,14 +300,14 @@ export default async function Home() {
 
 <div className='h-full pt-10 w-[500px]   '>
   
-  <img src="/first.png" className='w-full h-full max-w-full object-contain' alt="" />
+  <Image src="/first.png" width={500} height={500} className='w-full h-full max-w-full object-contain' alt="" />
 </div>
 
 
 <div className='h-full pt-10 w-[500px]   '>
 
 
-<img src="/second.png" className='w-full h-full max-w-full object-contain' alt="" />
+<Image src="/second.png" width={500} height={500} className='w-full h-full max-w-full object-contain' alt="" />
 
 
 
