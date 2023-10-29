@@ -1,12 +1,12 @@
 import Footer from '@/components/Footer';
 import Collections from '@/components/Homepage/Collections'
-import {HeroSect,Testimonials} from '@/components/Homepage/HeroSect'
+import {HeroSect,SliderCheck,Testimonials} from '@/components/Homepage/HeroSect'
 import { DifferentProductsPreview, toSlug } from '@/components/Homepage/ProductCard'
+import Navbar from '@/components/Navbar';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
-
 
 
 // const mensClothingCategories = [
@@ -37,14 +37,6 @@ async function getData() {
 
   
   const fetchProducts = await fetch(`${process.env.NEXT_PUBLIC_WEBSITE}/api/send-products`)
-
-  // console.log(fetchProducts,'fetchProducts fetchProducts fetchProducts');
-
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  
-  // const fetchCategories = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/categories?populate=products`);
 
 
   const fetchCategories = await fetch(`${process.env.NEXT_PUBLIC_WEBSITE}/api/send-categs`);
@@ -108,27 +100,6 @@ export const metadata = {
   icons: {
     icon: '/icon.png',
   },
-  openGraph: {
-    title: 'Next.js',
-    description: 'The React Framework for the Web',
-    url: 'https://nextjs.org',
-    siteName: 'Next.js',
-    images: [
-      {
-        url: 'https://nextjs.org/og.png',
-        width: 800,
-        height: 600,
-      },
-      {
-        url: 'https://nextjs.org/og-alt.png',
-        width: 1800,
-        height: 1600,
-        alt: 'My custom alt',
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
 
 
 }
@@ -152,6 +123,16 @@ function selectRandomElements(originalArray) {
 }
 
 
+// export const SliderCheck = ()=>{
+
+
+  
+//   return 
+
+
+// }
+
+
 export default async function Home() {
 
 
@@ -165,8 +146,10 @@ export default async function Home() {
    
 
     <div className='space-y-14'>
-      
-      <HeroSect/>
+
+<SliderCheck/>
+
+      {/* <HeroSect/> */}
 
 {/* <Collections/> */}
 
@@ -186,11 +169,8 @@ export default async function Home() {
 
 {data.productsByRandomCategory.products.map((elem,key)=>{
   return <Link key={key} href={`/productpage/${elem.attributes.SKU}?product=${toSlug(elem.attributes.Name)}&id=${elem.id}`} className='w-[320px] space-y-2  '>
-  
-  {/* return <Link key={key} href={`/productpage/${elem.id}`} className='w-[320px] space-y-2  '> */}
 
     <div className='w-full h-[440px]  relative'>
-      {/* <img src={`${elem.attributes.ProductPreviewImage}`} className='w-full max-w-full object-cover h-full' alt="" /> */}
 
       <Image src={`${elem.attributes.ProductPreviewImage}`} fill />
 
@@ -232,8 +212,6 @@ export default async function Home() {
 
 <p className='text-center text-2xl lg:text-4xl font-bold uppercase'>Newest Arrivals </p>
 
-{/* <p className='font-bold text-4xl'>Trending</p> */}
-
 
 <div className='flex flex-wrap gap-x-3 gap-y-7 justify-center'>
 
@@ -242,9 +220,6 @@ export default async function Home() {
 {randomlySelectedArray.map((eachProduct,key)=>{
   
   return <Link key={key} href={`/productpage/${eachProduct.attributes.SKU}?product=${toSlug(eachProduct.attributes.Name)}&id=${eachProduct.id}`} className='w-[320px] space-y-2  '>
-
-
-  {/* // return <Link key={key} href={`/productpage/${eachProduct.id}`} className='w-[320px] space-y-2  '> */}
 
 
 

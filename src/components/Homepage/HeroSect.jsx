@@ -1,7 +1,5 @@
 "use client"
 
-import { Splide, SplideSlide,SplideTrack } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
 import Navbar from '../Navbar';
 import Image from 'next/image';
 
@@ -9,23 +7,101 @@ import {AiFillStar, AiOutlineShoppingCart} from 'react-icons/ai'
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
+
+export const SliderCheck = ()=>{
+
+  const [showSlider,setShowSlider] = useState(false);
+
+  useEffect(()=>{
+    setShowSlider(true)
+  },[])
+
+  return showSlider&&<div>
+    
+    <div className=' z-20 w-full absolute left-0 text-white '>
+<Navbar/>
+</div>
+
+<div className='z-10 w-full h-full absolute left-0 ' style={{backgroundColor:'rgba(0,0,0,0.4)'}}></div>
+    
+    
+     <Carousel
+  swipeable={false}
+  draggable={false}
+  showDots={false}
+  arrows={false}
+  focusOnSelect={false}
+  
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlaySpeed={1000}
+  keyBoardControl={true}
+  customTransition="all .5"
+  transitionDuration={500}
+  containerClass="carousel-container relative"
+
+  dotListClass="custom-dot-list-style"
+  
+>
+
+
+{[
+          
+          'https://res.cloudinary.com/dtcwpaba5/image/upload/q_80,w_1000/v1698402732/Hero%20Sect%20Images%20Shop%20Envy/xff5j4qs4h4shvmp9og0.webp',
+          
+          'https://res.cloudinary.com/dtcwpaba5/image/upload/c_scale,q_80,w_1000/v1698402740/Hero%20Sect%20Images%20Shop%20Envy/rrkif7zf7j5suqpj931m.jpg',
+          
+          
+          
+          'https://res.cloudinary.com/dtcwpaba5/image/upload/c_scale,q_80,w_1000/v1698402759/Hero%20Sect%20Images%20Shop%20Envy/yzuqz2afefwinbfxobwh.webp'].map((elem,index)=>{
+              return <div className='z-10 h-screen' key={index}>
+                  
+                  <Image src={elem} fill></Image>
+                  
+                  </div>
+  
+          })}
+
+
+</Carousel>
+
+</div>
+
+
+}
+
 
 
 export const HeroSect = ()=>{
 
     const heroSectSliderRef = useRef();
 
-    const [showSlider,setShowSlider] = useState(false);
+    const [showSlider,setShowSlider] = useState(true);
 
-    useEffect(()=>{
-
-
-      setShowSlider(true);
-
-      
-    },[])
-
-
+   
     return showSlider?<Splide  ref={heroSectSliderRef} className='relative  h-screen' hasTrack={ false } options={{
         arrows:false,
         pagination:false,
@@ -118,13 +194,30 @@ export const Testimonials = ()=>{
 
     const [showSlider,setShowSlider] = useState(false);
 
+    const testimonialsResponsive = {
+      superLargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 3
+      },
+      desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 3
+      },
+      tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 1
+      },
+      mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1
+      }
+    }
+
     useEffect(()=>{
-
-
       setShowSlider(true)
-
-      
     },[])
+
 
     return(
 
@@ -136,18 +229,32 @@ export const Testimonials = ()=>{
 
 
 
-        {showSlider?<Splide className='relative  ' hasTrack={ false }  options={{perPage:3,gap:'1.5rem',padding:'45px',arrows:false,pagination:false,breakpoints:{
-            1000:{
-                perPage:1,
-                padding:'0'
-            }
-        }}} >
+        {showSlider?      <Carousel
+  swipeable={true}
+  draggable={true}
+  showDots={false}
+  arrows={false}
+  focusOnSelect={false}
+  
+  responsive={testimonialsResponsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={true}
+  autoPlaySpeed={5000}
+  
+  pauseOnHover={false}
+  keyBoardControl={true}
+  customTransition="all .5"
+  transitionDuration={5000}
+  containerClass="carousel-container w-[90%] mx-auto pt-16"
+
+  dotListClass="custom-dot-list-style"
+  
+>
 
 
-
-        <SplideTrack className=' pt-24 h-full text-center '>
         {testimonials.map((eachElem,key)=>{
-            return <SplideSlide key={key} className='px-3 flex items-center flex-col gap-y-2 '>
+            return <div key={key} className='px-3 pointer-events-none  flex items-center flex-col gap-y-2 '>
                 
                 <div className='-mt-16 w-28 h-28  rounded-full'>
                     <img src="https://images.pexels.com/photos/7562185/pexels-photo-7562185.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" className='w-full h-full max-w-full object-cover rounded-full' alt="" />
@@ -168,11 +275,11 @@ export const Testimonials = ()=>{
                 </div>
 
 
-                </SplideSlide>
+                </div>
 
         })}
-    </SplideTrack>
-  </Splide>
+
+  </Carousel>
 
     :null}
 
@@ -197,4 +304,7 @@ export const NavbarCartIcon = ()=>{
     <div className='absolute text-xs font-semibold flex justify-center items-center -right-1 -bottom-1 w-4 h-4 rounded-full bg-yellow-500'>{cartArray.length}</div>
     
     </Link>
+
+
+
 }
