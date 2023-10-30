@@ -1,3 +1,5 @@
+
+
 import Link from 'next/link'
 import {AiOutlineShoppingCart,AiOutlineHeart,AiOutlineUser, AiFillHeart} from 'react-icons/ai'
 import { NavbarCartIcon } from './Homepage/HeroSect';
@@ -129,8 +131,9 @@ export default async function Navbar(){
 <div className='mt-3 px-5 lg:px-16 text-center lg:text-left flex gap-y-3 text-sm lg:justify-center flex-wrap  lg:gap-x-10 lg:gap-y-6 lg:text-lg '>
 
 
+
 {categories.map((eachCategory,key)=>{
-    return <div key={key} style={{transition:'all 0.4s'}} className='lg:hover:scale-125 cursor-pointer w-full lg:w-auto' >{eachCategory.attributes.Name}</div>
+    return <div  key={key} style={{transition:'all 0.4s'}} className='lg:hover:scale-125 cursor-pointer w-full lg:w-auto' >{eachCategory.attributes.Name}</div>
 })}
 
 

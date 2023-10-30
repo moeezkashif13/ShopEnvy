@@ -30,6 +30,47 @@ const responsive = {
   }
 };
 
+
+export const FinalSlider = ()=>{
+
+
+  return <div className='slidesContainer  h-screen  flex flex-nowrap overflow-auto hideScrollbar w-full relative'>
+
+<div className=' z-30 w-full absolute left-0 text-white '>
+<Navbar/>
+</div>
+
+<div className='z-20 w-full h-full absolute left-0 ' style={{backgroundColor:'rgba(0,0,0,0.4)'}}></div>
+
+
+    {[
+      'https://res.cloudinary.com/dtcwpaba5/image/upload/c_scale,q_100,w_1000/v1698402740/Hero%20Sect%20Images%20Shop%20Envy/rrkif7zf7j5suqpj931m.jpg',
+          
+          // 'https://res.cloudinary.com/dtcwpaba5/image/upload/q_80,w_1000/v1698402732/Hero%20Sect%20Images%20Shop%20Envy/xff5j4qs4h4shvmp9og0.webp',
+          
+          
+          
+          
+          // 'https://res.cloudinary.com/dtcwpaba5/image/upload/c_scale,q_80,w_1000/v1698402759/Hero%20Sect%20Images%20Shop%20Envy/yzuqz2afefwinbfxobwh.webp'
+        
+        
+        
+        ].map((elem,index)=>{
+              return <div className={`${index==0&&'firstDiv'} z-10 w-full min-w-full flex-1`} key={index}>
+                  
+                  <Image src={elem} fill></Image>
+                  
+                  </div>
+  
+          })}
+
+
+  </div>
+
+}
+
+
+
 export const SliderCheck = ()=>{
 
   const [showSlider,setShowSlider] = useState(false);
