@@ -129,7 +129,7 @@ export default async function Product({params,searchParams}){
     
         {ProductImagesToArray.map((elem,index)=>{
             return  index>1&& <div key={index} style={{transition:'all 0.4s'}} className='hover:scale-105 hover:lg:scale-110 h-[300px] w-[200px] rounded-lg '>
-                <img src={`${elem}`} alt="" className='w-full h-full max-w-full object-cover rounded-lg' srcset="" />
+                <Image fill src={`${elem}`} alt="" className='w-full h-full max-w-full object-cover rounded-lg' srcset="" />
             </div>
         })}
 

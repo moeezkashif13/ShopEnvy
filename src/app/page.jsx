@@ -215,7 +215,7 @@ export default async function Home() {
 
     <div className='w-full h-[440px]  relative'>
 
-      <Image src={`${elem.attributes.ProductPreviewImage}`} fill />
+      <Image loading='lazy' src={`${elem.attributes.ProductPreviewImage}`} width={320} height={350}  />
 
     <div className='w-10 h-10 flex justify-center items-center rounded-full bg-white absolute right-4 bottom-4 text-xl cursor-pointer'>
       <AiOutlineHeart/>
@@ -268,7 +268,7 @@ export default async function Home() {
 
     <div className='w-full h-[440px]  relative'>
 
-      <img src={`${eachProduct.attributes.ProductPreviewImage}`} className='w-full max-w-full object-cover h-full' alt="" />
+      <Image loading='lazy' width={320} height={350} src={`${eachProduct.attributes.ProductPreviewImage}`} className='w-full max-w-full object-cover h-full' alt="" />
 
     <div className='w-10 h-10 flex justify-center items-center rounded-full bg-[#ffffff] absolute right-4 bottom-5 text-2xl cursor-pointer'>
       <AiOutlineHeart/>
