@@ -128,7 +128,7 @@ export default async function Product({params,searchParams}){
 <div className={` pl-4 lg:pl-32 pt-[450px] lg:pt-0  flex flex-wrap  gap-y-4 ${ProductImagesToArray.length==4?'gap-x-8':'justify-center lg:justify-between'} `}>
     
         {ProductImagesToArray.map((elem,index)=>{
-            return  index>1&& <div key={index} style={{transition:'all 0.4s'}} className='hover:scale-105 hover:lg:scale-110 h-[300px] w-[200px] rounded-lg '>
+            return  index>1&& <div key={index} style={{transition:'all 0.4s'}} className='hover:scale-105 hover:lg:scale-110 h-[300px] w-[200px] rounded-lg relative '>
                 <Image fill src={`${elem}`} alt="" className='w-full h-full max-w-full object-cover rounded-lg' srcset="" />
             </div>
         })}
