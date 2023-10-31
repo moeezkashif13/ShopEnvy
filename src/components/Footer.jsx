@@ -133,12 +133,12 @@ By entering your email address below, you consent to receiving our newsletter wi
 
 <div className="flex gap-x-3">
 
-<div className="w-16 h-10 rounded-lg  ">
+<div className="w-16 h-10 rounded-lg relative  ">
       <Image fill src="/visa.png" className="w-full max-w-full h-full object-contain rounded-lg" alt="" />
     </div>
 
 
-    <div className="w-16 h-10 rounded-lg bg-white  ">
+    <div className="w-16 h-10 rounded-lg relative bg-white  ">
       <Image fill src="/mastercard.png" className="w-full max-w-full h-full object-contain rounded-lg" alt="" />
     </div>
 
