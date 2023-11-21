@@ -14,6 +14,7 @@ import Loader from "@/components/Loader"
 import { toBase64 } from "@/utils/toBase64"
 import { setUser } from "../globalredux/features/userslice/userslice"
 import Head from "next/head"
+import { setRedirectRoute } from "@/utils/utils"
 
 const schema = yup
   .object({
@@ -293,7 +294,13 @@ console.log(userDetails);
         
 <div className="flex flex-col gap-y-4">
         <span className="text-red-500 w-full ">{userLoggedIn.message}</span>
-            <div className="text-center text-xl">Proceed to <Link className="underline" href={`/login?redirect=${pathname.slice(1)}`}> Login </Link> OR <Link className="underline" href={`/register?redirect=${pathname.slice(1)}`}>Register</Link></div>
+            <div className="text-center text-xl">Proceed to <span onClick={()=>{
+                setRedirectRoute();
+                router.push('/login')
+            }} className="underline cursor-pointer" > Login </span> OR <span onClick={()=>{
+                setRedirectRoute();
+                router.push('/register')
+            }} className="underline cursor-pointer" >Register</span></div>
 
         </div>
 }

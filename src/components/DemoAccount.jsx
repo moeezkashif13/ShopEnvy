@@ -5,9 +5,7 @@ export default function DemoAccount({demoAccount,setUsingDemoAccount}){
 
 const params = usePathname()
 
-console.log(params);
 
-console.log(demoAccount);
 
 const [btn,setBTN] = useState(false)
 
@@ -26,7 +24,7 @@ useEffect(()=>{
 useEffect(()=>{
     const hello =  <div className="bg-black text-white mx-auto font-semibold w-[250px]  text-center py-3 rounded-md cursor-pointer" onClick={()=>{
         setUsingDemoAccount(true)
-        window.scrollTo({behavior:'smooth',top:150})
+        window.scrollTo({behavior:'smooth',top:200})
     }} >Use Demo Account  {JSON.parse(window.localStorage.getItem('setFromRegisterPage'))&&params.includes('login')&&'Click again'} </div>
 
     setBTN(hello)

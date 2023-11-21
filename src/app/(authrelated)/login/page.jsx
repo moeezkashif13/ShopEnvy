@@ -13,6 +13,7 @@ import { useEffect, useState } from "react"
 import Loader from "@/components/Loader"
 import { useSelector } from "react-redux"
 import DemoAccount from "@/components/DemoAccount"
+import { goToRedirectRoute, setRedirectRoute } from "@/utils/utils"
 
 
 const schema = yup.object({
@@ -41,7 +42,7 @@ export default function Login(){
   
   
   
-
+  
    const searchParams = useSearchParams()
  
   const [formSubmitting,setFormSubmitting] = useState({
@@ -104,7 +105,7 @@ export default function Login(){
             status:'successfull'
           })
 
-            searchParams.get('redirect')?router.push(searchParams.get('redirect')):router.push('/profile')
+          goToRedirectRoute(router)
 
           
 

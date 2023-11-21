@@ -342,8 +342,10 @@ export const NavbarCartIcon = ()=>{
 
     return <Link href='/checkout'  className='relative cursor-pointer'>
     <AiOutlineShoppingCart/>
+
+
     <div className='absolute text-xs font-semibold flex justify-center items-center -right-1 -bottom-1 w-4 h-4 rounded-full bg-yellow-500'>{cartArray.length}</div>
-    
+
     </Link>
 
 

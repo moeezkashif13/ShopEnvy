@@ -12,6 +12,7 @@ import * as yup from "yup"
 import Loader from "@/components/Loader"
 import { useSelector } from "react-redux"
 import DemoAccount from "@/components/DemoAccount"
+import { goToRedirectRoute } from "@/utils/utils"
 
 
 const schema = yup.object({
@@ -163,7 +164,8 @@ var reader = new FileReader();
             status:'successfull'
           })
 
-          searchParams.get('redirect')?router.push(searchParams.get('redirect')):router.push('/profile')
+          goToRedirectRoute(router)
+
           
 
           // redirect('/profile')

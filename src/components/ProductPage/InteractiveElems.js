@@ -13,6 +13,7 @@ import { increaseCart } from '@/app/globalredux/features/cart/cartSlice';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { getSpecificProductData } from '@/app/productpage/[sku]/page';
+import { setRedirectRoute } from '@/utils/utils';
 
 
 const selectionNotification = (type)=>{
@@ -271,9 +272,17 @@ export const ProceedToCheckout = ()=>{
     const router = useRouter();
 
 
-    return <div onClick={()=>router.push('/checkout')}  className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
-    Proceed to checkout
+    return <><div onClick={()=>router.push('/checkout')}  className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
+    Proceed to Checkout
 </div>
+
+
+<div onClick={()=>{setRedirectRoute();router.push('/login')}}  className="cursor-pointer bg-black font-semibold text-white text-center py-3 text-lg ">
+    Go to Login
+</div>
+
+</>
+
 }
 
 
