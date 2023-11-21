@@ -1,11 +1,11 @@
 import Footer from '@/components/Footer'
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Inter,Source_Sans_3 } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import { Providers } from './globalredux/provider'
 import HiddenComp from '@/components/HiddenComp'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Source_Sans_3({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Shop Envy',
