@@ -148,13 +148,13 @@ const ShowProds = ({heading,para,arr})=>{
 
 <p className='text-center uppercase text-2xl font-semibold underline'>{heading}</p>
 
-<p className='text-center w-1/2 mx-auto text-lg'>{para}</p>
+<p className='text-center w-[90%] md:w-1/2 mx-auto text-lg'>{para}</p>
 
 
-<div className='flex justify-center gap-x-2 flex-wrap px-2 pt-3 gap-y-4'>
+<div className='flex flex-col  md:flex-row md:justify-center gap-x-2 flex-wrap px-2 pt-3 gap-y-4'>
 
 {arr.map((elem,key)=>{
-    return <Link key={key} href={`/productpage/${elem.attributes.SKU}?product=${toSlug(elem.attributes.Name)}&id=${elem.id}`}  className='w-[calc(25%-8px)] '>
+    return <Link key={key} href={`/productpage/${elem.attributes.SKU}?product=${toSlug(elem.attributes.Name)}&id=${elem.id}`}  className='w-full md:w-[calc(25%-8px)] '>
 
 <div className='w-full h-[492px]  relative'>
 
@@ -204,7 +204,7 @@ const ShowProds = ({heading,para,arr})=>{
 
 
 const Special = ()=>{
-    return         <div className='bg-[#F6F6F6] h-[620px] w-full hidden lg:flex gap-x-0 justify-center relative z-10   text-[#4a4848] overflow-hidden'>
+    return         <div className='bg-[#F6F6F6] h-[620px] w-full hidden md:flex gap-x-0 justify-center relative z-10   text-[#4a4848] overflow-hidden'>
 
 
     <div className=' text-[4rem] text-center  h-full font-bold absolute top-0 left-5  w-full -z-10 ' style={{writingMode:'vertical-lr',textOrientation:'mixed',}}>The best decision </div>

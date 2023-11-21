@@ -1,6 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
-import { AiOutlineFacebook, AiOutlineTwitter } from "react-icons/ai"
+import { AiFillFacebook, AiFillGithub, AiFillLinkedin, AiOutlineFacebook, AiOutlineLaptop, AiOutlineTwitter, AiOutlineWhatsApp } from "react-icons/ai"
+
+import { FiMessageSquare } from "react-icons/fi";
+
 
 export default function Footer(){
 
@@ -13,11 +16,25 @@ export default function Footer(){
     {/* Social network icons container */}
     <div className="flex justify-center text-3xl gap-x-4">
      
-     <AiOutlineTwitter/>
-     <AiOutlineTwitter/>
-     <AiOutlineTwitter/>
-     <AiOutlineTwitter/>
-     <AiOutlineTwitter/>
+<a href="https://www.facebook.com/abdulmoeez121367" target="_blank">     <AiFillFacebook/></a>
+
+<a href="https://www.linkedin.com/in/abdulmoeez19" target="_blank">     <AiFillLinkedin/></a>
+
+
+<a href="https://github.com/moeezkashif13" target="_blank">     <AiFillGithub/></a>
+
+
+<a href="https://api.whatsapp.com/send/?phone=923364507406&text&type=phone_number&app_absent=0" target="_blank">  <AiOutlineWhatsApp/></a>
+
+
+<a href="https://abdulmoeezwork.netlify.app" target="_blank">     <AiOutlineLaptop/></a>
+
+
+
+
+
+
+
      
     </div>
   </div>
@@ -114,14 +131,14 @@ export default function Footer(){
 By entering your email address below, you consent to receiving our newsletter with access to our latest collections, events and initiatives. more details on this are provided in our Privacy Policy.
 </p>
 
-<div className="bg-black px-3 py-3 rounded-lg text-white gap-x-3 flex items-center ">
+<div className="bg-neutral-400 px-3 py-3 rounded-lg text-white  gap-x-3 flex items-center ">
 
-<div>ic</div>
+<div><FiMessageSquare size={20} /></div>
 
-<input className="w-full bg-transparent outline-none" placeholder="Email Address..." type="text" name="" id="" />
+<input className="w-full bg-transparent outline-none placeholder:text-white" placeholder="Email Address..." type="text" name="" id="" />
 
 
-<div>ic</div>
+{/* <div>ic</div> */}
 
 </div>
 
@@ -131,7 +148,7 @@ By entering your email address below, you consent to receiving our newsletter wi
     </div>
     
 
-<div className="flex gap-x-3">
+<div className="flex gap-x-3 mt-4 lg:mt-0">
 
 <div className="w-16 h-10 rounded-lg relative  ">
       <Image fill src="/visa.png" className=" w-full max-w-full h-full object-contain rounded-lg" alt="" />
