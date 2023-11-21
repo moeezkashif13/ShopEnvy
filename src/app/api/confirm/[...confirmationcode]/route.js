@@ -12,7 +12,7 @@ const findUser = await getLoggedInUser(null,params.confirmationcode.join('/'))
 
 const updatedStatus = await updateUserStatus(findUser)
 
-console.log(updatedStatus,'updateUserStatus');
+
 
     return NextResponse.json({updatedStatus,done:'donee'},{status:200})
 

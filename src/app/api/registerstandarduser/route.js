@@ -26,8 +26,8 @@ export async function POST(request,response) {
 
     bodyData['password'] = hashingPassword
 
-    console.log(bodyData);
 
+    
     if (password.length < 8) {
         throw new Error('Password errorr')
       }
@@ -35,8 +35,8 @@ export async function POST(request,response) {
 
     const creatingUser = await createUser(bodyData,"standard",false)
 
-    console.log(creatingUser,'creatingUser creatingUser creatingUser');
 
+    
     await sendMail(creatingUser.name,'Please confirm your email paa g',creatingUser.email,creatingUser.emailConfirmationCode)
 
 
@@ -52,7 +52,6 @@ export async function POST(request,response) {
 
 } catch (error) {
 
-    console.log(error,'frommm serverrr');
 
     return NextResponse.json({error:error.message},{status:400})
 
@@ -72,8 +71,7 @@ export async function POST(request,response) {
     return NextResponse.json({error:'email or password not present'},{status:404})
   }
 
-console.log(email,password,'email,password email,password email,password');
-
+  
   const checkingUserInDB = await loginUser(email,password);
 
 

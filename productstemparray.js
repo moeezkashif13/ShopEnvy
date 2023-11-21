@@ -18,4 +18,3 @@ export const productsArray = [
 ]
 
 
-console.log(productsArray);

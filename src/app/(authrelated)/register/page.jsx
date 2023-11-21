@@ -148,8 +148,7 @@ var reader = new FileReader();
   
     const newData = {...data,profileimagefile:resp.data.data.thumb.url}
 
-    console.log(newData);
-
+    
         try {
 
     
@@ -173,7 +172,7 @@ var reader = new FileReader();
 
   } catch (error) {
 
-    console.log(error);
+    
 
     setFormSubmitting({
       message:'An error occured while registering you',
@@ -184,7 +183,7 @@ var reader = new FileReader();
 
 
   }).catch(err=>{
-    console.log(err);
+    
 
     setFormSubmitting({
       message:'There is an issue with your profile pic',
@@ -215,7 +214,7 @@ var reader = new FileReader();
 //             registration:true
 //           }    )
 
-//           console.log(response.data);
+//           
 
 //           setFormSubmitting({
 //             message:'Thank you for signing up. Welcome to Shop Envy',
@@ -230,7 +229,7 @@ var reader = new FileReader();
 
 //   } catch (error) {
 
-//     console.log(error);
+//     
 
 //     setFormSubmitting({
 //       message:'An error occured while registering you',

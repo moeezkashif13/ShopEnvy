@@ -138,7 +138,7 @@ const Address = ()=>{
 
             const response = await axios.post('/api/update-user',{userInfo,fieldsToUpdate:requiredObj})
             
-            console.log(response.data);
+            
             
 
             dispatch(setUser(response.data.updatedUser));
@@ -180,7 +180,7 @@ const Address = ()=>{
         return <LittleInfo inputField={!elem.text ? true : false }  data={elem} />
     })}
 
-{console.log(userInfo.address)}
+
 {(userInfo.isOAuth && !userInfo.address)&&
     <div className="flex flex-col w-full gap-y-4 items-center">
 
@@ -190,8 +190,8 @@ const Address = ()=>{
 
 </div>
 
-}
 
+}
 
     </>
     

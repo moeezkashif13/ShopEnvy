@@ -8,7 +8,7 @@ const secondPart = async (dataUrl)=>{
 
   formData.set("image",dataUrl.split('base64,')[1])
 
-  // console.log(formData.get("image"));
+  // 
   
 return   await axios.post('https://api.imgbb.com/1/upload?key=ecd9aca473a2b9286cda81b8ac68dc53&expiration=86400',formData,{
     headers:{
@@ -17,7 +17,7 @@ return   await axios.post('https://api.imgbb.com/1/upload?key=ecd9aca473a2b9286c
   }).then(resp=>{
     return resp.data.data.thumb.url
   }).catch(err=>{
-    console.log(err);
+    
   })
 
 
@@ -36,7 +36,7 @@ export const toBase64 =  (url,callback)=> {
 // check  = await secondPart(reader.result)
 
 
-// console.log(check,'check  vcheck check');
+// 
 
 // return check
 

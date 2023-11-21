@@ -31,7 +31,7 @@ export const startGoogleOAuth =  async (router,setFormSubmitting)=>{
     
     } catch (error) {
       
-        console.log(error);
+        
 
         setFormSubmitting({
           message:'An error occured',
@@ -53,11 +53,11 @@ export const startTwitterOAuth =  async (router,setFormSubmitting)=>{
   })
 
           try {
-          console.log('hellloooooo');
+          
           const response = await axios.post('/api/starttwitteroauth',{
           startprocess:true,
           })
-          console.log(response.data);
+          
 
           setFormSubmitting({
             message:'Redirecting to Twitter',
@@ -71,7 +71,7 @@ export const startTwitterOAuth =  async (router,setFormSubmitting)=>{
 
           } catch (error) {
 
-          console.log(error);
+          
 
           setFormSubmitting({
             message:'An error occured',
@@ -99,15 +99,15 @@ export const afterGettingAuthCode = (setFormSubmitting)=>{
   
   
   if(googleoauthError){          //GOOGLE AUTH RELATED 
-    console.log('heellloooo');
+    
     redirect('https://google.com')
   
   }else if(googleoauthCode){     //GOOGLE AUTH RELATED 
-    console.log('codeeee');
+    
 
     const state = searchParams.get('state')
 
-    console.log(state,'state, state, state,');
+    
 
     setFormSubmitting({message:'',status:'submitting'})
 
@@ -127,7 +127,7 @@ export const afterGettingAuthCode = (setFormSubmitting)=>{
 
 
     }).catch(err=>{
-      console.log(err,'errrrrrr');
+      
       setFormSubmitting({message:err.message,status:'error'})
 
     })
@@ -153,7 +153,7 @@ export const afterGettingAuthCode = (setFormSubmitting)=>{
 
 
     }).catch(err=>{
-      console.log(err,'errrrrrr');
+      
 
       setFormSubmitting({message:err.message,status:'error'})
 

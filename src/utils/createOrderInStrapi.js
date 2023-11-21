@@ -6,7 +6,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export const createOrderInStrapi = async(lineItems)=>{
 
-    // console.log(lineItems,'lineItems lineItems lineItems');
+    // 
 
     
 
@@ -19,11 +19,11 @@ export const createOrderInStrapi = async(lineItems)=>{
 
     const findingProducts = await Promise.all(checking.map(async eachProd=>{
         const milGyaProduct = await stripe.products.retrieve(eachProd);
-        console.log(milGyaProduct,'milGyaProduct milGyaProduct milGyaProduct');
+        
         return milGyaProduct
     }));
 
-console.log(findingProducts,'findingProducts findingProducts findingProducts');
+
 
     const placedOrders = findingProducts.map(eachProduct=>{
         return {
@@ -32,9 +32,9 @@ console.log(findingProducts,'findingProducts findingProducts findingProducts');
         }
     })
 
-    // console.log();
-      console.log(findingProducts[0],'findingProducts[0] findingProducts[0] findingProducts[0]');
-    console.log(placedOrders,'placedOrders placedOrders placedOrders');
+    // 
+      
+    
 
     try {
 
@@ -55,7 +55,7 @@ console.log(findingProducts,'findingProducts findingProducts findingProducts');
         } )
 
     } catch (error) {
-        console.log(error,'error.message error.message error.message');
+        
         throw new Error(error.message)
     }
 

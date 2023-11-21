@@ -29,7 +29,7 @@ export async function sendMail(name,subject, toEmail,confirmationCode) {
 //     if (error) {
 //       throw new Error(error);
 //     } else {
-//       console.log("Email Sent");
+//       
 //       return true;
 //     }
 //   });

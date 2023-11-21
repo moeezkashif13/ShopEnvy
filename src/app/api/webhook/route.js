@@ -26,8 +26,8 @@ export async function POST(request,response) {
     let event;
   
     try {
-        console.log('insideee seconddd trrryyy');
-        event = await stripe.webhooks.constructEvent(payload, sig, endpointSecret);
+
+      event = await stripe.webhooks.constructEvent(payload, sig, endpointSecret);
 
 
           // Handle the checkout.session.completed event
@@ -40,14 +40,13 @@ export async function POST(request,response) {
       }
     );
 
-    console.log(event.data.object.id,'event.data.object.id event.data.object.idevent.data.object.id');
-
+    
     const avienCheck = await stripe.checkout.sessions.listLineItems(
       event.data.object.id,
     ) 
 
-    console.log(avienCheck,'avienCheck avienCheck avienCheck');
 
+    
     const lineItems = sessionWithLineItems.line_items;
 
     // Fulfill the purchase...
@@ -62,8 +61,8 @@ export async function POST(request,response) {
 
 
       } catch (err) {
-        console.log(err,'erroorrrr erroorrrr erroorrrr erroorrrr  ');
 
+        
         return NextResponse.json({webhookerror:`Webhook Error: ${err.message}`},{status:400})
 
       }

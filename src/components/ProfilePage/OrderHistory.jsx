@@ -40,7 +40,7 @@ export default function OrderHistory (){
     useEffect(()=>{
 
         axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/orders?populate=*&filters[Email][$eq]=${userInfo.email}`,config).then(resp=>{
-            // console.log(resp.data.data);
+            // 
 
             resp.data.data.forEach(eachOrder=>{
 
@@ -57,13 +57,13 @@ export default function OrderHistory (){
            
 
         }).catch(err=>{
-            console.log(err);
+            
         })
 
 
     },[])
 
-    console.log(placedOrders);
+    
     
 
     return(
@@ -78,7 +78,7 @@ export default function OrderHistory (){
     const {Status,relatedOrders} = elem;
 
     return relatedOrders.map(eachRelatedOrder=>{
-    console.log(eachRelatedOrder);
+    
     return <div className="pb-4 flex font-semibold items-center text-sm ">
 
 

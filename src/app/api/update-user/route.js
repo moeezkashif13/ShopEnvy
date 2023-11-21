@@ -14,7 +14,6 @@ export async function POST(request,response) {
 
         const {userInfo,fieldsToUpdate} = await request.json()
        
-        console.log(fieldsToUpdate,'fieldsToUpdate fieldsToUpdate fieldsToUpdate');
         
         
         const updatedUser = await prisma.user.update({

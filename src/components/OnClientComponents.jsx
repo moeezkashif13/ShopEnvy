@@ -16,7 +16,7 @@ export const PriceSect = ()=>{
 
   <input
   onChange={(event)=>{
-    console.log(event.target.value);
+    
   }}
   min={1}
   max={1000}

@@ -59,8 +59,7 @@ const LineItemsArray = cartArray.map(eachItem=>{
 
 } catch (error) {
 
-    console.log('alsooo hereee');
-
+    
     
     return NextResponse.json({error:error.message},{status:404})
 

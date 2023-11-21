@@ -25,9 +25,7 @@ const authorizeURL = new URL('https://api.twitter.com/oauth/authenticate');
     
 }else if(bodyData.afterredirection){
 
-    console.log(bodyData,'bodyData bodyData bodyData');
-
-
+  
     try {
     
         const {oauth_token,oauth_verifier} = bodyData
@@ -44,8 +42,7 @@ const authorizeURL = new URL('https://api.twitter.com/oauth/authenticate');
 
         const creatingUser = await createUser(gotuserdata,'twitter')
 
-        console.log(creatingUser);
-
+        
   await settingCookiesForLoginSignup(creatingUser)
 
 

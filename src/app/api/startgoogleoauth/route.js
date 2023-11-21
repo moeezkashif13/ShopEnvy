@@ -51,8 +51,8 @@ async function verify(id_token) {
 export async function POST(request,response) {
 
   const bodyData = await request.json()
-  console.log('we are runningggg');
-let state = crypto.randomBytes(32).toString('base64')
+
+  let state = crypto.randomBytes(32).toString('base64')
 
 
   if(bodyData.startprocess){
@@ -80,7 +80,7 @@ let state = crypto.randomBytes(32).toString('base64')
   return NextResponse.json({ url:url }, { status: 200 })
 
 } catch (error) {
-  console.log(error,'errorrr');      
+
 }
 
 
@@ -99,8 +99,7 @@ let state = crypto.randomBytes(32).toString('base64')
   let {tokens}  = await oauth2Client.getToken(bodyData.authcode);
   oauth2Client.setCredentials(tokens);
 
-  console.log(tokens,'tokens tokens tokens');
-
+  
   const {id_token,expiry_date}  = tokens;
 
 
@@ -123,7 +122,7 @@ let state = crypto.randomBytes(32).toString('base64')
 
 
 } catch (error) {
-  console.log('invaliddd tokensss',error.message);
+
   return NextResponse.json({ error:'error fromm serverrr' }, { status: 400 })
 
 }

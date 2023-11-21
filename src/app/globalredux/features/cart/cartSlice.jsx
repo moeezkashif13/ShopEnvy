@@ -31,7 +31,7 @@ export const cartSlice = createSlice({
 
       }else if(payload.payload.type == 'add'){
 
-        console.log(payload.payload);
+        
 
       state.cart.push(payload.payload.finalDataToSend)
 

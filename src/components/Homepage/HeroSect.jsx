@@ -338,7 +338,7 @@ export const NavbarCartIcon = ()=>{
 
     const cartArray = useSelector(state=>state.usercart.cart)
 
-    console.log(cartArray);
+    
 
     return <Link href='/checkout'  className='relative cursor-pointer'>
     <AiOutlineShoppingCart/>

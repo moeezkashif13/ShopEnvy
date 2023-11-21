@@ -19,7 +19,7 @@ export async function createUser(userdata,provider,isOAuth=true) {
 
 
     if(isEmailExist){
-      console.log('i existtttt');
+      
 
       if(isOAuth){
         return isEmailExist
@@ -74,7 +74,7 @@ export async function createUser(userdata,provider,isOAuth=true) {
 
 export async function loginUser(email,password){
 
-  console.log(email,'email email email');
+  
 
   try {
     const user = await prisma.user.findFirst({ 
@@ -91,13 +91,13 @@ export async function loginUser(email,password){
       throw new Error('User not found brrroooooo')
     } else {
       // return user;
-console.log('yahann takk aagyaa');
-console.log(user);
-console.log(password);
-console.log(user.password);
+
+
+
+
 
       const comparingPassword = await bcrypt.compare(password, user.password)
-console.log(comparingPassword,'comparingPassword comparingPassword comparingPassword');
+
       if(comparingPassword){
         return user;
       }else{
@@ -109,7 +109,7 @@ console.log(comparingPassword,'comparingPassword comparingPassword comparingPass
 
     }
   } catch (error) {
-    console.log(error,'error, error, error,');
+    
     throw new Error('errorrr inn checkingg userr brrrooo')
 
   }
@@ -153,7 +153,7 @@ export async function getLoggedInUser(userdata,confirmationCode){
 
 
     if(isUserExist){
-console.log(isUserExist,'isUserExist isUserExist isUserExist');
+
       // const excludedFields = exclude(isUserExist, ['password','emailConfirmationCode'])
 
 
@@ -199,7 +199,7 @@ export async function updateUserStatus(user){
 
 
   } catch (error) {
-    console.log(error);
+    
     throw new Error('Error in updating statuss')
     
   }

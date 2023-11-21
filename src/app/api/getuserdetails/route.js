@@ -19,8 +19,8 @@ try {
     return NextResponse.json({user:gettingUser},{status:200})
 } catch (error) {
 
-    console.log('alsooo hereee');
 
+    
     cookies().delete('token')
 
     return NextResponse.json({error:error.message},{status:404})

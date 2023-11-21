@@ -128,14 +128,14 @@ export default function SecondCheckout(){
     
     //                 formData.set("image",dataUrl.split('base64,')[1])
                   
-    //                 // console.log(formData.get("image"));
+    //                 // 
                     
     //               return await axios.post('https://api.imgbb.com/1/upload?key=ecd9aca473a2b9286cda81b8ac68dc53',formData,{
     //                   headers:{
     //                     "Content-Type" : "multipart/form-data"
     //                   }
     //                 }).then(resp=>{
-    //                     console.log(resp.data.data);
+    //                     
     //                 //   return resp.data.data.thumb
     //                 // check.push(resp.data.data.thumb)
     //             //     setConvertedPreview(
@@ -148,7 +148,7 @@ export default function SecondCheckout(){
     
     
     //                 }).catch(err=>{
-    //                   console.log(err);
+    //                   
     //                 })
     
     //             }))
@@ -174,8 +174,8 @@ export default function SecondCheckout(){
 
         setSubmittingForm(true);
         setSubmittingMessage('Reaching out to Stripe....')
-        console.log(data);
-console.log(userDetails);
+        
+
 
 
 
@@ -198,7 +198,7 @@ console.log(userDetails);
 }
 
  
-      console.log('i shoulldddd runnnnn');
+      
 
             const sessionURL = await axios.post('/api/create-checkout-session',{cartArray,convertedPreview,userDetails})
 
@@ -214,7 +214,7 @@ console.log(userDetails);
 
 
     } catch (error) {
-        console.log(error);
+        
         setSubmittingForm(false)  
         setSubmittingMessage('An error occured')
 

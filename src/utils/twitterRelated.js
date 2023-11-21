@@ -66,7 +66,7 @@ export const accessToken = async(oauth_token,oauth_verifier)=>{
       method: 'POST'
     }));
   
-    console.log(authHeader,'authHeader authHeader authHeader');
+    
   
     try {
       
@@ -88,7 +88,7 @@ export const accessToken = async(oauth_token,oauth_verifier)=>{
     }
   
   } catch (error) {
-      console.log(error,'error error error error');
+      
       throw new Error('Error in geting token');
 
   }
@@ -116,7 +116,7 @@ export const getRequest = async(oAuthAccessToken)=>{
       method: 'GET'
     }, token));
 
-    // console.log(authHeader,'authHeader  authHeader');
+    // 
 
     const got = await import('got')
   
@@ -132,7 +132,7 @@ export const getRequest = async(oAuthAccessToken)=>{
     if (req.body) {
       return JSON.parse(req.body);
     } else {
-      console.log('errrorrr aagyaaaa');
+      
       throw new Error('Unsuccessful request');
     }
   }

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"
 
 
 export default function WelcomePage({params}){
-// console.log(props);
+// 
 
 
 
@@ -35,7 +35,7 @@ const joined = confirmationcode.join('/')
 
 
             } catch (error) {
-                console.log(error);
+                
                 setUserConfirmed(false)
         setLoading(false);
 

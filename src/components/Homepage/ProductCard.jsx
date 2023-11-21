@@ -21,7 +21,7 @@ export const  ProductCard = ({eachProd})=>{
     const randomNumb = Math.floor(Math.random()*10);
 
     const isOnSale = randomNumb>5 ? true : false
-console.log(eachProd.attributes);
+
 
 const {id} = eachProd
 
@@ -67,7 +67,7 @@ const {id} = eachProd
 
 export const DifferentProductsPreview = ({productsData})=>{
 
-    console.log(productsData,'productsData productsData');
+    
 
     return (
 

@@ -24,7 +24,7 @@ export default function Checkout(props){
     
     
       const submitForm = (data) => {
-        console.log({ data });
+        
       };
     
       

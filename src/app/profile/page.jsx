@@ -51,7 +51,7 @@ const selectTab = (profileNavLinks,setActiveTab,index,onMobile)=>{
 
     if(!secondElement){
 
-        console.log('hellooo');
+        
 
         setActiveTab([firstElement.component,goToPrevious.component,goToTWOPrevious.component])
         return;
@@ -130,7 +130,7 @@ const router = useRouter()
             return eachLink.help == getVisitParam
         })
 
-        console.log(findRelavantIndex);
+        
 
         if(findRelavantIndex == -1 || !findRelavantIndex){
             return;

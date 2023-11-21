@@ -111,9 +111,8 @@ export default function Login(){
 
 
   } catch (error) {
-  console.log(error);      
 
-
+    
   setFormSubmitting({
     message:'An error occured while logging in',
     status:'error'

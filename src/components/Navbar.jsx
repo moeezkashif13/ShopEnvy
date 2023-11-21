@@ -23,7 +23,7 @@ async function getCategories() {
   
   
     if (!fetchProducts.ok || !fetchCategories.ok) {
-      console.log('herrreeee');
+      
   
       // This will activate the closest `error.js` Error Boundary
       throw new Error('Failed to fetch data')
@@ -41,7 +41,7 @@ async function getCategories() {
     let avienCheck = [];
   
     const findProductsByRandomCategory = productsToJSON.products.data.map(eachProduct=>{
-  // console.log(eachProduct);
+  // 
       const multipleCategoriesOfProduct = eachProduct.attributes.categories.data
       
       const chalCheck =  multipleCategoriesOfProduct.map(check=>{

@@ -6,12 +6,17 @@ import {AiFillHeart } from "react-icons/ai"
 import axios from 'axios';
 import { AddToCartButton, JSONPlaceHolder, ProceedToCheckout, SelectQuantity, SelectSize } from '@/components/ProductPage/InteractiveElems';
 
+import { IoIosArrowRoundBack } from "react-icons/io";
+
+
+
 import { Suspense } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 export async function generateStaticParams() {
-    console.log("->RUN 1");
+    
     const posts = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products`).then((res) => res.json())
 
    const productsName =   posts.data.map((post) => ({
@@ -55,8 +60,8 @@ export default async function Product({params,searchParams}){
     
     const data = await getSpecificProductData(params)
 
-    // console.log(data);
-    // console.log(data,'data data data data');
+    // 
+    // 
     const {Name,Description,SKU,Price,DiscountedPrice,LeftInStock,ProductSizes,ProductImages} = data.attributes;
 
     const ProductImagesToArray = ProductImages.split(',')
@@ -86,10 +91,10 @@ export default async function Product({params,searchParams}){
 <div className="relative pl-4 lg:pl-16 py-8 pr-4 lg:pr-8 productpagebg w-full lg:w-[65%]  space-y-8">
     
 
-    <div className="font-semibold text-3xl">
+    <Link href='/' className="font-semibold flex gap-x-1 items-center text-3xl">
+        <IoIosArrowRoundBack size={40}/>
         <p>Shop Envy</p>
-
-    </div>
+    </Link>
 
 
 
